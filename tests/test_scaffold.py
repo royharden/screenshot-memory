@@ -36,12 +36,14 @@ class ScaffoldTests(unittest.TestCase):
             self.assertEqual(list(Path(directory).iterdir()), [])
             return result
 
-    def test_cli_status_from_another_directory_reports_no_working_features(self):
+    def test_cli_status_from_another_directory_separates_core_from_pending_workflow(self):
         result = self.run_cli("status", "--json")
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(payload["stage"], "contracts_only")
+        self.assertEqual(payload["stage"], "local_core")
         self.assertTrue(payload["capabilities"]["metadata_contracts"])
+        for capability in ("storage_core", "deletion_core", "ranking_metrics"):
+            self.assertTrue(payload["capabilities"][capability])
         self.assertEqual(payload["items"], [])
         self.assertFalse(payload["capabilities"]["ocr"])
         self.assertFalse(payload["capabilities"]["delete"])

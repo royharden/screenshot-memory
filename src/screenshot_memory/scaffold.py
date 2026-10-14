@@ -5,11 +5,14 @@ def scaffold_status() -> dict[str, object]:
     """Report implemented capabilities without implying future features work."""
     return {
         "schema_version": 1,
-        "stage": "contracts_only",
+        "stage": "local_core",
         "mode": "mock",
         "capabilities": {
             "status": True,
             "metadata_contracts": True,
+            "storage_core": True,
+            "deletion_core": True,
+            "ranking_metrics": True,
             "ingest": False,
             "ocr": False,
             "caption": False,
@@ -24,6 +27,7 @@ def scaffold_status() -> dict[str, object]:
         "items": [],
         "hits": [],
         "message": (
-            "Metadata contracts only; no screenshots, model output or retrieval measurements."
+            "Metadata, local storage/deletion and ranking metric core available; "
+            "screenshot processing, retrieval and evaluation pending."
         ),
     }

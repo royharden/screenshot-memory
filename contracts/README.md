@@ -1,7 +1,8 @@
 # Owned metadata contracts
 
 `src/screenshot_memory/contracts.py` is the source for Collection, Item,
-StageStatus and FeatureSpace. `generated/` contains derived JSON Schema2020-12:
+StageStatus and FeatureSpace. DeleteReceipt is defined in shared/vindex/deletion.py.
+`generated/` contains all five derived JSON Schema2020-12 documents:
 
 ```sh
 python scripts/generate_schemas.py
@@ -19,8 +20,9 @@ IDs and counters are strict, immutable values. No coercion from strings, floats
 or booleans is permitted for integer fields. Item limits are8MiB encoded and20M
 decoded pixels; collections declare at most30items and100MiB. Metadata cannot
 prove the declared counts/bytes match any actual store. MIME signatures, actual
-decoded pixel limits and transactional collection caps require later ingestion
-and persistence implementations; these declarations do not enforce them on files.
+decoded pixel limits require the later ingestion implementation. The separate
+vindex Store atomically enforces admitted record totals and verifies original
+file size/hash; these model declarations alone enforce nothing on files/stores.
 
 Raw encoded source hash, opaque owner raw revision, retained source-grid hash,
 evidence-artifact hash, stage processing revision and item generation are separate

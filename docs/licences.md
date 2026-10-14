@@ -5,4 +5,5 @@ vendored. Python standard library supplies the current executable code.
 
 Future package/SDK/ONNX model locks and per-weight notices require actual source
 and licence checks before use. pyproject development/build requirements are pending
-resolution; their declaration is not an installed-version or licence receipt.
+build verification; developer-tool versions are pinned in uv.lock. Declaration or
+cache installation does not establish an independently checked licence receipt.

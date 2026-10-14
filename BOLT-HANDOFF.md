@@ -10,8 +10,9 @@ Python/ONNX/local-filesystem core requires a separately operated runtime; a Vite
 fixture preview would not establish OCR/retrieval/deletion functionality. No static
 preview has been built at this stage.
 
-Local check: Python3.12; run the README commands. uv dependency lock/frozen install,
-Ruff, pytest and distribution-build checks await the environment setup checkpoint.
+Local check: Python3.12; run the README commands. Minimal pytest/Ruff tools are
+pinned in uv.lock and can use the AGENTS.md cache-only frozen setup. The project
+has not been installed/built; distribution and real-feature checks remain pending.
 
 Future server secrets by name only: OPENAI_API_KEY and TYPESAFE_API_KEY. Scaffold
 loads neither. No browser/public secrets. Hosted processing, import, provisioning,

@@ -6,8 +6,18 @@ import re
 from pathlib import Path
 
 EXCLUDED = {
-    ".git", ".venv", "__pycache__", ".pytest_cache", ".ruff_cache", "node_modules",
-    ".smem", ".creds", ".thinking", ".agent-work", ".agent-registry", ".chatexports",
+    ".git",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    "node_modules",
+    ".smem",
+    ".creds",
+    ".thinking",
+    ".agent-work",
+    ".agent-registry",
+    ".chatexports",
 }
 TEXT_SUFFIXES = {".py", ".md", ".toml", ".json", ".yaml", ".yml", ".txt", ".mdc"}
 RULES = {
@@ -21,7 +31,8 @@ def scan(root: Path) -> list[dict[str, str]]:
     findings = []
     for directory, directories, names in os.walk(root, followlinks=False):
         directories[:] = sorted(
-            name for name in directories
+            name
+            for name in directories
             if name not in EXCLUDED and not (Path(directory) / name).is_symlink()
         )
         for name in sorted(names):

@@ -23,8 +23,16 @@ The evaluation entrypoint intentionally returns nonzero until implemented:
 
     python scripts/eval.py --mode mock --split dev
 
-Dependency locking, frozen installation, Ruff, pytest and package-build verification
-remain pending environment setup. Do not claim those checks passed without receipts.
+The committed uv.lock covers the minimal developer tools. With an already populated
+cache, create the tool environment without building/installing the project:
+
+    uv sync --offline --frozen --no-install-project --no-build --group dev
+    uv run --offline --frozen --no-sync ruff check src scripts tests
+    uv run --offline --frozen --no-sync ruff format --check src scripts tests
+    uv run --offline --frozen --no-sync python -m pytest
+
+Project installation/distribution builds and real-feature checks remain separate
+setup steps. Missing cache must fail rather than silently download during an offline check.
 
 ## Invariants
 
@@ -39,4 +47,4 @@ remain pending environment setup. Do not claim those checks passed without recei
 - Confirmed deletion must eventually verify every owned store; a static preview
   cannot establish backend deletion, OCR or retrieval acceptance.
 
-Changelog: v1 establishes the initial scaffold commands and product boundaries.
+Changelog: v1 establishes scaffold commands/boundaries and the cached developer-tool path.

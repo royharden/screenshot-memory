@@ -14,6 +14,8 @@ python scripts/check_secrets.py
 ```
 
 The demo reports an empty scaffold status with no image/model/retrieval output.
+Minimal pytest/Ruff developer tools are pinned in uv.lock; AGENTS.md describes
+the cache-only frozen setup. The package itself has not been built or installed.
 The future evaluation entrypoint reports not_implemented and exits nonzero:
 
 ```sh

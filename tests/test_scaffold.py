@@ -27,7 +27,11 @@ class ScaffoldTests(unittest.TestCase):
             env = dict(os.environ, PYTHONPATH=str(ROOT / "src"))
             result = subprocess.run(
                 [sys.executable, "-m", "screenshot_memory", *arguments],
-                cwd=directory, env=env, capture_output=True, text=True, timeout=10,
+                cwd=directory,
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             self.assertEqual(list(Path(directory).iterdir()), [])
             return result
@@ -95,7 +99,9 @@ class ScaffoldTests(unittest.TestCase):
             private = root / ".thinking"
             private.mkdir()
             (private / "private.py").write_text("sk-" + "B" * 24, encoding="utf-8")
-            self.assertEqual(guard.scan(root), [{"path": ".env", "rule": "private_environment_file"}])
+            self.assertEqual(
+                guard.scan(root), [{"path": ".env", "rule": "private_environment_file"}]
+            )
 
 
 if __name__ == "__main__":

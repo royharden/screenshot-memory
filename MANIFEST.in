@@ -1,5 +1,6 @@
 include LICENSE README.md pyproject.toml uv.lock .python-version BOLT-HANDOFF.md
 recursive-include src/screenshot_memory *.py
+include src/screenshot_memory/shared/vindex/migrations/001_initial.sql
 recursive-include scripts *.py
 recursive-include tests *.py
 recursive-include contracts *.json *.md

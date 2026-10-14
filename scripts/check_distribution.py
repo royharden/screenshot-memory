@@ -30,6 +30,11 @@ REQUIRED = frozenset(
         "contracts/generated/Item.schema.json",
         "contracts/generated/FeatureSpace.schema.json",
         "contracts/generated/StageStatus.schema.json",
+        "contracts/generated/DeleteReceipt.schema.json",
+        "src/screenshot_memory/shared/vindex/storage.py",
+        "src/screenshot_memory/shared/vindex/deletion.py",
+        "src/screenshot_memory/shared/vindex/__init__.py",
+        "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
     }
 )
 ROOT_FILES = frozenset(
@@ -64,7 +69,9 @@ def allowed_file(relative: str) -> bool:
     if len(parts) == 3 and parts[:2] == ("src", "screenshot_memory.egg-info"):
         return parts[2] in EGG_INFO_FILES
     if parts[:2] == ("src", "screenshot_memory"):
-        return relative.endswith(".py")
+        return relative.endswith(".py") or relative == (
+            "src/screenshot_memory/shared/vindex/migrations/001_initial.sql"
+        )
     if parts[0] in {"scripts", "tests"}:
         return relative.endswith(".py")
     if parts[0] == "contracts":

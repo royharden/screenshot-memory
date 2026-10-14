@@ -1,0 +1,144 @@
+{
+  "$comment": "Generated from screenshot_memory.shared.vindex.deletion. Runtime validators also enforce completion evidence coherence. A valid declaration alone does not prove any store or file was deleted.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "collection_generation": {
+      "anyOf": [
+        {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Collection Generation"
+    },
+    "collection_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Collection Id",
+      "type": "string"
+    },
+    "files_absent": {
+      "default": 0,
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Files Absent",
+      "type": "integer"
+    },
+    "files_planned": {
+      "default": 0,
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Files Planned",
+      "type": "integer"
+    },
+    "item_generation": {
+      "anyOf": [
+        {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Item Generation"
+    },
+    "item_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Item Id",
+      "type": "string"
+    },
+    "operation_id": {
+      "anyOf": [
+        {
+          "maxLength": 32,
+          "minLength": 32,
+          "pattern": "^[a-f0-9]{32}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Operation Id"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "enum": [
+          "database_busy",
+          "file_unavailable",
+          "unsafe_object",
+          "file_identity_mismatch",
+          "unexpected_objects",
+          "stores_remaining",
+          "checkpoint_busy"
+        ],
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "deleted",
+        "cleanup_pending",
+        "not_found"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "stores_verified": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Stores Verified",
+      "type": "array"
+    },
+    "verified_ns": {
+      "anyOf": [
+        {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Verified Ns"
+    },
+    "wal_checkpointed": {
+      "default": false,
+      "title": "Wal Checkpointed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "collection_id",
+    "item_id",
+    "operation_id",
+    "status",
+    "item_generation",
+    "collection_generation"
+  ],
+  "title": "DeleteReceipt",
+  "type": "object"
+}

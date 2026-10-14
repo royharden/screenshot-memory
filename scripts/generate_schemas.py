@@ -9,11 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from screenshot_memory.contracts import Collection, FeatureSpace, Item, StageStatus  # noqa: E402
+from screenshot_memory.shared.vindex.deletion import DeleteReceipt  # noqa: E402
 
 
 def schema_documents() -> dict[str, str]:
     documents = {}
-    for model in (Collection, Item, FeatureSpace, StageStatus):
+    for model in (Collection, Item, FeatureSpace, StageStatus, DeleteReceipt):
         schema = model.model_json_schema(mode="validation")
         schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
         schema["$comment"] = (
@@ -21,6 +22,12 @@ def schema_documents() -> dict[str, str]:
             "cross-field caps, identity/generation and status coherence. "
             "This is no execution proof."
         )
+        if model is DeleteReceipt:
+            schema["$comment"] = (
+                "Generated from screenshot_memory.shared.vindex.deletion. Runtime validators "
+                "also enforce completion evidence coherence. A valid declaration alone does "
+                "not prove any store or file was deleted."
+            )
         documents[f"{model.__name__}.schema.json"] = (
             json.dumps(schema, ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False) + "\n"
         )

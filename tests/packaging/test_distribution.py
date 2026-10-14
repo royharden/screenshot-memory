@@ -39,6 +39,7 @@ class DistributionTests(unittest.TestCase):
             "scripts/eval.py",
             "uv.lock",
             "contracts/generated/Item.schema.json",
+            "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
         ):
             with self.subTest(missing=missing):
                 result = self.inspect(missing=(missing,))
@@ -57,6 +58,7 @@ class DistributionTests(unittest.TestCase):
             "docs/debug.log",
             "tests/real-user.json",
             "src/screenshot_memory/.creds/key.py",
+            "src/screenshot_memory/shared/vindex/migrations/unapproved.sql",
         ):
             with self.subTest(name=name):
                 member = tarfile.TarInfo("screenshot_memory-0.1.0/" + name)

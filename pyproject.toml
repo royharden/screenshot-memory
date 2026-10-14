@@ -15,7 +15,7 @@ dependencies = ["pydantic==2.14.1"]
 smem = "screenshot_memory.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1", "Pillow==10.4.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

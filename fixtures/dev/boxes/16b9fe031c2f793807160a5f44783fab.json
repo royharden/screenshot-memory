@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "16b9fe031c2f793807160a5f44783fab",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "586dd726476668ad2c6f10033a3a38766bd8f02e77f99f9af6b9dce8e0d97e2a",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "0d7571eb0c0aed6114dba80fedcd4a57d28d6225b08499822cb0d453aa321b39",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Flint lantern wick",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        229,
+        65
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Flint wick 68 trimmed",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        54,
+        156
+      ],
+      "bbox_source_px": [
+        54,
+        159,
+        214,
+        172
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "FLINT LANTERN WICK",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        54,
+        190
+      ],
+      "bbox_source_px": [
+        54,
+        192,
+        183,
+        200
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Hand-drawn fixture",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        54,
+        231
+      ],
+      "bbox_source_px": [
+        54,
+        232,
+        183,
+        241
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "shelf",
+    "motif_count": 4,
+    "accent": "teal"
+  }
+}

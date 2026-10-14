@@ -1,0 +1,6 @@
+# Frozen original data, retained canonical bytes and historical producer evidence.
+fixtures/** -text
+gold/** -text
+scripts/make_fixtures.py -text
+tests/fixtures/** -text
+scripts/synthetic_distribution.json -text

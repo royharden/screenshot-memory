@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "7884637c530df280a1fad4cfdb3148b4ca26eb61addee86ea319a6dd29ffe592",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "769146a2956c0607c9e951b6218103d7f25809f1733e39b33d60bba9538e4747",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Isotope cavern relay",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        371,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Isotope relay 85 linked",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        151,
+        158
+      ],
+      "bbox_source_px": [
+        151,
+        161,
+        321,
+        177
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "ISOTOPE CAVERN RELAY",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        192
+      ],
+      "bbox_source_px": [
+        151,
+        194,
+        295,
+        202
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        233
+      ],
+      "bbox_source_px": [
+        151,
+        234,
+        294,
+        243
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "timeline",
+    "motif_count": 6,
+    "accent": "magenta"
+  }
+}

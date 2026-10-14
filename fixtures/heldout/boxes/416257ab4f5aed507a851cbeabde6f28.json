@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "ebcdc1f2fc9f4741cca3bfa3da6ae52a61c83d21c1ec656c0e7b7e5457214da1",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "71172a0a129ce8bb749818f3fe374019637902ae52407ca5f16fb2024469b52e",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Lumen aerosol tower",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        379,
+        68
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Lumen tower 25 sampled",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        179,
+        142
+      ],
+      "bbox_source_px": [
+        179,
+        145,
+        370,
+        161
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "LUMEN AEROSOL TOWER",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        176
+      ],
+      "bbox_source_px": [
+        179,
+        178,
+        315,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        217
+      ],
+      "bbox_source_px": [
+        179,
+        218,
+        322,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "rail",
+    "motif_count": 3,
+    "accent": "vermilion"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "d36b96921bf3ff839ba57818de49c9c46fed477008b08f22cd512fabf4d83fd5",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "b421bae6e2ae9cdf686704d72c135733291745716809a4623428135b57b52d0e",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Pulsar cavern lift",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        330,
+        68
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Pulsar lift 71 serviced",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        179,
+        142
+      ],
+      "bbox_source_px": [
+        179,
+        145,
+        341,
+        158
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "PULSAR CAVERN LIFT",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        176
+      ],
+      "bbox_source_px": [
+        179,
+        178,
+        308,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        217
+      ],
+      "bbox_source_px": [
+        179,
+        218,
+        322,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "rail",
+    "motif_count": 1,
+    "accent": "berry"
+  }
+}

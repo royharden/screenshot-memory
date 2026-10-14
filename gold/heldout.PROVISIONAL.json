@@ -1,0 +1,4216 @@
+{
+  "schema": "S7-provisional-fixture-subset/1",
+  "canon": "canon/1",
+  "status": "PROVISIONAL_AGENT_AUTHORED_SYNTHETIC_REFERENCES",
+  "not_claimed": [
+    "owner_canonical_manifest",
+    "actual_scorer_config",
+    "experiment_config",
+    "model_versions",
+    "model_execution",
+    "price_snapshot",
+    "human_gold_agreement",
+    "native_ocr_word_line_results"
+  ],
+  "split": "heldout",
+  "seed": 731702,
+  "provenance": {
+    "python": "3.12.13",
+    "pillow": "10.4.0",
+    "renderer": "Pillow ImageDraw original element authoring",
+    "renderer_revision": 1,
+    "fonts": {
+      "arial": {
+        "local_path": "C:/Windows/Fonts/arial.ttf",
+        "sha256": "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a",
+        "redistributed": false
+      },
+      "consolas": {
+        "local_path": "C:/Windows/Fonts/consola.ttf",
+        "sha256": "cf00b507b3286870cc5064ebd0633c303f70b491a4af25eec2d32df413db0179",
+        "redistributed": false
+      }
+    },
+    "png": {
+      "mode": "RGBA",
+      "compress_level": 9,
+      "optimize": false
+    },
+    "templates_sha256": "badba774a4e74b2949f005a2876953a23fde0136912e69cc248d417d135b8990",
+    "generator_sha256": "d5afd012a74a4b0d25c06ef7913055c8ffad156ff358a984cfe4edf243d8455a",
+    "seed_policy": "Pinned seed selects deterministic stripe marks; templates/content/layout independently authored across splits."
+  },
+  "gallery": {
+    "gallery_id": "8247d1a714ca7e74a9d5951ed63fb18e",
+    "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+    "assets": [
+      {
+        "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+        "relative_path": "images/4da2d5a6475d3618b406d1bba9722dbe.png",
+        "encoded_sha256": "de7d9677d63c49c67b1644770dd678f8ea41934b2dc159f6bccfac4be316cfd6",
+        "source_grid_sha256": "55d0394275c64da056a6e6cc1578b3caa5c3fa4a3100e6edc331acc05caae6be",
+        "width_px": 720,
+        "height_px": 440,
+        "encoded_bytes": 12389,
+        "boxes_relative_path": "boxes/4da2d5a6475d3618b406d1bba9722dbe.json",
+        "boxes_sha256": "5446179468b57dce3793f1c29d1e900c769539da79c118413961e0019dfeef68"
+      },
+      {
+        "asset_id": "24f6094334d7461fe98b06867032e377",
+        "relative_path": "images/24f6094334d7461fe98b06867032e377.png",
+        "encoded_sha256": "adffb6651ca863282fff14bda142141ac2eef9ba744bf669600b92f4932021d6",
+        "source_grid_sha256": "2994842d215253c0eb92a47293e5ce45b0a0893c6f35c73961154ebd8e349fca",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 15356,
+        "boxes_relative_path": "boxes/24f6094334d7461fe98b06867032e377.json",
+        "boxes_sha256": "05760cbcc36946a0b13f013025c8efce9fd408762a4044c0fbd31eff51a75661"
+      },
+      {
+        "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+        "relative_path": "images/aef3fc121e82b656a0d3162e6f6e6bf2.png",
+        "encoded_sha256": "30d62be2e7674d4488914d3bbd6d0f7e3da96abbca0152ca5f3ee17a6360246a",
+        "source_grid_sha256": "3255a914808ea00ae2e0e8f71bb83b96426a4480dc31dead49443c1e2bbe7ffc",
+        "width_px": 752,
+        "height_px": 440,
+        "encoded_bytes": 12648,
+        "boxes_relative_path": "boxes/aef3fc121e82b656a0d3162e6f6e6bf2.json",
+        "boxes_sha256": "ba006af762abb30bfe68fedbecf4891d4775d7a3e8382c9433fda64a6e88746c"
+      },
+      {
+        "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+        "relative_path": "images/9bb18123de3b5be4642dd497b9b92d50.png",
+        "encoded_sha256": "00b23e1f483ebde654523f1893503139f6f6e535ed3048e55398650fa990d05d",
+        "source_grid_sha256": "4312c135cfe824fb495120e5370854718291608689c417b6ce72170a0d2044f7",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 13066,
+        "boxes_relative_path": "boxes/9bb18123de3b5be4642dd497b9b92d50.json",
+        "boxes_sha256": "439e173f51b8f149a87e35661768c4ec53b804062738566773e6e32b30375c00"
+      },
+      {
+        "asset_id": "2423add59a451523de3e501ce8a0727c",
+        "relative_path": "images/2423add59a451523de3e501ce8a0727c.png",
+        "encoded_sha256": "dec9f3e7684d01d8dd10e4553bf5131f1bddce5d2dc8542dcda28dfe8add3730",
+        "source_grid_sha256": "154fe29183af9452c3279e8a8745b9cb8d66ad1a2763e15dd000e39ba8fd34a5",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 12885,
+        "boxes_relative_path": "boxes/2423add59a451523de3e501ce8a0727c.json",
+        "boxes_sha256": "12d292333bbf9f5a623ba9cbd98d73cbeee1db6957d39707dad3084d1dff992b"
+      },
+      {
+        "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+        "relative_path": "images/6c2ae42ff9ba2bfa165af44189a295a0.png",
+        "encoded_sha256": "6d52c097b0c2323121679af7246b3d6fc3fb586d6f9e3be328eae3545ce6e7ef",
+        "source_grid_sha256": "c8c74131e416936b981b6d34fa9e1f2d95ac2e2c1c32b40fad4db75ef3366192",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 12255,
+        "boxes_relative_path": "boxes/6c2ae42ff9ba2bfa165af44189a295a0.json",
+        "boxes_sha256": "64563a02ff0f6de15f448271f53f03190283fc6b7f050ce7519ad74d584dc621"
+      },
+      {
+        "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+        "relative_path": "images/1e369b0f6128ae8446f8103e73ca60db.png",
+        "encoded_sha256": "b468a08754dcbaad4cb3896b24a7677f664af5874f8d2e6575ef3c2d4403690e",
+        "source_grid_sha256": "953c1d2c04e326c2596aab66c4714dda4d05b8b2423ec3ac1b6ea97e10b8f179",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 12246,
+        "boxes_relative_path": "boxes/1e369b0f6128ae8446f8103e73ca60db.json",
+        "boxes_sha256": "78c01211ac70b8c4ebe6e0dd39f8c8591bb45155fe9c03a72092cf5cb275aec1"
+      },
+      {
+        "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+        "relative_path": "images/130299e2d86b5e1c90c8c7a3cc1f19bf.png",
+        "encoded_sha256": "a957eecafb3e3f79734d8ecab686bc2bef75ac973b5410a0d0ab68ba817d6244",
+        "source_grid_sha256": "2b37371aa891d4222dc96f0f05281b25491e1aeeadf7fcd28588f4ee151361b9",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 12438,
+        "boxes_relative_path": "boxes/130299e2d86b5e1c90c8c7a3cc1f19bf.json",
+        "boxes_sha256": "12f3a0f16d45f6588237a61bbbc664119da0a525cda69319225b79f4725160b6"
+      },
+      {
+        "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+        "relative_path": "images/c3c589d2cfecdeb0ef7df63576296f2f.png",
+        "encoded_sha256": "0125d875395ff38bc966ce6daff2d0047ace2dc2e39cf390212411b54a880136",
+        "source_grid_sha256": "76da834a7fa81c45fbca038c0d0508328e110f068fa241553c5693188ae68440",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 12906,
+        "boxes_relative_path": "boxes/c3c589d2cfecdeb0ef7df63576296f2f.json",
+        "boxes_sha256": "86da85428980fda152dd543ffdaae719ad5b43a9d6c598731e6bd3f5c27bd2f7"
+      },
+      {
+        "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+        "relative_path": "images/63ea25af55bd9b2d4ed8136e7b6df032.png",
+        "encoded_sha256": "305384431433cbbd743e168b579fe43a00936c8aa295400b5ef20d5966175a33",
+        "source_grid_sha256": "2d3f4a9c96d2f6e29af5a8a9681dc99def6d5290781a3c446e0446d898a5afd5",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 2100,
+        "boxes_relative_path": "boxes/63ea25af55bd9b2d4ed8136e7b6df032.json",
+        "boxes_sha256": "84b55258525e33a185181b0640e4131f6cce4c62aeec0301a425a3d17999e953"
+      },
+      {
+        "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+        "relative_path": "images/0cc7bdd2e2b4ec58ba5e86401ad66872.png",
+        "encoded_sha256": "16cf5f5194a882d68a7d37b14f876dcc300d76097834fbe73093e0a6dd263f85",
+        "source_grid_sha256": "08b05c19a83219776d4523185a9e60597a01500bc66128b8c06f969df985b1a8",
+        "width_px": 736,
+        "height_px": 440,
+        "encoded_bytes": 2876,
+        "boxes_relative_path": "boxes/0cc7bdd2e2b4ec58ba5e86401ad66872.json",
+        "boxes_sha256": "957d5355b9e720121b6e282147caa0dd23a375a0e41e1c68a62669f243b674d5"
+      },
+      {
+        "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+        "relative_path": "images/0bd6c68375c3d0109dae35307e5caf71.png",
+        "encoded_sha256": "9c99a6965fc65a7b3980f23ea7017e45392228a4f69a7159b71441bdedec23ca",
+        "source_grid_sha256": "1e25369d263dafc2560cc7fbbe4e5930408a22ff0c28ec6e004813067d9b6be4",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 26805,
+        "boxes_relative_path": "boxes/0bd6c68375c3d0109dae35307e5caf71.json",
+        "boxes_sha256": "746bf104884bda4bb0948148d8cc4cacbc33f47a141cb1278b1cf530c2c89cda"
+      },
+      {
+        "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+        "relative_path": "images/539fc95366cd900fe0f5b1a2a1e7dafc.png",
+        "encoded_sha256": "ca4d1b51074728d8ca061cdc97bfa8f39d9fac8f5fad5e5adeb50d4c7f3c81ae",
+        "source_grid_sha256": "0ce51440e4d57eef8d31278871ca1a463158757f4c0c9232b3ce044db54f6671",
+        "width_px": 720,
+        "height_px": 440,
+        "encoded_bytes": 26156,
+        "boxes_relative_path": "boxes/539fc95366cd900fe0f5b1a2a1e7dafc.json",
+        "boxes_sha256": "b3b705349b47651b15299998b09f762e548bb1bf1e906a33446548b438535236"
+      },
+      {
+        "asset_id": "caeedd651e2d7d92358569c967ae803e",
+        "relative_path": "images/caeedd651e2d7d92358569c967ae803e.png",
+        "encoded_sha256": "7d6f90eb1f99fb79879d74a328142ad5ce1e6b6be557282da310ee18d097ab36",
+        "source_grid_sha256": "036e76971c35924045bbebc9d4f8ad45bc28326821472373f22d99dbef32e4e4",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 25272,
+        "boxes_relative_path": "boxes/caeedd651e2d7d92358569c967ae803e.json",
+        "boxes_sha256": "d50c302766a4d1bb816d48ce2bf3d83671d74de2a55e321740c17f28140b5a56"
+      },
+      {
+        "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+        "relative_path": "images/886e3509e1f345b05894f6bce8a41b25.png",
+        "encoded_sha256": "bff6311bc7a9904b564776995951f9dd195bdcae57997d93c59b979181c2ce6e",
+        "source_grid_sha256": "c16f05dbb362b92b58f3399fa05d47fe8f856d38f894babb4512fec9646f54b0",
+        "width_px": 752,
+        "height_px": 440,
+        "encoded_bytes": 25651,
+        "boxes_relative_path": "boxes/886e3509e1f345b05894f6bce8a41b25.json",
+        "boxes_sha256": "a8b4bfa71830965afe494510bbde6c822148b26463e49a441794819966b7b195"
+      },
+      {
+        "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+        "relative_path": "images/129dba7b33b5b13cddfb6757d9a89f91.png",
+        "encoded_sha256": "35b259310f798e9677981233c943c6524bc477fc7ddde989d6f817db357df11c",
+        "source_grid_sha256": "ee52cbfd34ecd2297102054a5e63b37702eec4d12a71bc5bbda824509844c73f",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 13060,
+        "boxes_relative_path": "boxes/129dba7b33b5b13cddfb6757d9a89f91.json",
+        "boxes_sha256": "fdcee879038890bf3c9a34a5a6fb46782e9e641fc118278ac38af41695363a4d"
+      },
+      {
+        "asset_id": "a0bbe42f62320097694112643bb46ebe",
+        "relative_path": "images/a0bbe42f62320097694112643bb46ebe.png",
+        "encoded_sha256": "93a9af4db17e3ee984a95766015790f51ab1c4734284023566e9eedeb7eda2e0",
+        "source_grid_sha256": "c75885cb048d74ce364920cb5194ab7423298355fdc7b7b5ef783e36503c801d",
+        "width_px": 736,
+        "height_px": 440,
+        "encoded_bytes": 12448,
+        "boxes_relative_path": "boxes/a0bbe42f62320097694112643bb46ebe.json",
+        "boxes_sha256": "8f3014eef25ef7b417c6b59db78762dac0d876a68a1cbdbc9db9669c8972c6a6"
+      },
+      {
+        "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+        "relative_path": "images/8ad9a5cf9b45c4233d335312a19251eb.png",
+        "encoded_sha256": "dd792c804adda43706c81170a2ee6d588bca841835b98c42054deef3cf4e974a",
+        "source_grid_sha256": "269af28e70185cebbb03e01218f8844e2e42fa47730eea3f058f368188c0d14a",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 12563,
+        "boxes_relative_path": "boxes/8ad9a5cf9b45c4233d335312a19251eb.json",
+        "boxes_sha256": "60393768a5c0769a07c375fa7cc3abd2feea4cad3cbd168052ca76e2ab6f461f"
+      },
+      {
+        "asset_id": "6a444b19955afc664b456394b0b373f3",
+        "relative_path": "images/6a444b19955afc664b456394b0b373f3.png",
+        "encoded_sha256": "36d036aa7b9acf07e306a19c7ca5b1c709f3f7b56164bcee42531ddb32178953",
+        "source_grid_sha256": "a40eb27be2a4555ec9e1929379ca585b7e9e993c9843f1246ef0c67aeba6bf78",
+        "width_px": 720,
+        "height_px": 440,
+        "encoded_bytes": 10634,
+        "boxes_relative_path": "boxes/6a444b19955afc664b456394b0b373f3.json",
+        "boxes_sha256": "b7f5eba7e96ae4e5b352806e5ed788e0ac49665da3c2e4aac12d5f175afa1c42"
+      },
+      {
+        "asset_id": "59786e0329889fb079ba0f121303a01a",
+        "relative_path": "images/59786e0329889fb079ba0f121303a01a.png",
+        "encoded_sha256": "53c305e8b1da60443a384c1e45d6c10f8da06c63684047860347331583f06edb",
+        "source_grid_sha256": "91468e368180768693c45ca6244f2821032bfbf0977cd6e8d43ddd1fac625acd",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 13008,
+        "boxes_relative_path": "boxes/59786e0329889fb079ba0f121303a01a.json",
+        "boxes_sha256": "df68942e350123051c121e1b80ad38f5c7952dc9736b107df7d0d889126b3990"
+      },
+      {
+        "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+        "relative_path": "images/d362b00d9492d4675aa5806f8b651f37.png",
+        "encoded_sha256": "e132b41d93fe13b0fcb2ecd1f3eea06ff8c05711bfac565d160f4cf94c7192f2",
+        "source_grid_sha256": "088f22190579120b9d6b1332a937a8e926a23a510146673c835462b79c803e70",
+        "width_px": 752,
+        "height_px": 440,
+        "encoded_bytes": 11060,
+        "boxes_relative_path": "boxes/d362b00d9492d4675aa5806f8b651f37.json",
+        "boxes_sha256": "99aa86ecc05d010e306333778f2129c5656f96a543f26fa83b21973b497e90a3"
+      },
+      {
+        "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+        "relative_path": "images/44aec6107c6858b3fd2e47a136b5090f.png",
+        "encoded_sha256": "7884637c530df280a1fad4cfdb3148b4ca26eb61addee86ea319a6dd29ffe592",
+        "source_grid_sha256": "769146a2956c0607c9e951b6218103d7f25809f1733e39b33d60bba9538e4747",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 13066,
+        "boxes_relative_path": "boxes/44aec6107c6858b3fd2e47a136b5090f.json",
+        "boxes_sha256": "24ffd82fbeb70e868cf8410392dc6487631e60efc410d8df5ffb0bc48d4785cb"
+      },
+      {
+        "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+        "relative_path": "images/5505ab5cd5debe53c406f22ba2132565.png",
+        "encoded_sha256": "cb24caa75d34c1fd558b1c96ec9885ca8a3e3d8ad48ec1c4121fdd1fd84cf84f",
+        "source_grid_sha256": "b541835cecae3d2b524910e37c2ed84571c2eafca1f540c5c85322eb10fd5f68",
+        "width_px": 736,
+        "height_px": 440,
+        "encoded_bytes": 12533,
+        "boxes_relative_path": "boxes/5505ab5cd5debe53c406f22ba2132565.json",
+        "boxes_sha256": "e11ed39744d6e6f7a11b2a55da87fea3ca23dd722075d7b1eb6e5f3cf05a825f"
+      },
+      {
+        "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+        "relative_path": "images/a54f3e1c8dc2db46131406c07518c077.png",
+        "encoded_sha256": "9445fc3d0ccb18eda8f9f362905a72ff9a6bc6a6471831a2d6c1a8fcf85d247d",
+        "source_grid_sha256": "1eaa01d7ac22b9b9990983d0bc2a8efd205b530a5acb541219931f212fec2010",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 13376,
+        "boxes_relative_path": "boxes/a54f3e1c8dc2db46131406c07518c077.json",
+        "boxes_sha256": "66f7fe288929b205a246a7f942d228763f50938c17fb84b97bdee3b0259ac871"
+      },
+      {
+        "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+        "relative_path": "images/416257ab4f5aed507a851cbeabde6f28.png",
+        "encoded_sha256": "ebcdc1f2fc9f4741cca3bfa3da6ae52a61c83d21c1ec656c0e7b7e5457214da1",
+        "source_grid_sha256": "71172a0a129ce8bb749818f3fe374019637902ae52407ca5f16fb2024469b52e",
+        "width_px": 720,
+        "height_px": 440,
+        "encoded_bytes": 12104,
+        "boxes_relative_path": "boxes/416257ab4f5aed507a851cbeabde6f28.json",
+        "boxes_sha256": "87a3de5a0df69eb552d34b2d57fd357b648bddd08344badff32010c8bbebe191"
+      },
+      {
+        "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+        "relative_path": "images/f8e3c5c5c58453a469b58b31b3eb7ad4.png",
+        "encoded_sha256": "f2210dae600917e30eac332a455afd5fd4dccb7dbfa0103fc31c9f2bf15cae18",
+        "source_grid_sha256": "b47901ef667211d47e1b7cd57849e23b07e0a9985f1ce0eba2032b71ef38fe94",
+        "width_px": 736,
+        "height_px": 464,
+        "encoded_bytes": 13992,
+        "boxes_relative_path": "boxes/f8e3c5c5c58453a469b58b31b3eb7ad4.json",
+        "boxes_sha256": "062efe092cba54a7fa7cc58afec4716eb53bc5afc8bc5a50ac723943509cfa8b"
+      },
+      {
+        "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+        "relative_path": "images/46feb9cfbd2587d6fb2006e8f3d3e708.png",
+        "encoded_sha256": "23479a9fa9f9ceba9c54b201c6eb9280d08fdf1973c04fd1a7763d817ff0753e",
+        "source_grid_sha256": "57ef09ca756cb202f5eae0436b2abc51536367345a5e70f3ee896f16d8b6ad9c",
+        "width_px": 752,
+        "height_px": 440,
+        "encoded_bytes": 12581,
+        "boxes_relative_path": "boxes/46feb9cfbd2587d6fb2006e8f3d3e708.json",
+        "boxes_sha256": "e18a0d8981e7ead383faae2e96c54a5594a5b63ff3d22c3ae16dd9307f8ec7cb"
+      },
+      {
+        "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+        "relative_path": "images/850cb05b68daa9038c53bb2d58e137f6.png",
+        "encoded_sha256": "410276a344dd33cbbebf3c40606ff5c6db54b7c33b2a762606b0f3b18515876f",
+        "source_grid_sha256": "1aad625ff4dfa3fefd738379586821432b1d03d282c52d1f7d1d2bc8feb39430",
+        "width_px": 720,
+        "height_px": 464,
+        "encoded_bytes": 13289,
+        "boxes_relative_path": "boxes/850cb05b68daa9038c53bb2d58e137f6.json",
+        "boxes_sha256": "d5ed9cf3d9e8f4d31610664b7e4cbbe2abfc29463c31dfa6d06610e7cf42ce94"
+      },
+      {
+        "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+        "relative_path": "images/0f74df5605fa1b9f9a7d25c2e6c74e8b.png",
+        "encoded_sha256": "d36b96921bf3ff839ba57818de49c9c46fed477008b08f22cd512fabf4d83fd5",
+        "source_grid_sha256": "b421bae6e2ae9cdf686704d72c135733291745716809a4623428135b57b52d0e",
+        "width_px": 736,
+        "height_px": 440,
+        "encoded_bytes": 11117,
+        "boxes_relative_path": "boxes/0f74df5605fa1b9f9a7d25c2e6c74e8b.json",
+        "boxes_sha256": "ae60d2b0530897d422ec53f7c7369375835913d4f7ef55b63f7e0f47f0df1a19"
+      },
+      {
+        "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+        "relative_path": "images/0079e012ec00a32344d7043e1c2b51a3.png",
+        "encoded_sha256": "c7c0c65b0e9c396d23f9e5a6db06dabb70999172ab6d0099bc555f94e81b52bc",
+        "source_grid_sha256": "22a366ea0515dca2b6ce63cf601dca1ecc90447734d389c53a21a7e783ed6504",
+        "width_px": 752,
+        "height_px": 464,
+        "encoded_bytes": 12434,
+        "boxes_relative_path": "boxes/0079e012ec00a32344d7043e1c2b51a3.json",
+        "boxes_sha256": "d0363bf2a14f2c08871612f53be3514ecd9b41da3cfd7466d2e7c9f7c6b6aa23"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "scenario_id": "12f0e9165b54e742e9b699f0be253844",
+      "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+      "group_id": "c5b799514b38c82fa6be6b55d49b74f2",
+      "stratum": "injected",
+      "family": "fieldscience-0",
+      "title": "Nebula lens folio",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "f070bdd2f71631a021ea32eedfd57469",
+      "asset_id": "24f6094334d7461fe98b06867032e377",
+      "group_id": "eaed787b589665ba77076f5f90408605",
+      "stratum": "injected",
+      "family": "fieldscience-1",
+      "title": "Quartz echo chamber",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "fcc93283f7457ea19ef5cb00e5a91744",
+      "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+      "group_id": "7aed6e917887d6f12f52c5905830bb67",
+      "stratum": "injected",
+      "family": "fieldscience-2",
+      "title": "Tundra drone permit",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "37326aaef1c937c4a5d0ae11903acf57",
+      "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+      "group_id": "a45e4cbac043386a4ff2ebe26ae0d231",
+      "stratum": "confuser",
+      "family": "fieldscience-pair0",
+      "title": "Saffron reactor dial",
+      "confuser_pair": 0
+    },
+    {
+      "scenario_id": "e2c06afaa800c2fb10947a00b903ae22",
+      "asset_id": "2423add59a451523de3e501ce8a0727c",
+      "group_id": "a45e4cbac043386a4ff2ebe26ae0d231",
+      "stratum": "confuser",
+      "family": "fieldscience-pair0",
+      "title": "Saffron reactor dial",
+      "confuser_pair": 0
+    },
+    {
+      "scenario_id": "f908fe74415f65b9cd39a230c9c7c33b",
+      "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+      "group_id": "6aff84e8a71d24f19c6be70914a4feb0",
+      "stratum": "confuser",
+      "family": "fieldscience-pair1",
+      "title": "Velvet transit capsule",
+      "confuser_pair": 1
+    },
+    {
+      "scenario_id": "e30d6b9de3c1873cfaf675d12bd29d9b",
+      "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+      "group_id": "6aff84e8a71d24f19c6be70914a4feb0",
+      "stratum": "confuser",
+      "family": "fieldscience-pair1",
+      "title": "Velvet transit capsule",
+      "confuser_pair": 1
+    },
+    {
+      "scenario_id": "1257f4a8c10178b60084dfa3f70f9b00",
+      "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+      "group_id": "4f42149076e4016782740c7d072681ba",
+      "stratum": "confuser",
+      "family": "fieldscience-pair2",
+      "title": "Wisteria signal mast",
+      "confuser_pair": 2
+    },
+    {
+      "scenario_id": "6bedba96560bd4c068aff4dfc2677e32",
+      "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+      "group_id": "4f42149076e4016782740c7d072681ba",
+      "stratum": "confuser",
+      "family": "fieldscience-pair2",
+      "title": "Wisteria signal mast",
+      "confuser_pair": 2
+    },
+    {
+      "scenario_id": "00aa25fbd9999faf817951d1fcd90670",
+      "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+      "group_id": "1908b7e9100fbcd6ff3e08b97895ceae",
+      "stratum": "blank",
+      "family": "fieldscience-9",
+      "title": "Silent peach field",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "4529d2d86aa2a6a34f0e105e00386221",
+      "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+      "group_id": "c1d8e3bea949638ed2a982f2dcd9ed01",
+      "stratum": "icon",
+      "family": "fieldscience-10",
+      "title": "Azure ring compass",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "916d4ee38eb7ac0c5dd3688585328e9f",
+      "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+      "group_id": "5662ecc6ba357ac34b446d4db7cc9d42",
+      "stratum": "dense",
+      "family": "fieldscience-11",
+      "title": "Xenon spectrum matrix",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "36cf5bd99375e4caa2a914cd1e21feef",
+      "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+      "group_id": "be9d0153d920d2fc18269282c94a5a07",
+      "stratum": "dense",
+      "family": "fieldscience-12",
+      "title": "Yarrow turbine log",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "ce28dda6c3a3906eafef065b58c92855",
+      "asset_id": "caeedd651e2d7d92358569c967ae803e",
+      "group_id": "9ce4fe9d1585006eee5ac57524fb4605",
+      "stratum": "dense",
+      "family": "fieldscience-13",
+      "title": "Zephyr pressure bands",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "f197da72c7423a0f476bc6024cc22c5f",
+      "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+      "group_id": "00d8e11d493cf95a29df82972208454d",
+      "stratum": "dense",
+      "family": "fieldscience-14",
+      "title": "Basalt orbit worksheet",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "bb0ac26cea184641b3754468480891cb",
+      "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+      "group_id": "d891d7ad016638a138b0a4db2bdef644",
+      "stratum": "ordinary",
+      "family": "fieldscience-15",
+      "title": "Cobalt glacier beacon",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "41ff812ac658d6110a952d758f6c0411",
+      "asset_id": "a0bbe42f62320097694112643bb46ebe",
+      "group_id": "99cb727e4ebca529f625d4ec4c3d7deb",
+      "stratum": "ordinary",
+      "family": "fieldscience-16",
+      "title": "Dune prism carriage",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "8fab8ddad948c097055165a382ff8d1e",
+      "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+      "group_id": "33d96c9c5acdac51f66b114e680dbe0d",
+      "stratum": "ordinary",
+      "family": "fieldscience-17",
+      "title": "Ember crater capsule",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "4c02efeba36f7ed7ba91f9f5c9fcaf2e",
+      "asset_id": "6a444b19955afc664b456394b0b373f3",
+      "group_id": "5f56be000c6537b601832a1f879267ce",
+      "stratum": "ordinary",
+      "family": "fieldscience-18",
+      "title": "Fjord antenna array",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "1863b150466d036571f3bc1c8ef22721",
+      "asset_id": "59786e0329889fb079ba0f121303a01a",
+      "group_id": "46b0468447a23a1321da8d7f7f5c39b2",
+      "stratum": "ordinary",
+      "family": "fieldscience-19",
+      "title": "Garnet vacuum vessel",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "901f3473a3e2fe7f1d8c56178a99bc9e",
+      "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+      "group_id": "695300b7f9b9fec2dfe3479810cdd2cc",
+      "stratum": "ordinary",
+      "family": "fieldscience-20",
+      "title": "Helix comet sail",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "69cec0907535e4118a126966967316e3",
+      "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+      "group_id": "72ee549b71cd8436fb501aa45016e76a",
+      "stratum": "ordinary",
+      "family": "fieldscience-21",
+      "title": "Isotope cavern relay",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "97be924d9fd662edb6a2cf138f5ba05b",
+      "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+      "group_id": "3447324301c4d6931f82d56036fb6b63",
+      "stratum": "ordinary",
+      "family": "fieldscience-22",
+      "title": "Jade photon chamber",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "41d104637864763cf553541c649c793a",
+      "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+      "group_id": "4017db4fb309afa27ce1e0202314582b",
+      "stratum": "ordinary",
+      "family": "fieldscience-23",
+      "title": "Krypton ridge rover",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "d70024df728b44fce47cebff44e9d972",
+      "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+      "group_id": "051edcfa9e6f7ef505e6ef477e7deb15",
+      "stratum": "ordinary",
+      "family": "fieldscience-24",
+      "title": "Lumen aerosol tower",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "59542dd764fbe8016e935ed423e60ffb",
+      "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+      "group_id": "4c1b9805c9e3dbfda594b3989649fa66",
+      "stratum": "ordinary",
+      "family": "fieldscience-25",
+      "title": "Magnet estuary probe",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "17ad705f3e814b2d3b9edf540684fd25",
+      "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+      "group_id": "f87844666ce224ac37aa2b86912dd667",
+      "stratum": "ordinary",
+      "family": "fieldscience-26",
+      "title": "Nimbus gravity sail",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "56e961cf94ebca2f2b5a4c0191c0bd95",
+      "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+      "group_id": "8a9914d4ac2b905175a8f1ffcad96f3f",
+      "stratum": "ordinary",
+      "family": "fieldscience-27",
+      "title": "Opal plasma manifold",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "90b49462685a37e27adf26999d789723",
+      "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+      "group_id": "ed2141accbce5d8a5a3945159e5e6cff",
+      "stratum": "ordinary",
+      "family": "fieldscience-28",
+      "title": "Pulsar cavern lift",
+      "confuser_pair": null
+    },
+    {
+      "scenario_id": "0fb54661c5946ecdbb7ad87dce1c76ca",
+      "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+      "group_id": "9a2d18d155a867ab6c054989441a9add",
+      "stratum": "ordinary",
+      "family": "fieldscience-29",
+      "title": "Rutile ocean glider",
+      "confuser_pair": null
+    }
+  ],
+  "groups": [
+    {
+      "group_id": "c5b799514b38c82fa6be6b55d49b74f2",
+      "asset_ids": [
+        "4da2d5a6475d3618b406d1bba9722dbe"
+      ]
+    },
+    {
+      "group_id": "eaed787b589665ba77076f5f90408605",
+      "asset_ids": [
+        "24f6094334d7461fe98b06867032e377"
+      ]
+    },
+    {
+      "group_id": "7aed6e917887d6f12f52c5905830bb67",
+      "asset_ids": [
+        "aef3fc121e82b656a0d3162e6f6e6bf2"
+      ]
+    },
+    {
+      "group_id": "a45e4cbac043386a4ff2ebe26ae0d231",
+      "asset_ids": [
+        "9bb18123de3b5be4642dd497b9b92d50",
+        "2423add59a451523de3e501ce8a0727c"
+      ]
+    },
+    {
+      "group_id": "6aff84e8a71d24f19c6be70914a4feb0",
+      "asset_ids": [
+        "6c2ae42ff9ba2bfa165af44189a295a0",
+        "1e369b0f6128ae8446f8103e73ca60db"
+      ]
+    },
+    {
+      "group_id": "4f42149076e4016782740c7d072681ba",
+      "asset_ids": [
+        "130299e2d86b5e1c90c8c7a3cc1f19bf",
+        "c3c589d2cfecdeb0ef7df63576296f2f"
+      ]
+    },
+    {
+      "group_id": "1908b7e9100fbcd6ff3e08b97895ceae",
+      "asset_ids": [
+        "63ea25af55bd9b2d4ed8136e7b6df032"
+      ]
+    },
+    {
+      "group_id": "c1d8e3bea949638ed2a982f2dcd9ed01",
+      "asset_ids": [
+        "0cc7bdd2e2b4ec58ba5e86401ad66872"
+      ]
+    },
+    {
+      "group_id": "5662ecc6ba357ac34b446d4db7cc9d42",
+      "asset_ids": [
+        "0bd6c68375c3d0109dae35307e5caf71"
+      ]
+    },
+    {
+      "group_id": "be9d0153d920d2fc18269282c94a5a07",
+      "asset_ids": [
+        "539fc95366cd900fe0f5b1a2a1e7dafc"
+      ]
+    },
+    {
+      "group_id": "9ce4fe9d1585006eee5ac57524fb4605",
+      "asset_ids": [
+        "caeedd651e2d7d92358569c967ae803e"
+      ]
+    },
+    {
+      "group_id": "00d8e11d493cf95a29df82972208454d",
+      "asset_ids": [
+        "886e3509e1f345b05894f6bce8a41b25"
+      ]
+    },
+    {
+      "group_id": "d891d7ad016638a138b0a4db2bdef644",
+      "asset_ids": [
+        "129dba7b33b5b13cddfb6757d9a89f91"
+      ]
+    },
+    {
+      "group_id": "99cb727e4ebca529f625d4ec4c3d7deb",
+      "asset_ids": [
+        "a0bbe42f62320097694112643bb46ebe"
+      ]
+    },
+    {
+      "group_id": "33d96c9c5acdac51f66b114e680dbe0d",
+      "asset_ids": [
+        "8ad9a5cf9b45c4233d335312a19251eb"
+      ]
+    },
+    {
+      "group_id": "5f56be000c6537b601832a1f879267ce",
+      "asset_ids": [
+        "6a444b19955afc664b456394b0b373f3"
+      ]
+    },
+    {
+      "group_id": "46b0468447a23a1321da8d7f7f5c39b2",
+      "asset_ids": [
+        "59786e0329889fb079ba0f121303a01a"
+      ]
+    },
+    {
+      "group_id": "695300b7f9b9fec2dfe3479810cdd2cc",
+      "asset_ids": [
+        "d362b00d9492d4675aa5806f8b651f37"
+      ]
+    },
+    {
+      "group_id": "72ee549b71cd8436fb501aa45016e76a",
+      "asset_ids": [
+        "44aec6107c6858b3fd2e47a136b5090f"
+      ]
+    },
+    {
+      "group_id": "3447324301c4d6931f82d56036fb6b63",
+      "asset_ids": [
+        "5505ab5cd5debe53c406f22ba2132565"
+      ]
+    },
+    {
+      "group_id": "4017db4fb309afa27ce1e0202314582b",
+      "asset_ids": [
+        "a54f3e1c8dc2db46131406c07518c077"
+      ]
+    },
+    {
+      "group_id": "051edcfa9e6f7ef505e6ef477e7deb15",
+      "asset_ids": [
+        "416257ab4f5aed507a851cbeabde6f28"
+      ]
+    },
+    {
+      "group_id": "4c1b9805c9e3dbfda594b3989649fa66",
+      "asset_ids": [
+        "f8e3c5c5c58453a469b58b31b3eb7ad4"
+      ]
+    },
+    {
+      "group_id": "f87844666ce224ac37aa2b86912dd667",
+      "asset_ids": [
+        "46feb9cfbd2587d6fb2006e8f3d3e708"
+      ]
+    },
+    {
+      "group_id": "8a9914d4ac2b905175a8f1ffcad96f3f",
+      "asset_ids": [
+        "850cb05b68daa9038c53bb2d58e137f6"
+      ]
+    },
+    {
+      "group_id": "ed2141accbce5d8a5a3945159e5e6cff",
+      "asset_ids": [
+        "0f74df5605fa1b9f9a7d25c2e6c74e8b"
+      ]
+    },
+    {
+      "group_id": "9a2d18d155a867ab6c054989441a9add",
+      "asset_ids": [
+        "0079e012ec00a32344d7043e1c2b51a3"
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "query_id": "4c887cb23b5babee9455c8eb1108623b",
+      "query": "Find the text \"Lens folio NEBULA 93\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "6b63d1518360513e2da5eaaa18309609",
+      "query": "I need an observatory folio about a violet nebula lens.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "e5462099e79590fb898fe77d8bdcb3bb",
+      "query": "Show the cobalt rail surface with 3 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "601a4a8b770aeee1bfada66b0bf75920",
+      "query": "Find Lens folio NEBULA 93 on the cobalt rail surface with 3 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "d0cd1b1775cfe328d891438bf73276e0",
+      "query": "Find the text \"Echo chamber QUARTZ 26\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "2c4a8a030c2681f2217804522fa1a81f",
+      "query": "I need an acoustics chamber record for a quartz resonator.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "b7645c55de2e03727857feb7cce3dd9a",
+      "query": "Show the magenta timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "5f899f24a16c241424a903d30ab981ab",
+      "query": "Find Echo chamber QUARTZ 26 on the magenta timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "194e7cb0f3d604b8393ae97d32560b36",
+      "query": "Find the text \"Drone permit TUNDRA 74\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "e920e4bcf5b473440af785f6dd7a141b",
+      "query": "I need a polar expedition permit for a survey drone.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "754bb37cbf1f2e4b812dbc912fa48924",
+      "query": "Show the amber folio surface with 5 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "a226d8b19e6c66a797c59cdc0832079d",
+      "query": "Find Drone permit TUNDRA 74 on the amber folio surface with 5 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "0ef428b29bae1563675ad761efa6751e",
+      "query": "Find the text \"Coolant marked OPEN\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "36aa6c6d80d254e6d2d985bb4b565dac",
+      "query": "I need a fictional energy lab dial whose coolant label changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "75f60e7a0e3dfef870eb0761d1cd875b",
+      "query": "Show the cyan orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "96ab2bd6a360b2c0e62663e35c872d73",
+      "query": "Find Coolant marked OPEN on the cyan orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "5dd9426e3816d7eb8b78752f2fd2874d",
+      "query": "Find the text \"Coolant marked SHUT\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "9c837057b95750f3748c503e6928830b",
+      "query": "I need a fictional energy lab dial whose coolant label changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "283219ca4f2779a016b46da235c76b82",
+      "query": "Show the cyan orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "738f305ff01b5fc28a88e7f23be88774",
+      "query": "Find Coolant marked SHUT on the cyan orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "1d83820f95085e5082451f5ae9347e9c",
+      "query": "Find the text \"Capsule gate 36\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "5b349915e4ae65ab42371df95b8ec983",
+      "query": "I need a capsule transit ticket whose gate label changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "bfb6194f45ca09a3d34c7b7d09a339f0",
+      "query": "Show the lavender timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "04980c24947d7aab8211d1b9b6a41a91",
+      "query": "Find Capsule gate 36 on the lavender timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "6c04e73337422dc0affe6a82426a6280",
+      "query": "Find the text \"Capsule gate 63\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "c891550b8fe30b8d5bff81e49cce655e",
+      "query": "I need a capsule transit ticket whose gate label changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "d826923495b67f8993bf09c5bcb88969",
+      "query": "Show the lavender timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "6fa1ae824ace770c73d20f7acd3e192a",
+      "query": "Find Capsule gate 63 on the lavender timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "18ef39b5ee8954a59fdb2340e0e47a47",
+      "query": "Find the text \"Mast channel BLUE\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "ec49df505856707caba9970f3de08c3b",
+      "query": "I need a communications mast log whose channel changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "94781d9976db1620c7256cb100ddc07f",
+      "query": "Show the bronze orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "e6bbcae495b8b812951acbd586293fa5",
+      "query": "Find Mast channel BLUE on the bronze orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "2231dc145e64ebd81102f816385624b7",
+      "query": "Find the text \"Mast channel GOLD\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "7a4d58110975debaaf147daf5c6f1aa8",
+      "query": "I need a communications mast log whose channel changes.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "896029125b7161aa9ca0951aaf803e05",
+      "query": "Show the bronze orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "8136b9af6007a6404eb31b7c541775a7",
+      "query": "Find Mast channel GOLD on the bronze orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "5562738a42baa1b2b6ad9f62802e72a6",
+      "query": "Locate an unmarked pale peach field",
+      "query_type": "visual",
+      "substitution": "exact-text replaced: image contains no text"
+    },
+    {
+      "query_id": "ed67225e94eea7c256e3017a82763267",
+      "query": "Find the completely blank peach field",
+      "query_type": "visual",
+      "substitution": "paraphrase-text replaced: image contains no text"
+    },
+    {
+      "query_id": "e9c988ac0aaa805eb16c57660d94f37f",
+      "query": "I remember a text-free picture: an unmarked pale peach field",
+      "query_type": "mixed",
+      "substitution": "semantic/visual substitution; no exact-text assertion"
+    },
+    {
+      "query_id": "00d4a0ea4967997e94cf6b65a40175b6",
+      "query": "Recover an unmarked pale orange rectangle with no objects",
+      "query_type": "mixed",
+      "substitution": "semantic/visual substitution; no exact-text assertion"
+    },
+    {
+      "query_id": "46aafcb4d54dd1a06ddc2f8ba3dd870e",
+      "query": "Locate an icon-only azure ring above two diamonds",
+      "query_type": "visual",
+      "substitution": "exact-text replaced: image contains no text"
+    },
+    {
+      "query_id": "ed7f64555df1482732ae61c606bec4a7",
+      "query": "Which picture consists of centered azure ring above two diamonds?",
+      "query_type": "visual",
+      "substitution": "paraphrase-text replaced: image contains no text"
+    },
+    {
+      "query_id": "9c5cab6752c83972c32690a5db7c540e",
+      "query": "I remember a text-free picture: an icon-only azure ring above two diamonds",
+      "query_type": "mixed",
+      "substitution": "semantic/visual substitution; no exact-text assertion"
+    },
+    {
+      "query_id": "b5edea78198a3df132a64427d5a0c060",
+      "query": "Recover the image with no lettering and centered azure ring above two diamonds",
+      "query_type": "mixed",
+      "substitution": "semantic/visual substitution; no exact-text assertion"
+    },
+    {
+      "query_id": "f3c0c7fa3a3ab5b29041eeb38ef2c0d9",
+      "query": "Find the text \"Spectrum XENON 52 peak\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "922b6add7130e161941a9d53f55b17d8",
+      "query": "I need a tightly packed xenon spectroscopy matrix.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "3ff8cd54858c68349fe3d165ecd54a1b",
+      "query": "Show the magenta orbit surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "a88d15ae4ee13663ec2863d97df98203",
+      "query": "Find Spectrum XENON 52 peak on the magenta orbit surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "3c5ea8e560640ad220725b02bbe9cfdc",
+      "query": "Find the text \"Turbine YARROW 81 steady\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "1e9df46f991e8d68cb8ce8bad527836f",
+      "query": "I need a tightly packed fictional turbine test log.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "374b7134691962e296b6c46b98580994",
+      "query": "Show the amber rail surface with 3 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "1b8e51018cd1bb6439a9f49d39c55aed",
+      "query": "Find Turbine YARROW 81 steady on the amber rail surface with 3 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "ff47fcb07f9869a7ca04fbe95164e75e",
+      "query": "Find the text \"Pressure ZEPHYR 29 stable\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "44b1f3e4e8c01d22ddaf19596d1c5173",
+      "query": "I need a faint pressure-band strip chart.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "08194c116edf0f486d506f0f7aa19139",
+      "query": "Show the cyan timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "aea4a9a3751a9975d02bdbc6cf12fb73",
+      "query": "Find Pressure ZEPHYR 29 stable on the cyan timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "5a96c4ab6981a3f00c99b4e01275c791",
+      "query": "Find the text \"Orbit BASALT 64 retrograde\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "960f46144aed7468e0664f2ff016cc25",
+      "query": "I need a faint orbit worksheet about a basalt probe.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "db08caf205b7cf0e5ceb9114b070778f",
+      "query": "Show the vermilion folio surface with 5 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "53d2d78d9d637e5ab963e65e464a022e",
+      "query": "Find Orbit BASALT 64 retrograde on the vermilion folio surface with 5 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "c454c0c174fac8e44e93393d899aee92",
+      "query": "Find the text \"Cobalt beacon 15 active\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "64495355ac022892d43151426e51f6d3",
+      "query": "I need a polar beacon console near a cobalt glacier.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "2d6c82415c1e8ee10cc9c84453afa6cb",
+      "query": "Show the lavender orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "bf7d44f80bff09e7ea751084c3374f96",
+      "query": "Find Cobalt beacon 15 active on the lavender orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "b2921b87e6f527a100c96dd0931e520b",
+      "query": "Find the text \"Dune prism 27 aligned\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "c0114bcbd5468232e156fddaf1812739",
+      "query": "I need a desert optics carriage itinerary.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "a90b52817ca47da89b28213f4c194a55",
+      "query": "Show the emerald rail surface with 1 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "f28bfe070a5dcd64f6eece444eda880f",
+      "query": "Find Dune prism 27 aligned on the emerald rail surface with 1 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "e4f6dba88c179ca5c2f7d007a393cf96",
+      "query": "Find the text \"Ember capsule 38 docked\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "04939b1e310a4cf588392161adf6eeca",
+      "query": "I need a volcanic sampling capsule route.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "22d858f3bfc790498afabc43f3a23fbf",
+      "query": "Show the bronze timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "99fefb9a180fd1b25bfa406ba41694de",
+      "query": "Find Ember capsule 38 docked on the bronze timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "368a5d4bee93fe8d8890a2d997a9cfc9",
+      "query": "Find the text \"Fjord antenna 49 tuned\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "54e02288f521dfbe45e4005f48a98c26",
+      "query": "I need a northern fjord antenna inspection folio.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "5e51c7a4928902692c8d1aebe78affe1",
+      "query": "Show the berry folio surface with 3 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "df1d3b59e960c6204382bf8860b8326d",
+      "query": "Find Fjord antenna 49 tuned on the berry folio surface with 3 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "94fa5332bd330efd904703be7f3b9b12",
+      "query": "Find the text \"Garnet vessel 61 stable\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "b61fc05b99b71d989000af3ec6b7a126",
+      "query": "I need a vacuum lab vessel monitor for a garnet test.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "7862a3a76eb979563806dc0cf5a75f8d",
+      "query": "Show the steel orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "f0f50a1af516ab3a1900dad12b655a1c",
+      "query": "Find Garnet vessel 61 stable on the steel orbit surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "7f5624a15d2e9853a355ebc64d6c86f9",
+      "query": "Find the text \"Helix sail 72 unfurled\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "1ff3ce4decc7302f8fb418e2aae81639",
+      "query": "I need a fictional spacecraft sail calibration panel.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "c4767e6aec7c665692e1f2b5b12e19b7",
+      "query": "Show the cobalt rail surface with 5 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "251107ffeb531c187ca7e22c5e56c2cb",
+      "query": "Find Helix sail 72 unfurled on the cobalt rail surface with 5 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "4e5d0b82ccd9118a4c4aa5bdd0f3f96a",
+      "query": "Find the text \"Isotope relay 85 linked\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "b74ea03e63eafb4366fc987cdeadeeb6",
+      "query": "I need a geology cavern relay schedule.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "9f3f2b981280a85524cff3f05e64b6db",
+      "query": "Show the magenta timeline surface with 6 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "e32c092c2fdacd21826494853a8fc06b",
+      "query": "Find Isotope relay 85 linked on the magenta timeline surface with 6 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "67faad62299312b533cdd1a4de83b950",
+      "query": "Find the text \"Jade chamber 96 cooled\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "253506cc30127eb968aeb81796a508a4",
+      "query": "I need a photon lab chamber display.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "b2c686820d439df0bae0146cb2d232a6",
+      "query": "Show the amber folio surface with 1 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "55137ba18a43d4d6a68d0b539c611a49",
+      "query": "Find Jade chamber 96 cooled on the amber folio surface with 1 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "5f30b4544f7d427058597bc3b9fa6e8b",
+      "query": "Find the text \"Krypton rover 14 parked\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "1a06b9d099ed9f1b2e4aa7dcc4283fab",
+      "query": "I need a ridge rover navigation folio.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "29eb045d66c3e9f7fde4de572652ae4c",
+      "query": "Show the cyan orbit surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "f5e28a6b31d4210555ba189b0b594776",
+      "query": "Find Krypton rover 14 parked on the cyan orbit surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "ec5c6d4610d39ea97f4305139d9bfad4",
+      "query": "Find the text \"Lumen tower 25 sampled\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "094b86e7c1e31fa2abcda5653ecfd017",
+      "query": "I need an atmospheric tower sample timeline.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "be45538411852c6cc1334b5e059d4ec2",
+      "query": "Show the vermilion rail surface with 3 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "66c0dc9e37ab60078da4741db4d1ce5f",
+      "query": "Find Lumen tower 25 sampled on the vermilion rail surface with 3 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "5b5966134adc3f1e363d90592e6d9db2",
+      "query": "Find the text \"Magnet probe 37 tethered\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "7ebcc727a6bd264d78ba5acd3e59d7c5",
+      "query": "I need a scientific estuary probe routing console.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "81e9d0ee78f3e33b65d9b92c168b73f4",
+      "query": "Show the lavender timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "5cb2630cc168203c8b2d7701936c9807",
+      "query": "Find Magnet probe 37 tethered on the lavender timeline surface with 4 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "d35631ae706affa9aef1487de01d5597",
+      "query": "Find the text \"Nimbus sail 48 extended\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "2724cc2bdc379bc21193a82e6992f329",
+      "query": "I need a fictional gravity sail deployment timeline.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "b27c91d49fc5cdaa3957a8ad7b8579ab",
+      "query": "Show the emerald folio surface with 5 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "61b83eb57044511ce460ccf6462716b7",
+      "query": "Find Nimbus sail 48 extended on the emerald folio surface with 5 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "dc4b3e1742bb204032b34aca2ea76071",
+      "query": "Find the text \"Opal manifold 59 balanced\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "85d6afbda267baf4299a08a12cf1ee3b",
+      "query": "I need a plasma lab manifold schematic note.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "d2d7f1103526d7e2b887e7b468cb796a",
+      "query": "Show the bronze orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "65a635877bbc39766c2e6701a20b6faa",
+      "query": "Find Opal manifold 59 balanced on the bronze orbit surface with 6 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "1f12f9789322e2297eefcc710c2af7e0",
+      "query": "Find the text \"Pulsar lift 71 serviced\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "7d43f307ca35bcecb10bec5fdf2c933c",
+      "query": "I need a subterranean lift inspection itinerary.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "a6df7173330810c245bae4bf045dd2f5",
+      "query": "Show the berry rail surface with 1 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "26dd9875cd1ebc32cd1ff5d37834b124",
+      "query": "Find Pulsar lift 71 serviced on the berry rail surface with 1 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "67cca6c4390a71e13338f89507bc5156",
+      "query": "Find the text \"Rutile glider 82 submerged\"",
+      "query_type": "exact",
+      "substitution": null
+    },
+    {
+      "query_id": "19f006f1f892acd7c03dcaf15583cfd6",
+      "query": "I need an ocean glider mission display.",
+      "query_type": "paraphrase",
+      "substitution": null
+    },
+    {
+      "query_id": "817bce720e5774a8b1b5b2bfc363e0c7",
+      "query": "Show the steel timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "visual",
+      "substitution": null
+    },
+    {
+      "query_id": "d3fd1ab8ee8863545135e74ceeb1d028",
+      "query": "Find Rutile glider 82 submerged on the steel timeline surface with 2 small rounded marks along its left rail",
+      "query_type": "mixed",
+      "substitution": null
+    },
+    {
+      "query_id": "7110750a6cef357e4c18547e52fb6015",
+      "query": "Find the wedding seating diagram",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "11784aa593e90c1541e524e0e9e65d45",
+      "query": "Find the football penalty chart",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "60ed543636c8b24cb364998eecd77b74",
+      "query": "Find the pizza delivery address",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "12c8fa389390d17f470cd34ccdf0c238",
+      "query": "Find the real estate mortgage quote",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "3ec6e1f5ebc5a775e3532ce4c9c0b2bb",
+      "query": "Find the airport baggage carousel",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "e3168d324b161f1f69a4ed290aa9e039",
+      "query": "Find the wool sock size guide",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "5104bc3f8a5c84cda496486c29cc2838",
+      "query": "Find the school lunch allergen menu",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "26144fc5e677f6a590ff5fcafa4cb014",
+      "query": "Find the museum ticket barcode",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "28b7ae53302751778133e3d7948c5f28",
+      "query": "Find the dental appointment reminder",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "7256ba29887d385f29066bf06f95b870",
+      "query": "Find the motorcycle oil change bill",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "179ec2be318c205a038b8ecf6ed07ab6",
+      "query": "Find the beach volleyball bracket",
+      "query_type": "negative",
+      "substitution": null
+    },
+    {
+      "query_id": "b9e0cc1e51711f60cf86e30893b65b0c",
+      "query": "Find the laundry washing symbols",
+      "query_type": "negative",
+      "substitution": null
+    }
+  ],
+  "labels": [
+    {
+      "label_id": "1f8b7b492cd70cbcd246f79a101f8d39",
+      "item_id": "4c887cb23b5babee9455c8eb1108623b",
+      "targets": [
+        {
+          "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              347,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "04d84a37165298700ea74504a66ab2e1",
+      "item_id": "6b63d1518360513e2da5eaaa18309609",
+      "targets": [
+        {
+          "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              347,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "dc86210756c0e97813a4a425ca269f7a",
+      "item_id": "e5462099e79590fb898fe77d8bdcb3bb",
+      "targets": [
+        {
+          "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              347,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "747879310325684d42363ec92d7a207a",
+      "item_id": "601a4a8b770aeee1bfada66b0bf75920",
+      "targets": [
+        {
+          "asset_id": "4da2d5a6475d3618b406d1bba9722dbe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              347,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "509735dd05ff5c6a66823be422b463bf",
+      "item_id": "d0cd1b1775cfe328d891438bf73276e0",
+      "targets": [
+        {
+          "asset_id": "24f6094334d7461fe98b06867032e377",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              359,
+              175
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "150ac6570ce3aff1dcf09dc1cd22f7e8",
+      "item_id": "2c4a8a030c2681f2217804522fa1a81f",
+      "targets": [
+        {
+          "asset_id": "24f6094334d7461fe98b06867032e377",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              359,
+              175
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "38223a8eca7621155a21e3a6391f5ee5",
+      "item_id": "b7645c55de2e03727857feb7cce3dd9a",
+      "targets": [
+        {
+          "asset_id": "24f6094334d7461fe98b06867032e377",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              359,
+              175
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f26138fdbc6f306a85229206a3f2b078",
+      "item_id": "5f899f24a16c241424a903d30ab981ab",
+      "targets": [
+        {
+          "asset_id": "24f6094334d7461fe98b06867032e377",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              359,
+              175
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "983b6a6c18c6a86271fb2d4c59a85bae",
+      "item_id": "194e7cb0f3d604b8393ae97d32560b36",
+      "targets": [
+        {
+          "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              378,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "e0156d0ad115d05371ea5c2fb213b9c3",
+      "item_id": "e920e4bcf5b473440af785f6dd7a141b",
+      "targets": [
+        {
+          "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              378,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "554f86086ef3c2e951ccc103fb26c4d7",
+      "item_id": "754bb37cbf1f2e4b812dbc912fa48924",
+      "targets": [
+        {
+          "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              378,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "37924a9950b3910a9d3785d2db8a813f",
+      "item_id": "a226d8b19e6c66a797c59cdc0832079d",
+      "targets": [
+        {
+          "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              378,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a19825c28b93d3f3c41e7fcdd7f55c17",
+      "item_id": "0ef428b29bae1563675ad761efa6751e",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2ac5e449f7cc61b39469148e6b817054",
+      "item_id": "36aa6c6d80d254e6d2d985bb4b565dac",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "5258c40f65ca864ab4ecad97a7e8346f",
+      "item_id": "75f60e7a0e3dfef870eb0761d1cd875b",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "57bedeb462dd8a82186e479b3b73f190",
+      "item_id": "96ab2bd6a360b2c0e62663e35c872d73",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d676d7f674f362a2f8c699fb59f60022",
+      "item_id": "5dd9426e3816d7eb8b78752f2fd2874d",
+      "targets": [
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "92683d80ddb40185500a792cb9ab5b26",
+      "item_id": "9c837057b95750f3748c503e6928830b",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a72cf0a58bd7c789aa24dd06798295c5",
+      "item_id": "283219ca4f2779a016b46da235c76b82",
+      "targets": [
+        {
+          "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              321,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "bffa079cf44d88a5dd694316b45752ba",
+      "item_id": "738f305ff01b5fc28a88e7f23be88774",
+      "targets": [
+        {
+          "asset_id": "2423add59a451523de3e501ce8a0727c",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              320,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "5e16255ba0552998c79462b386a1c6bf",
+      "item_id": "1d83820f95085e5082451f5ae9347e9c",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "334b97b37ec788ad81f8614312fbab18",
+      "item_id": "5b349915e4ae65ab42371df95b8ec983",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        },
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2ca17c843c13608fd84cf93d3626f64a",
+      "item_id": "bfb6194f45ca09a3d34c7b7d09a339f0",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        },
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "7115ae2b547133395b49741a666b93f5",
+      "item_id": "04980c24947d7aab8211d1b9b6a41a91",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "ee58b5e74d7cffab298ab3d46c0a05f8",
+      "item_id": "6c04e73337422dc0affe6a82426a6280",
+      "targets": [
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "459c6995e4018a291cddc5c4e33b2604",
+      "item_id": "c891550b8fe30b8d5bff81e49cce655e",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        },
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "7ec991745b03671b734c5d4f04e3253f",
+      "item_id": "d826923495b67f8993bf09c5bcb88969",
+      "targets": [
+        {
+          "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        },
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "e9f94b1354beee51223dedb06a9bb19a",
+      "item_id": "6fa1ae824ace770c73d20f7acd3e192a",
+      "targets": [
+        {
+          "asset_id": "1e369b0f6128ae8446f8103e73ca60db",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              275,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "da91c25358b8f7ede3f2e6d673992e86",
+      "item_id": "18ef39b5ee8954a59fdb2340e0e47a47",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "9f474efb0ebc05ba97cee403cf1b33e9",
+      "item_id": "ec49df505856707caba9970f3de08c3b",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f85ddd8f44b96db6b504060c72a61c6b",
+      "item_id": "94781d9976db1620c7256cb100ddc07f",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "1202e5feb933c6a98be151f57fc4352e",
+      "item_id": "e6bbcae495b8b812951acbd586293fa5",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f717618edc2b990b2518d3ca64ee2f78",
+      "item_id": "2231dc145e64ebd81102f816385624b7",
+      "targets": [
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2405d9e0887ac36d9105f46761206ad2",
+      "item_id": "7a4d58110975debaaf147daf5c6f1aa8",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "6e7be167d8e073120ff4b877a56464ef",
+      "item_id": "896029125b7161aa9ca0951aaf803e05",
+      "targets": [
+        {
+          "asset_id": "130299e2d86b5e1c90c8c7a3cc1f19bf",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              298,
+              158
+            ]
+          }
+        },
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d25d77e9343f5c0355838751a9994959",
+      "item_id": "8136b9af6007a6404eb31b7c541775a7",
+      "targets": [
+        {
+          "asset_id": "c3c589d2cfecdeb0ef7df63576296f2f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              302,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "9c8d85ee135bb920c4f8dcb1238f6bb3",
+      "item_id": "5562738a42baa1b2b6ad9f62802e72a6",
+      "targets": [
+        {
+          "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+          "spatial_target": null
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "81d4c3471b32ef10ac0e2a40ea4955c5",
+      "item_id": "ed67225e94eea7c256e3017a82763267",
+      "targets": [
+        {
+          "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+          "spatial_target": null
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "dfe4e981eb82e4aff73e2a1266abc231",
+      "item_id": "e9c988ac0aaa805eb16c57660d94f37f",
+      "targets": [
+        {
+          "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+          "spatial_target": null
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "1f5c4e46717e149651fcccdd3bf626a6",
+      "item_id": "00d4a0ea4967997e94cf6b65a40175b6",
+      "targets": [
+        {
+          "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+          "spatial_target": null
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "df19904054914c3ec94794e57e2c6deb",
+      "item_id": "46aafcb4d54dd1a06ddc2f8ba3dd870e",
+      "targets": [
+        {
+          "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "primary-icon",
+            "bbox_source_px": [
+              288,
+              82,
+              449,
+              243
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2d195d1555d3876337664dfada3d33b7",
+      "item_id": "ed7f64555df1482732ae61c606bec4a7",
+      "targets": [
+        {
+          "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "primary-icon",
+            "bbox_source_px": [
+              288,
+              82,
+              449,
+              243
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "ffc25f522f1f77e10d4d9ea9404a1519",
+      "item_id": "9c5cab6752c83972c32690a5db7c540e",
+      "targets": [
+        {
+          "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "primary-icon",
+            "bbox_source_px": [
+              288,
+              82,
+              449,
+              243
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "b6005b6e395d3c1025e4d263f6bd30de",
+      "item_id": "b5edea78198a3df132a64427d5a0c060",
+      "targets": [
+        {
+          "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "primary-icon",
+            "bbox_source_px": [
+              288,
+              82,
+              449,
+              243
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "12db5aea5bf1a7c5b39d7ae17a70af66",
+      "item_id": "f3c0c7fa3a3ab5b29041eeb38ef2c0d9",
+      "targets": [
+        {
+          "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              352,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "354a9acbe646b8ae488e3acc72caba35",
+      "item_id": "922b6add7130e161941a9d53f55b17d8",
+      "targets": [
+        {
+          "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              352,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a4bb72c827a1c997a5104e9ff0d2fb41",
+      "item_id": "3ff8cd54858c68349fe3d165ecd54a1b",
+      "targets": [
+        {
+          "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              352,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "6087c358fcdc9ad554b4bc0d49982d57",
+      "item_id": "a88d15ae4ee13663ec2863d97df98203",
+      "targets": [
+        {
+          "asset_id": "0bd6c68375c3d0109dae35307e5caf71",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              352,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "eb0195ec7585b1fefe7a1243753d5a7b",
+      "item_id": "3c5ea8e560640ad220725b02bbe9cfdc",
+      "targets": [
+        {
+          "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              395,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f627c20bfc97a5900e18548eb51a15b1",
+      "item_id": "1e9df46f991e8d68cb8ce8bad527836f",
+      "targets": [
+        {
+          "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              395,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "1d69c74c60df8683cf52da953aa1220b",
+      "item_id": "374b7134691962e296b6c46b98580994",
+      "targets": [
+        {
+          "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              395,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "c28efb462fc1b4f3572836f018ec5906",
+      "item_id": "1b8e51018cd1bb6439a9f49d39c55aed",
+      "targets": [
+        {
+          "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              395,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "4cc688602d38b56d46f65215158ae383",
+      "item_id": "ff47fcb07f9869a7ca04fbe95164e75e",
+      "targets": [
+        {
+          "asset_id": "caeedd651e2d7d92358569c967ae803e",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              366,
+              174
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a0382d3a7c9cf311cd701112e9c494bc",
+      "item_id": "44b1f3e4e8c01d22ddaf19596d1c5173",
+      "targets": [
+        {
+          "asset_id": "caeedd651e2d7d92358569c967ae803e",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              366,
+              174
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "8778a011f453a2b19b248001264a9f11",
+      "item_id": "08194c116edf0f486d506f0f7aa19139",
+      "targets": [
+        {
+          "asset_id": "caeedd651e2d7d92358569c967ae803e",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              366,
+              174
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f5aeb8146ca0b7df7abd9dcbee593e36",
+      "item_id": "aea4a9a3751a9975d02bdbc6cf12fb73",
+      "targets": [
+        {
+          "asset_id": "caeedd651e2d7d92358569c967ae803e",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              366,
+              174
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f12c610f8b24fa252ca959c108b2db40",
+      "item_id": "5a96c4ab6981a3f00c99b4e01275c791",
+      "targets": [
+        {
+          "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              394,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2b5457fcfc1dd7a64a4f67e1dd590a30",
+      "item_id": "960f46144aed7468e0664f2ff016cc25",
+      "targets": [
+        {
+          "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              394,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "55398488800679885a4d3fdbe81cafec",
+      "item_id": "db08caf205b7cf0e5ceb9114b070778f",
+      "targets": [
+        {
+          "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              394,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d3474adae28326a0e8d21c9942ac5bd3",
+      "item_id": "53d2d78d9d637e5ab963e65e464a022e",
+      "targets": [
+        {
+          "asset_id": "886e3509e1f345b05894f6bce8a41b25",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              394,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d01ee0a239e9a8275c0b1ab36b1f7363",
+      "item_id": "c454c0c174fac8e44e93393d899aee92",
+      "targets": [
+        {
+          "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "6b93833a492a5b2926737c6b783395fe",
+      "item_id": "64495355ac022892d43151426e51f6d3",
+      "targets": [
+        {
+          "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "b28418ac97dc1514afd14cfdae4c5a7d",
+      "item_id": "2d6c82415c1e8ee10cc9c84453afa6cb",
+      "targets": [
+        {
+          "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a86848dfaf44b6e0d5cbdb544fba0657",
+      "item_id": "bf7d44f80bff09e7ea751084c3374f96",
+      "targets": [
+        {
+          "asset_id": "129dba7b33b5b13cddfb6757d9a89f91",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "c0d210e7757e1b91b5230aeb76b5713c",
+      "item_id": "b2921b87e6f527a100c96dd0931e520b",
+      "targets": [
+        {
+          "asset_id": "a0bbe42f62320097694112643bb46ebe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              349,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "66c36b7da78979c54e2f13560ce4dbfb",
+      "item_id": "c0114bcbd5468232e156fddaf1812739",
+      "targets": [
+        {
+          "asset_id": "a0bbe42f62320097694112643bb46ebe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              349,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "96f4ed8b7d1f27ef9704cb1d78cc24f1",
+      "item_id": "a90b52817ca47da89b28213f4c194a55",
+      "targets": [
+        {
+          "asset_id": "a0bbe42f62320097694112643bb46ebe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              349,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d59919b2c97639d5ee544fdaf06ec414",
+      "item_id": "f28bfe070a5dcd64f6eece444eda880f",
+      "targets": [
+        {
+          "asset_id": "a0bbe42f62320097694112643bb46ebe",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              349,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "cfea3ccfda609893bd0c163985d76c90",
+      "item_id": "e4f6dba88c179ca5c2f7d007a393cf96",
+      "targets": [
+        {
+          "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              348,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "6a24c94343921618d18e5cd9f6552d9a",
+      "item_id": "04939b1e310a4cf588392161adf6eeca",
+      "targets": [
+        {
+          "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              348,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "3d81946de32be95751d5c3066f8ed1dc",
+      "item_id": "22d858f3bfc790498afabc43f3a23fbf",
+      "targets": [
+        {
+          "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              348,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "07370640caee0fbd0eefa64e3fe24b93",
+      "item_id": "99fefb9a180fd1b25bfa406ba41694de",
+      "targets": [
+        {
+          "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              162,
+              348,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "c2f780ac43d3c7ab4e454288150bf672",
+      "item_id": "368a5d4bee93fe8d8890a2d997a9cfc9",
+      "targets": [
+        {
+          "asset_id": "6a444b19955afc664b456394b0b373f3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              358,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "3b440f59cb019cad6d967955a4429156",
+      "item_id": "54e02288f521dfbe45e4005f48a98c26",
+      "targets": [
+        {
+          "asset_id": "6a444b19955afc664b456394b0b373f3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              358,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d1f59101a6ea8f752fdf54bce8e24c95",
+      "item_id": "5e51c7a4928902692c8d1aebe78affe1",
+      "targets": [
+        {
+          "asset_id": "6a444b19955afc664b456394b0b373f3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              358,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "f391f565ae1c19e61dc8c763bc620e85",
+      "item_id": "df1d3b59e960c6204382bf8860b8326d",
+      "targets": [
+        {
+          "asset_id": "6a444b19955afc664b456394b0b373f3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              358,
+              171
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "592bbbd6e0df620621daad7e273d5c14",
+      "item_id": "94fa5332bd330efd904703be7f3b9b12",
+      "targets": [
+        {
+          "asset_id": "59786e0329889fb079ba0f121303a01a",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              327,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "1c8f7df93298e0c09fb843b591bcac5d",
+      "item_id": "b61fc05b99b71d989000af3ec6b7a126",
+      "targets": [
+        {
+          "asset_id": "59786e0329889fb079ba0f121303a01a",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              327,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "7a63b212a7a7d5ec25f98a4b00310761",
+      "item_id": "7862a3a76eb979563806dc0cf5a75f8d",
+      "targets": [
+        {
+          "asset_id": "59786e0329889fb079ba0f121303a01a",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              327,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2079ab8cb096f4824f3a9aa29b981d61",
+      "item_id": "f0f50a1af516ab3a1900dad12b655a1c",
+      "targets": [
+        {
+          "asset_id": "59786e0329889fb079ba0f121303a01a",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              327,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "6f5e3a9fc47300244ca7015ac420ba69",
+      "item_id": "7f5624a15d2e9853a355ebc64d6c86f9",
+      "targets": [
+        {
+          "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              337,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "9d83f5acd979e806757caa033a2b9373",
+      "item_id": "1ff3ce4decc7302f8fb418e2aae81639",
+      "targets": [
+        {
+          "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              337,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a1e8eda18f5b63aafd46b6589ed956ff",
+      "item_id": "c4767e6aec7c665692e1f2b5b12e19b7",
+      "targets": [
+        {
+          "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              337,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "235dad036fe291af3a7311e065ec896e",
+      "item_id": "251107ffeb531c187ca7e22c5e56c2cb",
+      "targets": [
+        {
+          "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              146,
+              337,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a313aad01d56c0957895bf1b6f796af2",
+      "item_id": "4e5d0b82ccd9118a4c4aa5bdd0f3f96a",
+      "targets": [
+        {
+          "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              321,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "63aabe03dabaae821db4a42dfdc6dc80",
+      "item_id": "b74ea03e63eafb4366fc987cdeadeeb6",
+      "targets": [
+        {
+          "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              321,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "c0d09a543e3ac5bc750396c4f7d7fd9a",
+      "item_id": "9f3f2b981280a85524cff3f05e64b6db",
+      "targets": [
+        {
+          "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              321,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "73dceca77a3c0cd523deaf2ac3ab573d",
+      "item_id": "e32c092c2fdacd21826494853a8fc06b",
+      "targets": [
+        {
+          "asset_id": "44aec6107c6858b3fd2e47a136b5090f",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              321,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "b8cee48f85e2d9461e7323f795d4c3db",
+      "item_id": "67faad62299312b533cdd1a4de83b950",
+      "targets": [
+        {
+          "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              156,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d9e3e727feccf3498f8d38f578fa688f",
+      "item_id": "253506cc30127eb968aeb81796a508a4",
+      "targets": [
+        {
+          "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              156,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "dad279f80bcac47d251da3098d640c31",
+      "item_id": "b2c686820d439df0bae0146cb2d232a6",
+      "targets": [
+        {
+          "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              156,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a72b2cd8b396017df490ffe54bf937f5",
+      "item_id": "55137ba18a43d4d6a68d0b539c611a49",
+      "targets": [
+        {
+          "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              156,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "e93007466e85724d01a33ba6b18a2354",
+      "item_id": "5f30b4544f7d427058597bc3b9fa6e8b",
+      "targets": [
+        {
+          "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "b67fb599b316b2e420fc30de45749fd2",
+      "item_id": "1a06b9d099ed9f1b2e4aa7dcc4283fab",
+      "targets": [
+        {
+          "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "8c664d2bdc25d79b91e017a43076eb9e",
+      "item_id": "29eb045d66c3e9f7fde4de572652ae4c",
+      "targets": [
+        {
+          "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "bde0a5792135bbe5e611f0676f0a9619",
+      "item_id": "f5e28a6b31d4210555ba189b0b594776",
+      "targets": [
+        {
+          "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              145,
+              330,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d3bcc3ccf4a8e2a1dedc286dc9c67470",
+      "item_id": "ec5c6d4610d39ea97f4305139d9bfad4",
+      "targets": [
+        {
+          "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              370,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "45b1f8458dc7f969273114eeffc8eeab",
+      "item_id": "094b86e7c1e31fa2abcda5653ecfd017",
+      "targets": [
+        {
+          "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              370,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "82e7a28aba0169d6aaf165144deb565c",
+      "item_id": "be45538411852c6cc1334b5e059d4ec2",
+      "targets": [
+        {
+          "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              370,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "65e7c0d3f550eb51cb27fc315fe614fe",
+      "item_id": "66c0dc9e37ab60078da4741db4d1ce5f",
+      "targets": [
+        {
+          "asset_id": "416257ab4f5aed507a851cbeabde6f28",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              370,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "32fe0af5ebff00c188535454803cb6c0",
+      "item_id": "5b5966134adc3f1e363d90592e6d9db2",
+      "targets": [
+        {
+          "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              347,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "aa567c177b46113f17ba3a28dc3d0ff4",
+      "item_id": "7ebcc727a6bd264d78ba5acd3e59d7c5",
+      "targets": [
+        {
+          "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              347,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "d4abd8b4999890f24862063138a89e95",
+      "item_id": "81e9d0ee78f3e33b65d9b92c168b73f4",
+      "targets": [
+        {
+          "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              347,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "e6c947c45be449e95f906afaedcf4d43",
+      "item_id": "5cb2630cc168203c8b2d7701936c9807",
+      "targets": [
+        {
+          "asset_id": "f8e3c5c5c58453a469b58b31b3eb7ad4",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              347,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "641beeec6f72b67970f306220212dbf5",
+      "item_id": "d35631ae706affa9aef1487de01d5597",
+      "targets": [
+        {
+          "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "4566c2f30d0692211435e010e38f4454",
+      "item_id": "2724cc2bdc379bc21193a82e6992f329",
+      "targets": [
+        {
+          "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "dac86408afbc52f221e4abb01b29628c",
+      "item_id": "b27c91d49fc5cdaa3957a8ad7b8579ab",
+      "targets": [
+        {
+          "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "8db641be34eb0b53dd80071359a73d25",
+      "item_id": "61b83eb57044511ce460ccf6462716b7",
+      "targets": [
+        {
+          "asset_id": "46feb9cfbd2587d6fb2006e8f3d3e708",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              182,
+              155,
+              368,
+              168
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "292ef5b9d8040a203d7d43d306831b0b",
+      "item_id": "dc4b3e1742bb204032b34aca2ea76071",
+      "targets": [
+        {
+          "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              146,
+              350,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "aa0b202fb7986d202b6a292e3fa9e62d",
+      "item_id": "85d6afbda267baf4299a08a12cf1ee3b",
+      "targets": [
+        {
+          "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              146,
+              350,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a51274637de10f444190944f33f97c46",
+      "item_id": "d2d7f1103526d7e2b887e7b468cb796a",
+      "targets": [
+        {
+          "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              146,
+              350,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "e7617f1ed5cab88f04bd79d46c8f54bf",
+      "item_id": "65a635877bbc39766c2e6701a20b6faa",
+      "targets": [
+        {
+          "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              148,
+              146,
+              350,
+              161
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "c97a17c84f14963158549a45822c8383",
+      "item_id": "1f12f9789322e2297eefcc710c2af7e0",
+      "targets": [
+        {
+          "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              341,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "ec634ccdd1fa82866fe5a5a69968c8dd",
+      "item_id": "7d43f307ca35bcecb10bec5fdf2c933c",
+      "targets": [
+        {
+          "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              341,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "94b8cb7aebd6312a28a4285bf6dd2dae",
+      "item_id": "a6df7173330810c245bae4bf045dd2f5",
+      "targets": [
+        {
+          "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              341,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "ee7eb7db8c40684348fa021cdd0fbb13",
+      "item_id": "26dd9875cd1ebc32cd1ff5d37834b124",
+      "targets": [
+        {
+          "asset_id": "0f74df5605fa1b9f9a7d25c2e6c74e8b",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              179,
+              145,
+              341,
+              158
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "fe1f50e95e4eeceea7a766515e7ba26c",
+      "item_id": "67cca6c4390a71e13338f89507bc5156",
+      "targets": [
+        {
+          "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              354,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "944f9b003fc83ca361a4cb0dada911a8",
+      "item_id": "19f006f1f892acd7c03dcaf15583cfd6",
+      "targets": [
+        {
+          "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              354,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "2705c698bb177cce3efcfa02e9fa76c3",
+      "item_id": "817bce720e5774a8b1b5b2bfc363e0c7",
+      "targets": [
+        {
+          "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              354,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "a5dc026c8308b05ec1a04aba9c9d617b",
+      "item_id": "d3fd1ab8ee8863545135e74ceeb1d028",
+      "targets": [
+        {
+          "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+          "spatial_target": {
+            "page_index": 0,
+            "element_id": "focus",
+            "bbox_source_px": [
+              151,
+              161,
+              354,
+              177
+            ]
+          }
+        }
+      ],
+      "negative_context_group_id": null
+    },
+    {
+      "label_id": "addbaf3fc3585905936330bb3224f7b4",
+      "item_id": "7110750a6cef357e4c18547e52fb6015",
+      "targets": [],
+      "negative_context_group_id": "c5b799514b38c82fa6be6b55d49b74f2"
+    },
+    {
+      "label_id": "a184ef3caf8ed1836f6495f0825cd04b",
+      "item_id": "11784aa593e90c1541e524e0e9e65d45",
+      "targets": [],
+      "negative_context_group_id": "7aed6e917887d6f12f52c5905830bb67"
+    },
+    {
+      "label_id": "8d2f3ba31007863091e90eb4795c3212",
+      "item_id": "60ed543636c8b24cb364998eecd77b74",
+      "targets": [],
+      "negative_context_group_id": "a45e4cbac043386a4ff2ebe26ae0d231"
+    },
+    {
+      "label_id": "4d00c2c44627b64169c1d6d02b0c2831",
+      "item_id": "12c8fa389390d17f470cd34ccdf0c238",
+      "targets": [],
+      "negative_context_group_id": "6aff84e8a71d24f19c6be70914a4feb0"
+    },
+    {
+      "label_id": "14159b450685124c92a715614eff2654",
+      "item_id": "3ec6e1f5ebc5a775e3532ce4c9c0b2bb",
+      "targets": [],
+      "negative_context_group_id": "4f42149076e4016782740c7d072681ba"
+    },
+    {
+      "label_id": "e637adb74ff008eb2d040cd4e1c23a7c",
+      "item_id": "e3168d324b161f1f69a4ed290aa9e039",
+      "targets": [],
+      "negative_context_group_id": "c1d8e3bea949638ed2a982f2dcd9ed01"
+    },
+    {
+      "label_id": "8992289d0ec380261634583df0b9988d",
+      "item_id": "5104bc3f8a5c84cda496486c29cc2838",
+      "targets": [],
+      "negative_context_group_id": "be9d0153d920d2fc18269282c94a5a07"
+    },
+    {
+      "label_id": "3ae7bb24d8a88ca8a04ae1a28a566e66",
+      "item_id": "26144fc5e677f6a590ff5fcafa4cb014",
+      "targets": [],
+      "negative_context_group_id": "00d8e11d493cf95a29df82972208454d"
+    },
+    {
+      "label_id": "6e14295de7d3c9f97e404f2fb93ac570",
+      "item_id": "28b7ae53302751778133e3d7948c5f28",
+      "targets": [],
+      "negative_context_group_id": "99cb727e4ebca529f625d4ec4c3d7deb"
+    },
+    {
+      "label_id": "57f940a13926fd034d600b09e5f26f06",
+      "item_id": "7256ba29887d385f29066bf06f95b870",
+      "targets": [],
+      "negative_context_group_id": "5f56be000c6537b601832a1f879267ce"
+    },
+    {
+      "label_id": "be29961aed1c4d93d8bd84bd2fdf2ef5",
+      "item_id": "179ec2be318c205a038b8ecf6ed07ab6",
+      "targets": [],
+      "negative_context_group_id": "695300b7f9b9fec2dfe3479810cdd2cc"
+    },
+    {
+      "label_id": "8748ea2cd536bf7dd0c2646e39547d04",
+      "item_id": "b9e0cc1e51711f60cf86e30893b65b0c",
+      "targets": [],
+      "negative_context_group_id": "3447324301c4d6931f82d56036fb6b63"
+    }
+  ],
+  "counts": {
+    "images": 30,
+    "positive_queries": 120,
+    "negative_queries": 12,
+    "queries": 132,
+    "labels": 132,
+    "groups": 27,
+    "scenarios": 30,
+    "encoded_gallery_bytes": 412314
+  }
+}

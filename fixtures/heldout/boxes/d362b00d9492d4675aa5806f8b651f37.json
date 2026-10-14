@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "d362b00d9492d4675aa5806f8b651f37",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "e132b41d93fe13b0fcb2ecd1f3eea06ff8c05711bfac565d160f4cf94c7192f2",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "088f22190579120b9d6b1332a937a8e926a23a510146673c835462b79c803e70",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Helix comet sail",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        320,
+        68
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Helix sail 72 unfurled",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        179,
+        142
+      ],
+      "bbox_source_px": [
+        179,
+        146,
+        337,
+        158
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "HELIX COMET SAIL",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        176
+      ],
+      "bbox_source_px": [
+        179,
+        178,
+        293,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        217
+      ],
+      "bbox_source_px": [
+        179,
+        218,
+        322,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "rail",
+    "motif_count": 5,
+    "accent": "cobalt"
+  }
+}

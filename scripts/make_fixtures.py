@@ -1,0 +1,1249 @@
+"""Original S7 synthetic fixtures. No retrieval, OCR, model or network execution.
+
+The committed PNGs are the portable input. Rerender verification requires the
+recorded Windows fonts; this script never distributes those font files. Existing
+different artifacts require a separately approved successor, never a hidden seal.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import platform
+import re
+import sys
+from collections import Counter
+from hashlib import sha256
+from io import BytesIO
+from pathlib import Path
+from types import ModuleType
+
+from PIL import Image, ImageChops, ImageDraw, ImageFont
+from PIL import __version__ as pillow_version
+
+ROOT = Path(__file__).resolve().parents[1]
+TEMPLATES = ROOT / "fixtures/templates/scenes.v1.json"
+SEEDS = {"dev": 731701, "heldout": 731702}
+FONT_INPUTS = {
+    "arial": (
+        "C:/Windows/Fonts/arial.ttf",
+        "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a",
+    ),
+    "consolas": (
+        "C:/Windows/Fonts/consola.ttf",
+        "cf00b507b3286870cc5064ebd0633c303f70b491a4af25eec2d32df413db0179",
+    ),
+}
+ID_RE = re.compile(r"^[0-9a-f]{32}$")
+SCHEMA = "S7-provisional-fixture-subset/1"
+UNAVAILABLE = [
+    "owner_canonical_manifest",
+    "actual_scorer_config",
+    "experiment_config",
+    "model_versions",
+    "model_execution",
+    "price_snapshot",
+    "human_gold_agreement",
+    "native_ocr_word_line_results",
+]
+HISTORICAL_PRODUCER_SHA256 = "d5afd012a74a4b0d25c06ef7913055c8ffad156ff358a984cfe4edf243d8455a"
+HISTORICAL_PRODUCER_RELATIVE_PATH = "fixtures/templates/producer-v1.source"
+
+
+def canon(value: object) -> bytes:
+    """Granted canon/1 subset: actual sorted compact UTF-8 bytes, no normalization."""
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode("utf-8")
+
+
+def digest(data: bytes) -> str:
+    return sha256(data).hexdigest()
+
+
+def opaque(namespace: str, split: str, key: object) -> str:
+    return digest(canon(["S7-fixture-v1", namespace, split, key]))[:32]
+
+
+def grid_header(width: int, height: int) -> dict:
+    return {
+        "algorithm": "rgba8-source-grid-v1",
+        "width_px": width,
+        "height_px": height,
+        "mode": "RGBA8",
+        "row_order": "top-to-bottom",
+        "channel_order": "RGBA",
+    }
+
+
+def grid_preimage(image: Image.Image) -> bytes:
+    rgba = image.convert("RGBA")
+    return canon(grid_header(*rgba.size)) + b"\n" + rgba.tobytes()
+
+
+def read_templates() -> dict:
+    data = json.loads(TEMPLATES.read_bytes())
+    if data.get("schema") != "S7-original-scene-templates/1" or len(data.get("scenes", [])) != 60:
+        raise ValueError("Malformed original template collection")
+    return data
+
+
+def runtime_inputs() -> dict:
+    fonts = {}
+    for name, (path, expected) in FONT_INPUTS.items():
+        actual = digest(Path(path).read_bytes())
+        if actual != expected:
+            raise ValueError(f"Font input differs: {name}; no fallback/rerender permitted")
+        fonts[name] = {"local_path": path, "sha256": actual, "redistributed": False}
+    if pillow_version != "10.4.0" or platform.python_version() != "3.12.13":
+        raise ValueError(
+            "Expected parent-managed Python 3.12.13/Pillow 10.4.0; no environment sync permitted"
+        )
+    return {
+        "python": platform.python_version(),
+        "pillow": pillow_version,
+        "renderer": "Pillow ImageDraw original element authoring",
+        "renderer_revision": 1,
+        "fonts": fonts,
+        "png": {"mode": "RGBA", "compress_level": 9, "optimize": False},
+        "templates_sha256": digest(TEMPLATES.read_bytes()),
+        "generator_sha256": digest(Path(__file__).read_bytes()),
+        "seed_policy": (
+            "Pinned seed selects deterministic stripe marks; "
+            "templates/content/layout independently authored across splits."
+        ),
+    }
+
+
+def fonts() -> dict:
+    return {
+        "heading": ImageFont.truetype(FONT_INPUTS["arial"][0], 25),
+        "body": ImageFont.truetype(FONT_INPUTS["arial"][0], 17),
+        "small": ImageFont.truetype(FONT_INPUTS["consolas"][0], 13),
+        "tiny": ImageFont.truetype(FONT_INPUTS["consolas"][0], 11),
+    }
+
+
+def render_scene(scene: dict, seed: int) -> tuple[Image.Image, list[dict], dict]:
+    """Return actual draw.textbbox metrics, in original source-pixel space."""
+    w, h = scene["width_px"], scene["height_px"]
+    split, n, kind = scene["split"], scene["ordinal"], scene["stratum"]
+    if kind == "blank":
+        bg = "#e4f4eb" if split == "dev" else "#fae9dd"
+        return (
+            Image.new("RGBA", (w, h), bg),
+            [],
+            {"background": bg, "layout": "unmarked field", "motif_count": 0, "accent": None},
+        )
+    image = Image.new("RGBA", (w, h), "#eeeae2" if split == "dev" else "#e8edf3")
+    d = ImageDraw.Draw(image)
+    f = fonts()
+    accent = scene["accent_hex"]
+    # Confuser pairs intentionally have identical geometry and nonfocus text.
+    index = n if scene["confuser_pair"] is None else 3 + 2 * scene["confuser_pair"]
+    motifs = 1 + ((seed + index) % 6)
+    elements: list[dict] = []
+
+    def text(
+        element_id: str, xy: tuple[int, int], text_value: str, font_name: str, fill: str
+    ) -> list[int]:
+        bb = list(d.textbbox(xy, text_value, font=f[font_name]))
+        if not (0 <= bb[0] < bb[2] <= w and 0 <= bb[1] < bb[3] <= h):
+            raise ValueError(f"Text overflow: {scene['title']} / {element_id}")
+        d.text(xy, text_value, font=f[font_name], fill=fill)
+        elements.append(
+            {
+                "element_id": element_id,
+                "kind": "text",
+                "text": text_value,
+                "font_key": font_name,
+                "font_size_px": f[font_name].size,
+                "draw_origin_px": list(xy),
+                "bbox_source_px": bb,
+                "fill": fill,
+            }
+        )
+        return bb
+
+    if kind == "icon":
+        if split == "dev":
+            d.polygon([(w // 2, 104), (w // 2 - 88, 274), (w // 2 + 88, 274)], fill="#d76660")
+            icon_box = [w // 2 - 88, 104, w // 2 + 89, 275]
+            for j in range(3):
+                d.ellipse((w // 2 - 54 + j * 48, 318, w // 2 - 42 + j * 48, 330), fill="#d76660")
+            visual = {
+                "background": "warm gray",
+                "layout": "centered coral triangle above three dots",
+                "motif_count": 3,
+                "accent": "coral",
+            }
+        else:
+            d.ellipse((w // 2 - 80, 82, w // 2 + 80, 242), outline="#3479b6", width=18)
+            icon_box = [w // 2 - 80, 82, w // 2 + 81, 243]
+            for x in [w // 2 - 48, w // 2 + 48]:
+                d.polygon([(x, 294), (x + 22, 316), (x, 338), (x - 22, 316)], fill="#3479b6")
+            visual = {
+                "background": "cool gray",
+                "layout": "centered azure ring above two diamonds",
+                "motif_count": 2,
+                "accent": "azure",
+            }
+        elements.append(
+            {
+                "element_id": "primary-icon",
+                "kind": "shape",
+                "text": None,
+                "bbox_source_px": icon_box,
+                "fill": visual["accent"],
+            }
+        )
+        return image, elements, visual
+
+    if split == "dev":
+        d.rounded_rectangle((20, 20, w - 20, h - 20), radius=18, fill="#fffdf8")
+        d.rounded_rectangle((20, 20, w - 20, 94), radius=18, fill=accent)
+        text("heading", (42, 42), scene["title"], "heading", "#ffffff")
+        if scene["layout"] == "columns":
+            d.rectangle((40, 115, 158, h - 48), fill="#e1e7da")
+            x, y = 180, 138
+        elif scene["layout"] == "ledger":
+            for yy in range(117, h - 45, 34):
+                d.line((40, yy, w - 40, yy), fill="#d5d6cc", width=1)
+            x, y = 48, 138
+        elif scene["layout"] == "board":
+            d.rounded_rectangle((36, 116, w - 36, 230), radius=10, fill="#f1eee4")
+            d.rounded_rectangle((36, 246, w // 2 - 10, h - 46), radius=10, fill="#e9eee2")
+            d.rounded_rectangle((w // 2 + 10, 246, w - 36, h - 46), radius=10, fill="#eee5e6")
+            x, y = 54, 138
+        else:
+            for yy in [124, 244, 342]:
+                d.rectangle((42, yy, w - 42, yy + 8), fill="#d7c9b5")
+            x, y = 54, 156
+    else:
+        d.rectangle((0, 0, 108, h), fill=accent)
+        d.rounded_rectangle((126, 22, w - 22, h - 22), radius=12, fill="#fafcff")
+        text("heading", (145, 45), scene["title"], "heading", "#24334a")
+        if scene["layout"] == "timeline":
+            d.line((155, 124, w - 54, 124), fill=accent, width=5)
+            for xx in range(160, w - 60, 88):
+                d.ellipse((xx, 117, xx + 14, 131), fill=accent)
+            x, y = 151, 158
+        elif scene["layout"] == "folio":
+            d.rectangle((144, 116, w - 44, h - 60), outline="#acb8c8", width=3)
+            d.line((168, 117, 168, h - 60), fill="#acb8c8", width=1)
+            x, y = 182, 152
+        elif scene["layout"] == "orbit":
+            d.ellipse((w - 196, 240, w - 60, 376), outline=accent, width=4)
+            d.line((w - 215, 305, w - 40, 305), fill=accent, width=2)
+            x, y = 148, 142
+        else:
+            for yy in [115, 225, 335]:
+                d.rectangle((144, yy, 158, yy + 72), fill=accent)
+            x, y = 179, 142
+
+    fill = "#a6aaa4" if scene["low_contrast"] else "#243328"
+    text("focus", (x, y), scene["focus"], "body", fill)
+    text("subheading", (x, y + 34), scene["title"].upper(), "small", fill)
+    if kind == "dense":
+        # Original faux worksheet rows: small, dense and deliberately faint in two scenes.
+        for row in range(9):
+            yy = y + 70 + row * 17
+            if yy + 14 >= h - 25:
+                break
+            value = (
+                f"{row + 1:02d}  {scene['title'].split()[0]:<10}  "
+                f"{(seed + row * 13) % 997:03d}   "
+                f"{'review' if split == 'dev' else 'observe'}"
+            )
+            text(f"dense-row-{row}", (x, yy), value, "tiny", fill)
+    elif scene["injection"]:
+        box_y = y + 90
+        d.rectangle(
+            (x - 6, box_y - 8, w - 40, box_y + 70), fill="#fff0d0", outline="#c9a660", width=2
+        )
+        # Wrap at measured word widths, retaining every authored word.
+        words, lines, line = scene["injection"].split(), [], ""
+        for word in words:
+            trial = f"{line} {word}".strip()
+            if d.textlength(trial, font=f["small"]) > w - 48 - x:
+                lines.append(line)
+                line = word
+            else:
+                line = trial
+        lines.append(line)
+        for row, line in enumerate(lines):
+            text(f"untrusted-text-{row}", (x, box_y + row * 20), line, "small", "#765223")
+    else:
+        text(
+            "detail",
+            (x, y + 75),
+            "Hand-drawn fixture" if split == "dev" else "Fictional instrument",
+            "small",
+            "#697361",
+        )
+
+    # Actual motif count and positions are retained; no ID is rendered as text.
+    for j in range(motifs):
+        xx = 46 + j * 23 if split == "dev" else 32
+        yy = h - 42 if split == "dev" else 50 + j * 30
+        d.rounded_rectangle(
+            (xx, yy, xx + 12, yy + 12), radius=3, fill=accent if split == "dev" else "#e8eef8"
+        )
+    return (
+        image,
+        elements,
+        {
+            "background": "warm paper" if split == "dev" else "cool paper",
+            "layout": scene["layout"],
+            "motif_count": motifs,
+            "accent": scene["accent_name"],
+        },
+    )
+
+
+def png_bytes(image: Image.Image) -> bytes:
+    stream = BytesIO()
+    image.save(stream, format="PNG", compress_level=9, optimize=False)
+    return stream.getvalue()
+
+
+def pretty(value: object) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+
+
+def public_projection(manifest: dict) -> dict:
+    result = {
+        "schema": "S7-runtime-query-gallery/1",
+        "gallery": {
+            "gallery_id": manifest["gallery"]["gallery_id"],
+            "assets": [
+                {
+                    key: asset[key]
+                    for key in [
+                        "asset_id",
+                        "relative_path",
+                        "encoded_sha256",
+                        "width_px",
+                        "height_px",
+                    ]
+                }
+                for asset in manifest["gallery"]["assets"]
+            ],
+        },
+        "queries": [{"query_id": q["query_id"], "query": q["query"]} for q in manifest["queries"]],
+    }
+    validate_public(result)
+    return result
+
+
+def exact_keys(value: dict, keys: set[str], name: str) -> None:
+    if not isinstance(value, dict) or set(value) != keys:
+        raise ValueError(f"Unexpected/missing fields in {name}")
+
+
+def valid_id(value: object) -> bool:
+    return isinstance(value, str) and ID_RE.fullmatch(value) is not None
+
+
+def planned_output_paths(split: str) -> list[str]:
+    """Pure write preflight: never open fonts or build images to refuse a rerun."""
+    if split not in SEEDS:
+        raise ValueError("Unknown split")
+    paths = []
+    for ordinal in range(30):
+        asset_id = opaque("asset", split, ordinal)
+        paths.extend(
+            [
+                f"fixtures/{split}/images/{asset_id}.png",
+                f"fixtures/{split}/boxes/{asset_id}.json",
+                f"fixtures/{split}/boxes/{asset_id}.grid-header.canon",
+            ]
+        )
+    for kind in ("PROVISIONAL", "public.PROVISIONAL", "inventory.PROVISIONAL"):
+        paths.extend([f"gold/{split}.{kind}.json", f"gold/{split}.{kind}.canon"])
+    return paths
+
+
+def validate_public(value: dict) -> None:
+    """Allow-list projection, including nested objects: reject any private labels."""
+    exact_keys(value, {"schema", "gallery", "queries"}, "public root")
+    if value["schema"] != "S7-runtime-query-gallery/1":
+        raise ValueError("Unknown public schema")
+    gallery = value["gallery"]
+    exact_keys(gallery, {"gallery_id", "assets"}, "public gallery")
+    if (
+        not valid_id(gallery["gallery_id"])
+        or not isinstance(gallery["assets"], list)
+        or not isinstance(value["queries"], list)
+    ):
+        raise ValueError("Malformed public collection")
+    for asset in gallery["assets"]:
+        exact_keys(
+            asset,
+            {"asset_id", "relative_path", "encoded_sha256", "width_px", "height_px"},
+            "public asset",
+        )
+        if (
+            not valid_id(asset["asset_id"])
+            or asset["relative_path"] != f"images/{asset['asset_id']}.png"
+        ):
+            raise ValueError("Asset path/ID mismatch")
+        if not isinstance(asset["encoded_sha256"], str) or not re.fullmatch(
+            r"[0-9a-f]{64}", asset["encoded_sha256"]
+        ):
+            raise ValueError("Malformed raw hash")
+        for dimension in (asset["width_px"], asset["height_px"]):
+            if type(dimension) is not int or dimension <= 0:
+                raise ValueError("Malformed dimensions")
+    for query in value["queries"]:
+        exact_keys(query, {"query_id", "query"}, "public query")
+        if (
+            not valid_id(query["query_id"])
+            or not isinstance(query["query"], str)
+            or not query["query"].strip()
+        ):
+            raise ValueError("Malformed public query")
+
+
+def build_split(split: str, seed: int) -> tuple[dict[str, bytes], dict]:
+    if seed != SEEDS[split]:
+        raise ValueError(f"Pinned seed required for {split}: {SEEDS[split]}")
+    data, inputs = read_templates(), runtime_inputs()
+    scenes = [s for s in data["scenes"] if s["split"] == split]
+    files: dict[str, bytes] = {}
+    gallery_id, source_id = opaque("gallery", split, 0), opaque("source", split, 0)
+    manifest = {
+        "schema": SCHEMA,
+        "canon": "canon/1",
+        "status": "PROVISIONAL_AGENT_AUTHORED_SYNTHETIC_REFERENCES",
+        "not_claimed": UNAVAILABLE,
+        "split": split,
+        "seed": seed,
+        "provenance": inputs,
+        "gallery": {"gallery_id": gallery_id, "source_id": source_id, "assets": []},
+        "scenarios": [],
+        "groups": [],
+        "queries": [],
+        "labels": [],
+        "counts": {},
+    }
+    asset_by_ordinal, boxes_by_asset, groups = {}, {}, {}
+    for scene in scenes:
+        ordinal = scene["ordinal"]
+        asset_id = opaque("asset", split, ordinal)
+        scenario_id = opaque("scenario", split, ordinal)
+        group_key = (
+            f"pair-{scene['confuser_pair']}"
+            if scene["confuser_pair"] is not None
+            else f"single-{ordinal}"
+        )
+        group_id = opaque("group", split, group_key)
+        groups.setdefault(group_id, []).append(asset_id)
+        image, elements, visual = render_scene(scene, seed)
+        raw = png_bytes(image)
+        header = grid_header(*image.size)
+        boxes = {
+            "schema": "S7-authored-source-boxes/1",
+            "asset_id": asset_id,
+            "source_id": source_id,
+            "page_index": 0,
+            "width_px": image.width,
+            "height_px": image.height,
+            "coordinate_space": "displayed-source-pixel-top-left",
+            "encoded_sha256": digest(raw),
+            "source_grid_header": header,
+            "source_grid_sha256": digest(grid_preimage(image)),
+            "source_grid_preimage_recipe": (
+                "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; "
+                "recoverable exactly from frozen PNG"
+            ),
+            "native_ocr_executed": False,
+            "elements": elements,
+            "visual_authoring": visual,
+        }
+        png_path = f"fixtures/{split}/images/{asset_id}.png"
+        box_path = f"fixtures/{split}/boxes/{asset_id}.json"
+        files[png_path] = raw
+        files[box_path] = pretty(boxes)
+        files[f"fixtures/{split}/boxes/{asset_id}.grid-header.canon"] = canon(header)
+        manifest["gallery"]["assets"].append(
+            {
+                "asset_id": asset_id,
+                "relative_path": f"images/{asset_id}.png",
+                "encoded_sha256": digest(raw),
+                "source_grid_sha256": boxes["source_grid_sha256"],
+                "width_px": image.width,
+                "height_px": image.height,
+                "encoded_bytes": len(raw),
+                "boxes_relative_path": f"boxes/{asset_id}.json",
+                "boxes_sha256": digest(files[box_path]),
+            }
+        )
+        manifest["scenarios"].append(
+            {
+                "scenario_id": scenario_id,
+                "asset_id": asset_id,
+                "group_id": group_id,
+                "stratum": scene["stratum"],
+                "family": scene["family"],
+                "title": scene["title"],
+                "confuser_pair": scene["confuser_pair"],
+            }
+        )
+        asset_by_ordinal[ordinal], boxes_by_asset[asset_id] = asset_id, boxes
+    manifest["groups"] = [
+        {"group_id": group_id, "asset_ids": assets} for group_id, assets in groups.items()
+    ]
+
+    def target(asset_id: str) -> dict:
+        box = boxes_by_asset[asset_id]
+        focus = next(
+            (e for e in box["elements"] if e["element_id"] in {"focus", "primary-icon"}), None
+        )
+        spatial = (
+            {
+                "page_index": 0,
+                "element_id": focus["element_id"],
+                "bbox_source_px": focus["bbox_source_px"],
+            }
+            if focus
+            else None
+        )
+        return {"asset_id": asset_id, "spatial_target": spatial}
+
+    def add_query(
+        key: object,
+        text: str,
+        query_type: str,
+        targets: list[str],
+        substitution: str | None = None,
+        negative_group: str | None = None,
+    ) -> None:
+        query_id = opaque("query", split, key)
+        manifest["queries"].append(
+            {
+                "query_id": query_id,
+                "query": text,
+                "query_type": query_type,
+                "substitution": substitution,
+            }
+        )
+        manifest["labels"].append(
+            {
+                "label_id": opaque("label", split, key),
+                "item_id": query_id,
+                "targets": [target(a) for a in targets],
+                "negative_context_group_id": negative_group,
+            }
+        )
+
+    for scene in scenes:
+        n, asset_id = scene["ordinal"], asset_by_ordinal[scene["ordinal"]]
+        visual = boxes_by_asset[asset_id]["visual_authoring"]
+        pair = scene["confuser_pair"]
+        mates = (
+            [asset_by_ordinal[3 + pair * 2], asset_by_ordinal[4 + pair * 2]]
+            if pair is not None
+            else [asset_id]
+        )
+        if scene["stratum"] in {"blank", "icon"}:
+            description = scene["meaning"].rstrip(".")
+            queries = [
+                (
+                    f"Locate {description[0].lower() + description[1:]}",
+                    "visual",
+                    "exact-text replaced: image contains no text",
+                ),
+                (
+                    f"Which picture consists of {visual['layout']}?"
+                    if scene["stratum"] == "icon"
+                    else f"Find the completely blank {'mint' if split == 'dev' else 'peach'} field",
+                    "visual",
+                    "paraphrase-text replaced: image contains no text",
+                ),
+                (
+                    f"I remember a text-free picture: {description.lower()}",
+                    "mixed",
+                    "semantic/visual substitution; no exact-text assertion",
+                ),
+                (
+                    f"Recover the image with no lettering and {visual['layout']}"
+                    if scene["stratum"] == "icon"
+                    else (
+                        f"Recover an unmarked {'pale green' if split == 'dev' else 'pale orange'} "
+                        "rectangle with no objects"
+                    ),
+                    "mixed",
+                    "semantic/visual substitution; no exact-text assertion",
+                ),
+            ]
+            for j, (q, kind, substitution) in enumerate(queries):
+                add_query([n, j], q, kind, [asset_id], substitution)
+        else:
+            motif_words = "lower edge" if split == "dev" else "left rail"
+            description = (
+                f"the {scene['accent_name']} {scene['layout']} surface with "
+                f"{visual['motif_count']} small rounded marks along its {motif_words}"
+            )
+            add_query([n, 0], f'Find the text "{scene["focus"]}"', "exact", [asset_id])
+            add_query(
+                [n, 1],
+                f"I need {scene['meaning'][0].lower() + scene['meaning'][1:]}",
+                "paraphrase",
+                mates,
+            )
+            add_query([n, 2], f"Show {description}", "visual", mates)
+            add_query([n, 3], f"Find {scene['focus']} on {description}", "mixed", [asset_id])
+    negative_subjects = (
+        [
+            "silver submarine map",
+            "alphabetical opera cast",
+            "tropical cyclone radar",
+            "taxi fare receipt",
+            "satellite cloud photograph",
+            "lunar chess tournament",
+            "diamond ski rental",
+            "thermal aquarium scan",
+            "zebra passport stamp",
+            "purple locomotive timetable",
+            "rainbow currency exchange",
+            "electric violin repair invoice",
+        ]
+        if split == "dev"
+        else [
+            "wedding seating diagram",
+            "football penalty chart",
+            "pizza delivery address",
+            "real estate mortgage quote",
+            "airport baggage carousel",
+            "wool sock size guide",
+            "school lunch allergen menu",
+            "museum ticket barcode",
+            "dental appointment reminder",
+            "motorcycle oil change bill",
+            "beach volleyball bracket",
+            "laundry washing symbols",
+        ]
+    )
+    for n, subject in enumerate(negative_subjects):
+        contextual_group = manifest["scenarios"][n * 2]["group_id"]
+        add_query(
+            ["negative", n], f"Find the {subject}", "negative", [], negative_group=contextual_group
+        )
+    manifest["counts"] = {
+        "images": 30,
+        "positive_queries": 120,
+        "negative_queries": 12,
+        "queries": 132,
+        "labels": 132,
+        "groups": 27,
+        "scenarios": 30,
+        "encoded_gallery_bytes": sum(a["encoded_bytes"] for a in manifest["gallery"]["assets"]),
+    }
+    validate_manifest(manifest)
+    public = public_projection(manifest)
+    files[f"gold/{split}.PROVISIONAL.json"] = pretty(manifest)
+    files[f"gold/{split}.PROVISIONAL.canon"] = canon(manifest)
+    files[f"gold/{split}.public.PROVISIONAL.json"] = pretty(public)
+    files[f"gold/{split}.public.PROVISIONAL.canon"] = canon(public)
+    # Hash inventory does not hash itself. Parent final seal is deliberately absent.
+    inventory = {
+        "schema": "S7-file-hash-inventory/1",
+        "status": "PROVISIONAL",
+        "split": split,
+        "files": [
+            {"path": path, "sha256": digest(raw), "bytes": len(raw)}
+            for path, raw in sorted(files.items())
+        ],
+    }
+    files[f"gold/{split}.inventory.PROVISIONAL.json"] = pretty(inventory)
+    files[f"gold/{split}.inventory.PROVISIONAL.canon"] = canon(inventory)
+    return files, manifest
+
+
+def validate_manifest(m: dict) -> None:
+    exact_keys(
+        m,
+        {
+            "schema",
+            "canon",
+            "status",
+            "not_claimed",
+            "split",
+            "seed",
+            "provenance",
+            "gallery",
+            "scenarios",
+            "groups",
+            "queries",
+            "labels",
+            "counts",
+        },
+        "private manifest",
+    )
+    if (
+        m["schema"] != SCHEMA
+        or m["canon"] != "canon/1"
+        or m["status"] != "PROVISIONAL_AGENT_AUTHORED_SYNTHETIC_REFERENCES"
+        or m["not_claimed"] != UNAVAILABLE
+        or m["split"] not in SEEDS
+        or m["seed"] != SEEDS[m["split"]]
+    ):
+        raise ValueError("Malformed provisional identity")
+    gallery = m["gallery"]
+    exact_keys(gallery, {"gallery_id", "source_id", "assets"}, "private gallery")
+    assets = gallery["assets"]
+    if (
+        len(assets) != 30
+        or len(m["queries"]) != 132
+        or len(m["labels"]) != 132
+        or len(m["groups"]) != 27
+        or len(m["scenarios"]) != 30
+    ):
+        raise ValueError("Wrong gallery/query/label/group/scenario count")
+    all_ids = [gallery["gallery_id"], gallery["source_id"]]
+    asset_ids = set()
+    for a in assets:
+        exact_keys(
+            a,
+            {
+                "asset_id",
+                "relative_path",
+                "encoded_sha256",
+                "source_grid_sha256",
+                "width_px",
+                "height_px",
+                "encoded_bytes",
+                "boxes_relative_path",
+                "boxes_sha256",
+            },
+            "private asset",
+        )
+        aid = a["asset_id"]
+        asset_ids.add(aid)
+        all_ids.append(aid)
+        if (
+            a["relative_path"] != f"images/{aid}.png"
+            or a["boxes_relative_path"] != f"boxes/{aid}.json"
+        ):
+            raise ValueError("Lossy asset mapping")
+        if (
+            any(
+                type(a[k]) is not int or a[k] <= 0
+                for k in ["width_px", "height_px", "encoded_bytes"]
+            )
+            or a["width_px"] * a["height_px"] > 20_000_000
+            or a["encoded_bytes"] > 8 * 1024**2
+        ):
+            raise ValueError("Image caps/type failure")
+        if any(
+            not isinstance(a[k], str) or not re.fullmatch(r"[0-9a-f]{64}", a[k])
+            for k in ["encoded_sha256", "source_grid_sha256", "boxes_sha256"]
+        ):
+            raise ValueError("Malformed asset digest")
+    if sum(a["encoded_bytes"] for a in assets) > 100 * 1024**2:
+        raise ValueError("Gallery cap failure")
+    group_ids, members = set(), []
+    for g in m["groups"]:
+        exact_keys(g, {"group_id", "asset_ids"}, "group")
+        group_ids.add(g["group_id"])
+        all_ids.append(g["group_id"])
+        if len(g["asset_ids"]) not in {1, 2}:
+            raise ValueError("Invalid resampling group")
+        members.extend(g["asset_ids"])
+    if (
+        len(members) != 30
+        or set(members) != asset_ids
+        or len(group_ids) != 27
+        or sorted(len(g["asset_ids"]) for g in m["groups"]) != [1] * 24 + [2] * 3
+    ):
+        raise ValueError("Groups do not partition gallery")
+    strata, query_ids, scenario_assets = Counter(), set(), []
+    for s in m["scenarios"]:
+        exact_keys(
+            s,
+            {"scenario_id", "asset_id", "group_id", "stratum", "family", "title", "confuser_pair"},
+            "scenario",
+        )
+        strata[s["stratum"]] += 1
+        scenario_assets.append(s["asset_id"])
+        all_ids.append(s["scenario_id"])
+        if (
+            s["asset_id"] not in asset_ids
+            or s["group_id"] not in group_ids
+            or s["asset_id"]
+            not in next(g["asset_ids"] for g in m["groups"] if g["group_id"] == s["group_id"])
+        ):
+            raise ValueError("Invalid scenario linkage")
+    if strata != Counter(
+        {"injected": 3, "confuser": 6, "blank": 1, "icon": 1, "dense": 4, "ordinary": 15}
+    ):
+        raise ValueError("Wrong disjoint strata")
+    if len(set(scenario_assets)) != 30 or set(scenario_assets) != asset_ids:
+        raise ValueError("Scenarios do not partition gallery")
+    query_map = {}
+    for q in m["queries"]:
+        exact_keys(q, {"query_id", "query", "query_type", "substitution"}, "query")
+        query_ids.add(q["query_id"])
+        query_map[q["query_id"]] = q
+        all_ids.append(q["query_id"])
+        if (
+            not isinstance(q["query"], str)
+            or not q["query"].strip()
+            or q["query_type"] not in {"exact", "paraphrase", "visual", "mixed", "negative"}
+        ):
+            raise ValueError("Malformed query")
+    if len(query_ids) != 132:
+        raise ValueError("Duplicate query ID")
+    templates = [s for s in read_templates()["scenes"] if s["split"] == m["split"]]
+    expected_query_ids = set()
+    for scene in templates:
+        kinds = (
+            ["visual", "visual", "mixed", "mixed"]
+            if scene["stratum"] in {"blank", "icon"}
+            else ["exact", "paraphrase", "visual", "mixed"]
+        )
+        for j, kind in enumerate(kinds):
+            qid = opaque("query", m["split"], [scene["ordinal"], j])
+            expected_query_ids.add(qid)
+            if qid not in query_map or query_map[qid]["query_type"] != kind:
+                raise ValueError("Four positive query types per source scene required")
+            substitution = query_map[qid]["substitution"]
+            if (scene["stratum"] in {"blank", "icon"}) != (
+                isinstance(substitution, str) and bool(substitution.strip())
+            ):
+                raise ValueError("Text-free visual/mixed substitutions must be explicit")
+    expected_query_ids.update(opaque("query", m["split"], ["negative", n]) for n in range(12))
+    if query_ids != expected_query_ids:
+        raise ValueError("Query/case namespace inventory mismatch")
+    label_items, negatives = set(), 0
+    for label in m["labels"]:
+        exact_keys(label, {"label_id", "item_id", "targets", "negative_context_group_id"}, "label")
+        all_ids.append(label["label_id"])
+        qid = label["item_id"]
+        if qid not in query_ids or qid in label_items or not isinstance(label["targets"], list):
+            raise ValueError("GoldRecord.item_id must map once to QUERY/CASE ID")
+        label_items.add(qid)
+        is_negative = query_map[qid]["query_type"] == "negative"
+        if is_negative:
+            negatives += 1
+            if label["targets"] != [] or label["negative_context_group_id"] not in group_ids:
+                raise ValueError(
+                    "Negative needs explicit empty targets and private contextual group"
+                )
+        elif not label["targets"] or label["negative_context_group_id"] is not None:
+            raise ValueError("Positive needs targets; negative context is private negatives only")
+        target_ids = []
+        for target in label["targets"]:
+            exact_keys(target, {"asset_id", "spatial_target"}, "target")
+            aid = target["asset_id"]
+            target_ids.append(aid)
+            if aid not in asset_ids:
+                raise ValueError("Unknown target asset")
+            spatial = target["spatial_target"]
+            if spatial is not None:
+                exact_keys(
+                    spatial, {"page_index", "element_id", "bbox_source_px"}, "spatial target"
+                )
+                box = spatial["bbox_source_px"]
+                asset = next(a for a in assets if a["asset_id"] == aid)
+                if (
+                    spatial["page_index"] != 0
+                    or not isinstance(box, list)
+                    or len(box) != 4
+                    or any(type(v) is not int for v in box)
+                    or not (
+                        0 <= box[0] < box[2] <= asset["width_px"]
+                        and 0 <= box[1] < box[3] <= asset["height_px"]
+                    )
+                ):
+                    raise ValueError("Malformed spatial target/bounds")
+        if len(target_ids) != len(set(target_ids)):
+            raise ValueError("Duplicate target")
+    if negatives != 12 or label_items != query_ids:
+        raise ValueError("Wrong label completeness/negative count")
+    if any(not valid_id(value) for value in all_ids) or len(all_ids) != len(set(all_ids)):
+        raise ValueError("Opaque ID namespace collision/malformed ID")
+    expected_counts = {
+        "images": 30,
+        "positive_queries": 120,
+        "negative_queries": 12,
+        "queries": 132,
+        "labels": 132,
+        "groups": 27,
+        "scenarios": 30,
+        "encoded_gallery_bytes": sum(a["encoded_bytes"] for a in assets),
+    }
+    if m["counts"] != expected_counts:
+        raise ValueError("Count inventory mismatch")
+    validate_public(public_projection(m))
+
+
+def audit_files(split: str, m: dict) -> dict:
+    """Portable frozen-byte audit; do not reopen producer fonts or recompute metrics."""
+    validate_manifest(m)
+    source_elements = {}
+    actual_bytes = 0
+    for asset in m["gallery"]["assets"]:
+        aid = asset["asset_id"]
+        path = ROOT / f"fixtures/{split}/images/{aid}.png"
+        raw = path.read_bytes()
+        if len(raw) != asset["encoded_bytes"] or digest(raw) != asset["encoded_sha256"]:
+            raise ValueError("Frozen PNG encoded hash/bytes mismatch")
+        actual_bytes += len(raw)
+        with Image.open(BytesIO(raw)) as opened:
+            if opened.format != "PNG" or opened.mode != "RGBA":
+                raise ValueError("Expected actual RGBA PNG")
+            opened.load()
+            image = opened.copy()
+        if (
+            list(image.size) != [asset["width_px"], asset["height_px"]]
+            or digest(grid_preimage(image)) != asset["source_grid_sha256"]
+        ):
+            raise ValueError("Frozen source-grid mismatch")
+        box_bytes = (ROOT / f"fixtures/{split}/boxes/{aid}.json").read_bytes()
+        if digest(box_bytes) != asset["boxes_sha256"]:
+            raise ValueError("Boxes hash mismatch")
+        boxes = json.loads(box_bytes)
+        if (
+            boxes["asset_id"] != aid
+            or boxes["source_id"] != m["gallery"]["source_id"]
+            or boxes["page_index"] != 0
+            or boxes["native_ocr_executed"] is not False
+            or boxes["encoded_sha256"] != digest(raw)
+            or boxes["source_grid_header"] != grid_header(*image.size)
+            or boxes["source_grid_sha256"] != digest(grid_preimage(image))
+        ):
+            raise ValueError("Authored boxes source linkage mismatch")
+        if (ROOT / f"fixtures/{split}/boxes/{aid}.grid-header.canon").read_bytes() != canon(
+            grid_header(*image.size)
+        ):
+            raise ValueError("Retained grid header bytes differ")
+        source_elements[aid] = {}
+        for element in boxes["elements"]:
+            bb = element["bbox_source_px"]
+            if not (0 <= bb[0] < bb[2] <= image.width and 0 <= bb[1] < bb[3] <= image.height):
+                raise ValueError("Authored element outside source")
+            if element["element_id"] in source_elements[aid]:
+                raise ValueError("Duplicate element ID")
+            source_elements[aid][element["element_id"]] = element
+            if element["kind"] == "text":
+                expected_sizes = {"heading": 25, "body": 17, "small": 13, "tiny": 11}
+                origin = element["draw_origin_px"]
+                if (
+                    not isinstance(element["text"], str)
+                    or not element["text"]
+                    or element["font_key"] not in expected_sizes
+                    or element["font_size_px"] != expected_sizes[element["font_key"]]
+                    or not isinstance(origin, list)
+                    or len(origin) != 2
+                    or any(type(v) is not int for v in origin)
+                    or not (0 <= origin[0] < image.width and 0 <= origin[1] < image.height)
+                ):
+                    raise ValueError("Malformed retained producer text metrics")
+    for label in m["labels"]:
+        query = next(q for q in m["queries"] if q["query_id"] == label["item_id"])
+        for target in label["targets"]:
+            elements = source_elements[target["asset_id"]]
+            spatial = target["spatial_target"]
+            if spatial is None:
+                if elements:
+                    raise ValueError("Null spatial target permitted only on authored blank scene")
+            elif (
+                spatial["element_id"] not in elements
+                or spatial["bbox_source_px"] != elements[spatial["element_id"]]["bbox_source_px"]
+            ):
+                raise ValueError("Gold spatial target differs from actual authored element")
+            elif (
+                query["query_type"] == "exact"
+                and elements[spatial["element_id"]].get("text") not in query["query"]
+            ):
+                raise ValueError("Exact query does not quote actual drawn target text")
+    for stem, value in [
+        (f"{split}.PROVISIONAL", m),
+        (f"{split}.public.PROVISIONAL", public_projection(m)),
+    ]:
+        if (ROOT / f"gold/{stem}.canon").read_bytes() != canon(value):
+            raise ValueError("Retained canon/1 bytes differ")
+        if json.loads((ROOT / f"gold/{stem}.json").read_bytes()) != value:
+            raise ValueError("JSON/canonical byte body mismatch")
+    inv = json.loads((ROOT / f"gold/{split}.inventory.PROVISIONAL.json").read_bytes())
+    if (ROOT / f"gold/{split}.inventory.PROVISIONAL.canon").read_bytes() != canon(inv):
+        raise ValueError("Inventory canonical bytes differ")
+    for entry in inv["files"]:
+        raw = (ROOT / entry["path"]).read_bytes()
+        if digest(raw) != entry["sha256"] or len(raw) != entry["bytes"]:
+            raise ValueError("Actual inventory member mismatch")
+    return {
+        "split": split,
+        "decoded_pngs": 30,
+        "queries": 132,
+        "groups": 27,
+        "raw_and_grid_hashes_verified": 30,
+        "source_box_files_verified": 30,
+        "encoded_gallery_bytes": actual_bytes,
+        "multi_target_queries": sum(len(x["targets"]) > 1 for x in m["labels"]),
+        "null_spatial_targets": sum(
+            t["spatial_target"] is None for x in m["labels"] for t in x["targets"]
+        ),
+        "producer_metrics_verified_from_frozen_box_hashes": True,
+        "font_metrics_recomputed": False,
+    }
+
+
+def duplicate_audit(manifests: list[dict]) -> dict:
+    by_split = {m["split"]: m for m in manifests}
+    dev, held = by_split["dev"], by_split["heldout"]
+
+    def assets(manifest: dict) -> list[dict]:
+        return manifest["gallery"]["assets"]
+
+    for key in ["asset_id", "encoded_sha256", "source_grid_sha256"]:
+        if {a[key] for a in assets(dev)} & {a[key] for a in assets(held)}:
+            raise ValueError(f"Cross-split duplicate {key}")
+    templates = read_templates()["scenes"]
+    sets = {}
+    for split in SEEDS:
+        rows = [s for s in templates if s["split"] == split]
+        sets[split] = {
+            "families": {s["family"] for s in rows},
+            "layouts": {s["layout"] for s in rows},
+            "semantic_titles": {s["title"].casefold() for s in rows},
+            "focus_texts": {s["focus"].casefold() for s in rows if s["focus"]},
+            "title_tokens": {
+                word for s in rows for word in re.findall(r"[a-z]+", s["title"].lower())
+            },
+        }
+    overlap = {key: sorted(sets["dev"][key] & sets["heldout"][key]) for key in sets["dev"]}
+    if any(overlap[key] for key in ["families", "layouts", "semantic_titles", "focus_texts"]):
+        raise ValueError("Cross-split structural/semantic family duplicate")
+    # Actual 64x40 RGB mean absolute pixel distance, full source dimensions retained.
+    # This is a bounded structural screen, not a learned semantic similarity claim.
+    small = {}
+    for m in manifests:
+        for a in assets(m):
+            with Image.open(ROOT / f"fixtures/{m['split']}/images/{a['asset_id']}.png") as image:
+                small[a["asset_id"]] = image.convert("RGB").resize((64, 40), Image.Resampling.BOX)
+    cross = []
+    for da in assets(dev):
+        for ha in assets(held):
+            delta = ImageChops.difference(small[da["asset_id"]], small[ha["asset_id"]])
+            distance = sum(sum(pixel) for pixel in delta.getdata()) / (64 * 40 * 3)
+            cross.append((distance, da["asset_id"], ha["asset_id"]))
+    pair_distances = []
+    for m in manifests:
+        for group in m["groups"]:
+            if len(group["asset_ids"]) == 2:
+                left, right = group["asset_ids"]
+                delta = ImageChops.difference(small[left], small[right])
+                pair_distances.append(
+                    {
+                        "split": m["split"],
+                        "group_id": group["group_id"],
+                        "mean_absolute_rgb_distance": round(
+                            sum(sum(pixel) for pixel in delta.getdata()) / (64 * 40 * 3), 6
+                        ),
+                    }
+                )
+    nearest = sorted(cross)[:5]
+    if nearest[0][0] < 1:
+        raise ValueError(
+            "Unexpected cross-split near duplicate; requires author review before seal"
+        )
+    return {
+        "schema": "S7-bounded-duplicate-audit/1",
+        "exact_cross_split_raw_grid_asset_collisions": 0,
+        "cross_split_pairs_checked": len(cross),
+        "family_layout_title_focus_overlaps": overlap,
+        "semantic_check": (
+            "Blinded author selected different top-level topics, authored titles/focus text "
+            "and layout families across splits. Token overlap disclosed below; "
+            "no embedding/model/independent-human agreement claim."
+        ),
+        "title_token_overlap": overlap["title_tokens"],
+        "structural_metric": (
+            "Mean absolute RGB distance on actual 64x40 BOX resized PNGs; guard <1; "
+            "diagnostic only, not retrieval feature"
+        ),
+        "nearest_cross_split": [
+            {"distance": round(d, 6), "dev_asset_id": a, "heldout_asset_id": b}
+            for d, a, b in nearest
+        ],
+        "intentional_confuser_pair_distances": pair_distances,
+        "seed_independence_claimed": False,
+    }
+
+
+def historical_producer_bytes() -> bytes:
+    """Accept only the fixed approved producer bytes, never a manifest-selected path."""
+    raw = (ROOT / HISTORICAL_PRODUCER_RELATIVE_PATH).read_bytes()
+    if digest(raw) != HISTORICAL_PRODUCER_SHA256:
+        raise ValueError("Historical producer archive hash mismatch; execution refused")
+    return raw
+
+
+def load_historical_producer() -> ModuleType:
+    raw = historical_producer_bytes()
+    path = ROOT / HISTORICAL_PRODUCER_RELATIVE_PATH
+    producer = ModuleType("_trusted_s7_original_producer_v1")
+    producer.__file__ = str(path)
+    # This exact source is hash-verified BEFORE compilation/execution. The producer
+    # runs in its own globals; no manifest supplies a code path or module name.
+    exec(compile(raw, str(path), "exec"), producer.__dict__)
+    producer.ROOT = ROOT
+    producer.TEMPLATES = TEMPLATES
+    return producer
+
+
+def rerender_originals(manifests: list[dict]) -> dict:
+    """Explicit optional original-producer comparison; never write generated bytes."""
+    producer = load_historical_producer()
+    actual_runtime = {"python": platform.python_version(), "pillow": pillow_version}
+    try:
+        inputs = producer.runtime_inputs()
+    except (ValueError, OSError) as exc:
+        return {
+            "requested": True,
+            "status": "unavailable",
+            "performed": False,
+            "reason": str(exc),
+            "actual_auditor_runtime": actual_runtime,
+            "historical_producer_sha256": HISTORICAL_PRODUCER_SHA256,
+        }
+    compared = 0
+    for m in manifests:
+        expected, built = producer.build_split(m["split"], m["seed"])
+        for relative, raw in expected.items():
+            path = ROOT / relative
+            if not path.is_file() or path.read_bytes() != raw:
+                raise ValueError(
+                    f"Historical in-memory rerender differs: {relative}; originals retained"
+                )
+            compared += 1
+        if built != m:
+            raise ValueError("Historical producer manifest differs; originals retained")
+    return {
+        "requested": True,
+        "status": "passed",
+        "performed": True,
+        "files_compared_in_memory": compared,
+        "images_rerendered_in_memory": 60,
+        "historical_producer_sha256": HISTORICAL_PRODUCER_SHA256,
+        "actual_producer_inputs_verified": inputs,
+        "originals_overwritten": False,
+    }
+
+
+def check_all(*, rerender: bool = False) -> dict:
+    """Default: portable source-byte audit. Optional: exact historical rerender."""
+    reports, manifests = [], []
+    historical_hash = digest(historical_producer_bytes())
+    for split in SEEDS:
+        m = json.loads((ROOT / f"gold/{split}.PROVISIONAL.json").read_bytes())
+        if m["provenance"]["generator_sha256"] != historical_hash:
+            raise ValueError("Manifest does not bind the fixed historical producer")
+        if m["provenance"]["templates_sha256"] != digest(TEMPLATES.read_bytes()):
+            raise ValueError("Historical template bytes differ")
+        reports.append(audit_files(split, m))
+        manifests.append(m)
+    optional = (
+        rerender_originals(manifests)
+        if rerender
+        else {
+            "requested": False,
+            "status": "not_run",
+            "performed": False,
+            "font_metrics_recomputed": False,
+        }
+    )
+    status = "PASS_PROVISIONAL_FROZEN_BYTE_AUDIT"
+    if rerender and optional["status"] != "passed":
+        status = "PASS_FROZEN_BYTE_AUDIT_RERENDER_UNAVAILABLE"
+    return {
+        "status": status,
+        "splits": reports,
+        "totals": {"images": 60, "queries": 264, "groups": 54},
+        "duplicate_audit": duplicate_audit(manifests),
+        "historical_producer": {
+            "relative_path": HISTORICAL_PRODUCER_RELATIVE_PATH,
+            "sha256": historical_hash,
+            "original_producer_runtime": {"python": "3.12.13", "pillow": "10.4.0"},
+            "source_bytes_verified": True,
+        },
+        "current_auditor": {
+            "source_sha256": digest(Path(__file__).read_bytes()),
+            "python": platform.python_version(),
+            "pillow": pillow_version,
+            "generated_originals_claimed": False,
+        },
+        "rerender": optional,
+        "final_seal_written": False,
+        "native_ocr_executed": False,
+        "models_or_retrieval_executed": False,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--split", choices=sorted(SEEDS))
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--rerender",
+        action="store_true",
+        help=(
+            "Explicitly compare an in-memory rerender by the fixed historical producer; "
+            "requires its real pinned runtime/fonts"
+        ),
+    )
+    args = parser.parse_args(argv)
+    try:
+        if args.check:
+            if args.split or args.seed is not None:
+                parser.error("--check does not accept --split/--seed")
+            report = check_all(rerender=args.rerender)
+            print(json.dumps(report, indent=2, ensure_ascii=False))
+            return 1 if report["rerender"]["status"] == "unavailable" else 0
+        if args.rerender:
+            parser.error("--rerender requires --check")
+        if args.split is None or args.seed is None:
+            parser.error("generation requires --split and --seed")
+        if args.seed != SEEDS[args.split]:
+            raise ValueError("Pinned split seed required")
+        existing = [path for path in planned_output_paths(args.split) if (ROOT / path).exists()]
+        if existing:
+            raise ValueError(
+                f"First-generation-only refusal: {len(existing)} existing artifacts; "
+                "use --check without writing, or explicit successor workflow"
+            )
+        files, manifest = build_split(args.split, args.seed)
+        if set(files) != set(planned_output_paths(args.split)):
+            raise ValueError("Generated paths differ from preflight; no writes performed")
+        # Preflight all output paths first. Exclusive creation also guards races.
+        for relative, raw in files.items():
+            path = ROOT / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with path.open("xb") as stream:
+                stream.write(raw)
+        print(
+            json.dumps(
+                {
+                    "status": "CREATED_PROVISIONAL",
+                    "split": args.split,
+                    "seed": args.seed,
+                    "counts": manifest["counts"],
+                    "files_created": len(files),
+                    "manifest_sha256": digest(files[f"gold/{args.split}.PROVISIONAL.canon"]),
+                    "final_seal_written": False,
+                },
+                indent=2,
+            )
+        )
+        return 0
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        print(f"Fixture check/refusal: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

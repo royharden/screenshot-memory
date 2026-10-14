@@ -1,0 +1,245 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "539fc95366cd900fe0f5b1a2a1e7dafc",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "ca4d1b51074728d8ca061cdc97bfa8f39d9fac8f5fad5e5adeb50d4c7f3c81ae",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "0ce51440e4d57eef8d31278871ca1a463158757f4c0c9232b3ce044db54f6671",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Yarrow turbine log",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        346,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Turbine YARROW 81 steady",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        179,
+        142
+      ],
+      "bbox_source_px": [
+        179,
+        145,
+        395,
+        161
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "YARROW TURBINE LOG",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        176
+      ],
+      "bbox_source_px": [
+        179,
+        178,
+        308,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-0",
+      "kind": "text",
+      "text": "01  Yarrow      901   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        212
+      ],
+      "bbox_source_px": [
+        179,
+        213,
+        354,
+        221
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-1",
+      "kind": "text",
+      "text": "02  Yarrow      914   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        229
+      ],
+      "bbox_source_px": [
+        179,
+        230,
+        354,
+        238
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-2",
+      "kind": "text",
+      "text": "03  Yarrow      927   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        246
+      ],
+      "bbox_source_px": [
+        179,
+        247,
+        354,
+        255
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-3",
+      "kind": "text",
+      "text": "04  Yarrow      940   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        263
+      ],
+      "bbox_source_px": [
+        179,
+        264,
+        354,
+        272
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-4",
+      "kind": "text",
+      "text": "05  Yarrow      953   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        280
+      ],
+      "bbox_source_px": [
+        179,
+        281,
+        354,
+        289
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-5",
+      "kind": "text",
+      "text": "06  Yarrow      966   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        297
+      ],
+      "bbox_source_px": [
+        179,
+        298,
+        354,
+        306
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-6",
+      "kind": "text",
+      "text": "07  Yarrow      979   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        314
+      ],
+      "bbox_source_px": [
+        179,
+        315,
+        354,
+        323
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-7",
+      "kind": "text",
+      "text": "08  Yarrow      992   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        331
+      ],
+      "bbox_source_px": [
+        179,
+        332,
+        354,
+        340
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-8",
+      "kind": "text",
+      "text": "09  Yarrow      008   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        179,
+        348
+      ],
+      "bbox_source_px": [
+        179,
+        349,
+        354,
+        357
+      ],
+      "fill": "#243328"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "rail",
+    "motif_count": 3,
+    "accent": "amber"
+  }
+}

@@ -16,14 +16,22 @@ spec.loader.exec_module(distribution)
 
 
 class DistributionTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.approved_bytes = {
+            name: (ROOT / name).read_bytes()
+            for name in (*distribution.SYNTHETIC_FILES, distribution.POLICY_FILE)
+        }
+
     def inspect(self, missing=(), extras=()):
         with tempfile.TemporaryDirectory() as temporary:
             path = Path(temporary) / "package.tar.gz"
             with tarfile.open(path, "w:gz") as archive:
                 for relative in sorted(distribution.REQUIRED - set(missing)):
                     member = tarfile.TarInfo("screenshot_memory-0.1.0/" + relative)
-                    member.size = 1
-                    archive.addfile(member, io.BytesIO(b"x"))
+                    data = self.approved_bytes.get(relative, b"x")
+                    member.size = len(data)
+                    archive.addfile(member, io.BytesIO(data))
                 for member, data in extras:
                     archive.addfile(member, io.BytesIO(data) if member.isfile() else None)
             return distribution.inspect_archive(path)
@@ -40,6 +48,10 @@ class DistributionTests(unittest.TestCase):
             "uv.lock",
             "contracts/generated/Item.schema.json",
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/retrievaleval/metrics.py",
+            distribution.POLICY_FILE,
+            "fixtures/heldout/FROZEN",
+            next(name for name in distribution.SYNTHETIC_FILES if name.endswith(".png")),
         ):
             with self.subTest(missing=missing):
                 result = self.inspect(missing=(missing,))
@@ -59,6 +71,8 @@ class DistributionTests(unittest.TestCase):
             "tests/real-user.json",
             "src/screenshot_memory/.creds/key.py",
             "src/screenshot_memory/shared/vindex/migrations/unapproved.sql",
+            "fixtures/dev/images/" + "f" * 32 + ".png",
+            "fixtures/templates/unapproved.source",
         ):
             with self.subTest(name=name):
                 member = tarfile.TarInfo("screenshot_memory-0.1.0/" + name)
@@ -89,6 +103,35 @@ class DistributionTests(unittest.TestCase):
             path = Path(temporary) / "invalid.tar.gz"
             path.write_text("not an archive", encoding="utf-8")
             self.assertEqual(distribution.inspect_archive(path)["status"], "invalid")
+
+    def test_approved_image_filename_does_not_authorize_changed_bytes(self):
+        name = next(n for n in distribution.SYNTHETIC_FILES if n.endswith(".png"))
+        replacement = tarfile.TarInfo("screenshot_memory-0.1.0/" + name)
+        replacement.size = 7
+        result = self.inspect(missing=(name,), extras=((replacement, b"changed"),))
+        self.assertIn("synthetic_hash_mismatch", result["issues"])
+        self.assertNotIn(name, result["missing_required"])
+
+    def test_changed_archive_policy_is_rejected_even_at_approved_path(self):
+        replacement = tarfile.TarInfo("screenshot_memory-0.1.0/" + distribution.POLICY_FILE)
+        replacement.size = 2
+        result = self.inspect(missing=(distribution.POLICY_FILE,), extras=((replacement, b"{}"),))
+        self.assertIn("policy_hash_mismatch", result["issues"])
+
+    def test_entry_and_aggregate_caps_remain_bounded(self):
+        members = []
+        for number in range(distribution.MAX_ENTRIES + 1):
+            member = tarfile.TarInfo(f"screenshot_memory-0.1.0/scripts/control{number}.py")
+            member.size = 1
+            members.append((member, b"x"))
+        self.assertIn("entry_limit", self.inspect(extras=members)["issues"])
+        members = []
+        block = b"x" * distribution.MAX_FILE_BYTES
+        for number in range(distribution.MAX_TOTAL_BYTES // len(block) + 1):
+            member = tarfile.TarInfo(f"screenshot_memory-0.1.0/scripts/aggregate{number}.py")
+            member.size = len(block)
+            members.append((member, block))
+        self.assertIn("size_limit", self.inspect(extras=members)["issues"])
 
 
 if __name__ == "__main__":

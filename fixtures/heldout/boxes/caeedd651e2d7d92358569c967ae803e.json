@@ -1,0 +1,245 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "caeedd651e2d7d92358569c967ae803e",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "7d6f90eb1f99fb79879d74a328142ad5ce1e6b6be557282da310ee18d097ab36",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "036e76971c35924045bbebc9d4f8ad45bc28326821472373f22d99dbef32e4e4",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Zephyr pressure bands",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        402,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Pressure ZEPHYR 29 stable",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        151,
+        158
+      ],
+      "bbox_source_px": [
+        151,
+        161,
+        366,
+        174
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "ZEPHYR PRESSURE BANDS",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        192
+      ],
+      "bbox_source_px": [
+        151,
+        194,
+        301,
+        202
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-0",
+      "kind": "text",
+      "text": "01  Zephyr      901   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        228
+      ],
+      "bbox_source_px": [
+        151,
+        229,
+        326,
+        239
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-1",
+      "kind": "text",
+      "text": "02  Zephyr      914   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        245
+      ],
+      "bbox_source_px": [
+        151,
+        246,
+        326,
+        256
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-2",
+      "kind": "text",
+      "text": "03  Zephyr      927   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        262
+      ],
+      "bbox_source_px": [
+        151,
+        263,
+        326,
+        273
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-3",
+      "kind": "text",
+      "text": "04  Zephyr      940   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        279
+      ],
+      "bbox_source_px": [
+        151,
+        280,
+        326,
+        290
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-4",
+      "kind": "text",
+      "text": "05  Zephyr      953   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        296
+      ],
+      "bbox_source_px": [
+        151,
+        297,
+        326,
+        307
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-5",
+      "kind": "text",
+      "text": "06  Zephyr      966   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        313
+      ],
+      "bbox_source_px": [
+        151,
+        314,
+        326,
+        324
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-6",
+      "kind": "text",
+      "text": "07  Zephyr      979   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        330
+      ],
+      "bbox_source_px": [
+        151,
+        331,
+        326,
+        341
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-7",
+      "kind": "text",
+      "text": "08  Zephyr      992   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        347
+      ],
+      "bbox_source_px": [
+        151,
+        348,
+        326,
+        358
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-8",
+      "kind": "text",
+      "text": "09  Zephyr      008   observe",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        151,
+        364
+      ],
+      "bbox_source_px": [
+        151,
+        365,
+        326,
+        375
+      ],
+      "fill": "#a6aaa4"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "timeline",
+    "motif_count": 4,
+    "accent": "cyan"
+  }
+}

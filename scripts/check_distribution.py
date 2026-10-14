@@ -1,10 +1,47 @@
-"""Inspect a local sdist without extracting it or accessing application sources."""
+"""Inspect a local sdist against a fixed synthetic-data policy; never extract it."""
 
 import argparse
+import hashlib
 import json
 import re
 import tarfile
 from pathlib import Path, PurePosixPath
+
+POLICY_FILE = "scripts/synthetic_distribution.json"
+POLICY_SHA256 = "5b40b0419aa84edd6d2d6d34778771c2c75db7b5f8cfaa5efeced761fa1f4477"
+MAX_ENTRIES = 512
+MAX_FILE_BYTES = 256 * 1024
+MAX_TOTAL_BYTES = 8 * 1024 * 1024
+
+
+def synthetic_policy() -> dict[str, dict[str, object]]:
+    # Fixed owned policy, not an archive-provided file or arbitrary caller path.
+    path = Path(__file__).with_name("synthetic_distribution.json")
+    if path.stat().st_size > MAX_FILE_BYTES:
+        raise ValueError("synthetic policy too large")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != POLICY_SHA256:
+        raise ValueError("fixed synthetic policy hash mismatch")
+    policy = json.loads(raw)
+    if policy["schema"] != "S7-original-synthetic-distribution/1":
+        raise ValueError("unknown synthetic policy")
+    files = policy["files"]
+    if len(files) != 202:
+        raise ValueError("wrong synthetic policy count")
+    for name, entry in files.items():
+        if (
+            name.startswith("/")
+            or "\\" in name
+            or any(part in {"", ".", ".."} for part in name.split("/"))
+            or not re.fullmatch(r"[0-9a-f]{64}", entry["sha256"])
+            or type(entry["bytes"]) is not int
+            or not 0 < entry["bytes"] <= MAX_FILE_BYTES
+        ):
+            raise ValueError("invalid fixed synthetic member")
+    return files
+
+
+SYNTHETIC_FILES = synthetic_policy()
 
 REQUIRED = frozenset(
     {
@@ -13,6 +50,7 @@ REQUIRED = frozenset(
         "pyproject.toml",
         "uv.lock",
         "MANIFEST.in",
+        ".gitattributes",
         "src/screenshot_memory/__init__.py",
         "src/screenshot_memory/contracts.py",
         "src/screenshot_memory/cli.py",
@@ -35,8 +73,13 @@ REQUIRED = frozenset(
         "src/screenshot_memory/shared/vindex/deletion.py",
         "src/screenshot_memory/shared/vindex/__init__.py",
         "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+        "src/screenshot_memory/shared/retrievaleval/__init__.py",
+        "src/screenshot_memory/shared/retrievaleval/metrics.py",
+        "tests/eval/test_metrics.py",
+        "tests/storage/test_storage_deletion.py",
+        POLICY_FILE,
     }
-)
+) | frozenset(SYNTHETIC_FILES)
 ROOT_FILES = frozenset(
     {
         "LICENSE",
@@ -45,6 +88,7 @@ ROOT_FILES = frozenset(
         "uv.lock",
         "MANIFEST.in",
         ".python-version",
+        ".gitattributes",
         "BOLT-HANDOFF.md",
         "PKG-INFO",
         "setup.cfg",
@@ -64,7 +108,7 @@ EGG_INFO_FILES = frozenset(
 
 def allowed_file(relative: str) -> bool:
     parts = PurePosixPath(relative).parts
-    if relative in ROOT_FILES:
+    if relative in ROOT_FILES or relative in SYNTHETIC_FILES or relative == POLICY_FILE:
         return True
     if len(parts) == 3 and parts[:2] == ("src", "screenshot_memory.egg-info"):
         return parts[2] in EGG_INFO_FILES
@@ -88,7 +132,7 @@ def inspect_archive(path: Path) -> dict[str, object]:
     try:
         with tarfile.open(path, "r:*") as archive:
             for count, member in enumerate(archive, 1):
-                if count > 200:
+                if count > MAX_ENTRIES:
                     issues.append("entry_limit")
                     break
                 name = member.name
@@ -112,7 +156,7 @@ def inspect_archive(path: Path) -> dict[str, object]:
                     issues.append("non_regular_member")
                     continue
                 relative = "/".join(parts[1:])
-                if relative != ".python-version" and any(
+                if relative not in {".python-version", ".gitattributes"} and any(
                     p.startswith(".")
                     or p in {"planning", "agentops", "userdata", "models", "cache"}
                     for p in parts[1:]
@@ -121,11 +165,30 @@ def inspect_archive(path: Path) -> dict[str, object]:
                 if member.isdir():
                     continue
                 total += member.size
-                if member.size > 256 * 1024 or total > 2 * 1024 * 1024:
+                if member.size > MAX_FILE_BYTES or total > MAX_TOTAL_BYTES:
                     issues.append("size_limit")
                     break
                 if not relative or not allowed_file(relative):
                     issues.append("unapproved_file")
+                expected = (
+                    POLICY_SHA256
+                    if relative == POLICY_FILE
+                    else SYNTHETIC_FILES.get(relative, {}).get("sha256")
+                )
+                if expected is not None:
+                    stream = archive.extractfile(member)
+                    payload = b"" if stream is None else stream.read(MAX_FILE_BYTES + 1)
+                    if stream is not None:
+                        stream.close()
+                    if (
+                        len(payload) != member.size
+                        or hashlib.sha256(payload).hexdigest() != expected
+                    ):
+                        issues.append(
+                            "policy_hash_mismatch"
+                            if relative == POLICY_FILE
+                            else "synthetic_hash_mismatch"
+                        )
                 files.add(relative)
     except (OSError, tarfile.TarError):
         issues.append("unreadable_archive")

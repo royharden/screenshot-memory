@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "4cd5d8e74a4f6bac3dcc98d4cf954812",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "9661df7e6ebcecd60e2bc6779ccd8ec4162190a603538121e947bcfbeef7a27e",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "0d5b613438528c73494a80233018033e3508fc96a68feb9650620e3ead8948bf",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Kingfisher pond sign",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        269,
+        70
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Kingfisher sign 23 hung",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        180,
+        138
+      ],
+      "bbox_source_px": [
+        180,
+        142,
+        358,
+        157
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "KINGFISHER POND SIGN",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        180,
+        172
+      ],
+      "bbox_source_px": [
+        180,
+        174,
+        323,
+        182
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Hand-drawn fixture",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        180,
+        213
+      ],
+      "bbox_source_px": [
+        180,
+        214,
+        309,
+        223
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "columns",
+    "motif_count": 3,
+    "accent": "rose"
+  }
+}

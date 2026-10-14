@@ -1,0 +1,41 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "0cc7bdd2e2b4ec58ba5e86401ad66872",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "16cf5f5194a882d68a7d37b14f876dcc300d76097834fbe73093e0a6dd263f85",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "08b05c19a83219776d4523185a9e60597a01500bc66128b8c06f969df985b1a8",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "primary-icon",
+      "kind": "shape",
+      "text": null,
+      "bbox_source_px": [
+        288,
+        82,
+        449,
+        243
+      ],
+      "fill": "azure"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool gray",
+    "layout": "centered azure ring above two diamonds",
+    "motif_count": 2,
+    "accent": "azure"
+  }
+}

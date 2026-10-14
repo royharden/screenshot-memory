@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "6c2ae42ff9ba2bfa165af44189a295a0",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "6d52c097b0c2323121679af7246b3d6fc3fb586d6f9e3be328eae3545ce6e7ef",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "c8c74131e416936b981b6d34fa9e1f2d95ac2e2c1c32b40fad4db75ef3366192",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Velvet transit capsule",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        381,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Capsule gate 36",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        151,
+        158
+      ],
+      "bbox_source_px": [
+        151,
+        161,
+        275,
+        177
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "VELVET TRANSIT CAPSULE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        192
+      ],
+      "bbox_source_px": [
+        151,
+        194,
+        308,
+        202
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        233
+      ],
+      "bbox_source_px": [
+        151,
+        234,
+        294,
+        243
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "timeline",
+    "motif_count": 2,
+    "accent": "lavender"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "0079e012ec00a32344d7043e1c2b51a3",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "c7c0c65b0e9c396d23f9e5a6db06dabb70999172ab6d0099bc555f94e81b52bc",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "22a366ea0515dca2b6ce63cf601dca1ecc90447734d389c53a21a7e783ed6504",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Rutile ocean glider",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        353,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Rutile glider 82 submerged",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        151,
+        158
+      ],
+      "bbox_source_px": [
+        151,
+        161,
+        354,
+        177
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "RUTILE OCEAN GLIDER",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        192
+      ],
+      "bbox_source_px": [
+        151,
+        194,
+        287,
+        202
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        233
+      ],
+      "bbox_source_px": [
+        151,
+        234,
+        294,
+        243
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "timeline",
+    "motif_count": 2,
+    "accent": "steel"
+  }
+}

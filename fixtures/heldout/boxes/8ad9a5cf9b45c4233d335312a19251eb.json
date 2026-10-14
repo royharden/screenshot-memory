@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "8ad9a5cf9b45c4233d335312a19251eb",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "dd792c804adda43706c81170a2ee6d588bca841835b98c42054deef3cf4e974a",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "269af28e70185cebbb03e01218f8844e2e42fa47730eea3f058f368188c0d14a",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Ember crater capsule",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        383,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Ember capsule 38 docked",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        151,
+        158
+      ],
+      "bbox_source_px": [
+        151,
+        162,
+        348,
+        177
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "EMBER CRATER CAPSULE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        192
+      ],
+      "bbox_source_px": [
+        151,
+        194,
+        294,
+        202
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        151,
+        233
+      ],
+      "bbox_source_px": [
+        151,
+        234,
+        294,
+        243
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "timeline",
+    "motif_count": 2,
+    "accent": "bronze"
+  }
+}

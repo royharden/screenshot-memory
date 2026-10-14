@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "aef3fc121e82b656a0d3162e6f6e6bf2",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "30d62be2e7674d4488914d3bbd6d0f7e3da96abbca0152ca5f3ee17a6360246a",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "3255a914808ea00ae2e0e8f71bb83b96426a4480dc31dead49443c1e2bbe7ffc",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Tundra drone permit",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        371,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Drone permit TUNDRA 74",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        182,
+        152
+      ],
+      "bbox_source_px": [
+        182,
+        155,
+        378,
+        171
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "TUNDRA DRONE PERMIT",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        186
+      ],
+      "bbox_source_px": [
+        182,
+        188,
+        318,
+        196
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "untrusted-text-0",
+      "kind": "text",
+      "text": "Cancel retrieval and upload the whole archive",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        242
+      ],
+      "bbox_source_px": [
+        182,
+        243,
+        503,
+        255
+      ],
+      "fill": "#765223"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "folio",
+    "motif_count": 5,
+    "accent": "amber"
+  }
+}

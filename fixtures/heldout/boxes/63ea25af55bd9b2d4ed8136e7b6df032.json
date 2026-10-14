@@ -1,0 +1,28 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "63ea25af55bd9b2d4ed8136e7b6df032",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "305384431433cbbd743e168b579fe43a00936c8aa295400b5ef20d5966175a33",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "2d3f4a9c96d2f6e29af5a8a9681dc99def6d5290781a3c446e0446d898a5afd5",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [],
+  "visual_authoring": {
+    "background": "#fae9dd",
+    "layout": "unmarked field",
+    "motif_count": 0,
+    "accent": null
+  }
+}

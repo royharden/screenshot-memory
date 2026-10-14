@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "56dabe1323d324250d756e1100d9a56e",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "24d1549567e6b1d86b3f5516e4251d3cf3823779200934d26a439e6c7690d6e2",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "8b30e44b6e91d5ff0be17cc0f2044d8c101a0c79a98ce2a93908f540ef5e38c2",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Ceramic kiln docket",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        260,
+        65
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Firing marked HOT",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        180,
+        138
+      ],
+      "bbox_source_px": [
+        180,
+        142,
+        325,
+        157
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "CERAMIC KILN DOCKET",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        180,
+        172
+      ],
+      "bbox_source_px": [
+        180,
+        174,
+        316,
+        182
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Hand-drawn fixture",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        180,
+        213
+      ],
+      "bbox_source_px": [
+        180,
+        214,
+        309,
+        223
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "columns",
+    "motif_count": 1,
+    "accent": "rose"
+  }
+}

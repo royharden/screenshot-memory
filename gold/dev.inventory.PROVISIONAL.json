@@ -1,0 +1,477 @@
+{
+  "schema": "S7-file-hash-inventory/1",
+  "status": "PROVISIONAL",
+  "split": "dev",
+  "files": [
+    {
+      "path": "fixtures/dev/boxes/0017c4e23262912da383447e5756d267.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/0017c4e23262912da383447e5756d267.json",
+      "sha256": "ae7e4f055e4fe1548b9442cb22747f9148e13d4d1efee4a1190e5155ce4ebf1a",
+      "bytes": 2257
+    },
+    {
+      "path": "fixtures/dev/boxes/04960414b163e3aa541d24ec576247cc.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/04960414b163e3aa541d24ec576247cc.json",
+      "sha256": "e0e54c50787a2a443df01a9836ff95a5ae17cf991c0f479729d19cbcdc9a00a6",
+      "bytes": 2243
+    },
+    {
+      "path": "fixtures/dev/boxes/0a7fa00bee1cffde06a3f3b215999961.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/0a7fa00bee1cffde06a3f3b215999961.json",
+      "sha256": "6146834249458ee0413328879ed5d20847104d4007ca11c58fa1fbf122932546",
+      "bytes": 2250
+    },
+    {
+      "path": "fixtures/dev/boxes/0b95cd769c3a17db813f8bc52d450b29.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/0b95cd769c3a17db813f8bc52d450b29.json",
+      "sha256": "7771d75fbffab102332e68badf9264294954f4b6e836540354a5be39d174c424",
+      "bytes": 2248
+    },
+    {
+      "path": "fixtures/dev/boxes/0e9897b1fb5440ad3640e224cbe493fb.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/0e9897b1fb5440ad3640e224cbe493fb.json",
+      "sha256": "95c6df60ff12169699a9daa4f4d000658e785e52f4d237076e6119fe88f92c4f",
+      "bytes": 2249
+    },
+    {
+      "path": "fixtures/dev/boxes/16b9fe031c2f793807160a5f44783fab.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/16b9fe031c2f793807160a5f44783fab.json",
+      "sha256": "e22b22f6e0329e9f21cf20e361fdc71bcfa934753de81c0ecbc3e46b57d17da2",
+      "bytes": 2251
+    },
+    {
+      "path": "fixtures/dev/boxes/273672c03af87ef69b26b403f5418624.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/273672c03af87ef69b26b403f5418624.json",
+      "sha256": "bfab3d2c8eee48368f95b2801d53b550ec49eeb90daf57d8d3a3a5c335e0e636",
+      "bytes": 2257
+    },
+    {
+      "path": "fixtures/dev/boxes/317206ef763a6e3da54bd06af30e70be.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/317206ef763a6e3da54bd06af30e70be.json",
+      "sha256": "331fcfa7c56df32d994dc8c22abf2270909f619b44dc804e94b82f3be72f7437",
+      "bytes": 4985
+    },
+    {
+      "path": "fixtures/dev/boxes/31aa7da97ec4a7df050edf4d3fb3d7d2.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/31aa7da97ec4a7df050edf4d3fb3d7d2.json",
+      "sha256": "90d070efb12fba60f2a0e114342d63afc968f5ec7cdf2a04f27c709f355fa207",
+      "bytes": 4961
+    },
+    {
+      "path": "fixtures/dev/boxes/37e115cf2f183c97caa748ed10a9d0f6.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/37e115cf2f183c97caa748ed10a9d0f6.json",
+      "sha256": "15cdde370d394c6f8163877d66b3a64673c4be11445d91e064f139bad18aa8d4",
+      "bytes": 1193
+    },
+    {
+      "path": "fixtures/dev/boxes/3935084690a0837b19dc389fbde299e4.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/3935084690a0837b19dc389fbde299e4.json",
+      "sha256": "49942f03deccf8353393554b3eb45cd4cbf3cc9436a76ab4223b574f8b251c66",
+      "bytes": 960
+    },
+    {
+      "path": "fixtures/dev/boxes/3b448b148a2d83ada2d5f4380d1033c6.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/3b448b148a2d83ada2d5f4380d1033c6.json",
+      "sha256": "52776d8c447bc219a773b7fd1b12f9f81b63ebb1f32c8baf29c4d06ca320c8e5",
+      "bytes": 2253
+    },
+    {
+      "path": "fixtures/dev/boxes/4cd5d8e74a4f6bac3dcc98d4cf954812.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/4cd5d8e74a4f6bac3dcc98d4cf954812.json",
+      "sha256": "78202f10503371daaa8251eefedbe30d9fb01c28f8c63cfb269b69fdf7a5800c",
+      "bytes": 2265
+    },
+    {
+      "path": "fixtures/dev/boxes/4f86df6c9092b33a1d55fc38470c3e30.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/4f86df6c9092b33a1d55fc38470c3e30.json",
+      "sha256": "d9b0afa42bafb89894c93a346d5939eb6c3543b70b6a18278b0b9ba6957a7f46",
+      "bytes": 2259
+    },
+    {
+      "path": "fixtures/dev/boxes/56dabe1323d324250d756e1100d9a56e.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/56dabe1323d324250d756e1100d9a56e.json",
+      "sha256": "8b65eef767f975dbf6a5ee383983aab0a641a3862a5de71c58b4ead79726b960",
+      "bytes": 2257
+    },
+    {
+      "path": "fixtures/dev/boxes/63c53930b39b92b518a87304da170780.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/63c53930b39b92b518a87304da170780.json",
+      "sha256": "64f7b69a6c7d382cca1f9370642916fe08399cde04005599973ddd641f6e3d0d",
+      "bytes": 2248
+    },
+    {
+      "path": "fixtures/dev/boxes/6583e958eea2466f5428c76c8b683f38.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/6583e958eea2466f5428c76c8b683f38.json",
+      "sha256": "3557231a4381f5d662923976bc83b59001271f79e2e19849f1c0e48e435d48e6",
+      "bytes": 2262
+    },
+    {
+      "path": "fixtures/dev/boxes/76ee25f641b4c8c86ff7d47c907c9d0c.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/76ee25f641b4c8c86ff7d47c907c9d0c.json",
+      "sha256": "65e41bb055f3e61e77ecb31c1256aed982528afb9f6e22b36e0f8135032d9004",
+      "bytes": 2253
+    },
+    {
+      "path": "fixtures/dev/boxes/9e1c5e82ede92b943410825cf0c93213.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/9e1c5e82ede92b943410825cf0c93213.json",
+      "sha256": "d5e97dd671c38d4c27c71d2f115b5f0f2dd7b4ca3e4ed4b1ac111562e636501e",
+      "bytes": 2246
+    },
+    {
+      "path": "fixtures/dev/boxes/a11cd6d1338dbbdfe155aa3e4f351cfc.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/a11cd6d1338dbbdfe155aa3e4f351cfc.json",
+      "sha256": "2c7f86436fe5c49d04e82ee297b9cbe453946df05c64b34aaf91f5464b1ec802",
+      "bytes": 2258
+    },
+    {
+      "path": "fixtures/dev/boxes/ae390ff6be235ec35ed2a3b70ea656e4.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/ae390ff6be235ec35ed2a3b70ea656e4.json",
+      "sha256": "dd6cd046c320c00ec133aa9f37ea383fcc2dbc1afcaf435b1c14b1161291111d",
+      "bytes": 2259
+    },
+    {
+      "path": "fixtures/dev/boxes/af9d346a670dcaa546cb48bbcf92dfb0.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/af9d346a670dcaa546cb48bbcf92dfb0.json",
+      "sha256": "d58e5f5420e31acc1bac3dc19c837fec2d9fed0b710323ae62c020db2326b1d5",
+      "bytes": 2255
+    },
+    {
+      "path": "fixtures/dev/boxes/c0a7dc187c33638327f1e1d24b8e8345.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/c0a7dc187c33638327f1e1d24b8e8345.json",
+      "sha256": "611ce954efe819408405e2f6c0c0a6cd544ea5f9ab103c86daa6b83b4e70f557",
+      "bytes": 2303
+    },
+    {
+      "path": "fixtures/dev/boxes/c803c81cd76ef5e678896a31c493f77f.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/c803c81cd76ef5e678896a31c493f77f.json",
+      "sha256": "43e2c14301f043497d6fbd3217b45e5a1bb5bae508fa86a0d70a3031ae2ffefa",
+      "bytes": 2245
+    },
+    {
+      "path": "fixtures/dev/boxes/d68c4ab59b563c03e0a0b189a6268a6c.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/d68c4ab59b563c03e0a0b189a6268a6c.json",
+      "sha256": "72e29a5e8851bd7829c0776bccb24f01696a1dc18f554136353c7bf326be90f1",
+      "bytes": 2291
+    },
+    {
+      "path": "fixtures/dev/boxes/e86dd36766564b6bdbf8509ce7029e2c.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/e86dd36766564b6bdbf8509ce7029e2c.json",
+      "sha256": "1f6003eb8cdf46e1f47705209f50536369c3319e0f2a3787965a908a2f1026b2",
+      "bytes": 4963
+    },
+    {
+      "path": "fixtures/dev/boxes/e9036b76038481b04eb3c1cc26a433e1.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/e9036b76038481b04eb3c1cc26a433e1.json",
+      "sha256": "c793451d59ea8fcb418e6a2a1a2c5afb8a2396179a429da6a285b8faa5712454",
+      "bytes": 2253
+    },
+    {
+      "path": "fixtures/dev/boxes/ec87057578b71a13d5ef1b549b5ea07a.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/ec87057578b71a13d5ef1b549b5ea07a.json",
+      "sha256": "a0e8a773ac1aa8634bc9fcf7e1d86e9a763cf7f9ead0eda253eb31a53468f87f",
+      "bytes": 4964
+    },
+    {
+      "path": "fixtures/dev/boxes/ef1509fca991c625595f2ff59593b07f.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/ef1509fca991c625595f2ff59593b07f.json",
+      "sha256": "1cf84243dbb00eefe18297b46cb7a585ce29ec6424f41de8e3cd11288788eb80",
+      "bytes": 2250
+    },
+    {
+      "path": "fixtures/dev/boxes/f8f1bf8299d0a410e6cb726e80a9fd21.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/dev/boxes/f8f1bf8299d0a410e6cb726e80a9fd21.json",
+      "sha256": "30325e1cb3e31adcfdccce42e05e950eac10358797264e8b88cdf9b1fdb16253",
+      "bytes": 2300
+    },
+    {
+      "path": "fixtures/dev/images/0017c4e23262912da383447e5756d267.png",
+      "sha256": "d9d2b2fccb75fdee78f8708291103ed6d69ab05e98e84a7105163f421b34cbf0",
+      "bytes": 12838
+    },
+    {
+      "path": "fixtures/dev/images/04960414b163e3aa541d24ec576247cc.png",
+      "sha256": "e73db2812a953008f585c5f557d6a806d32ff1704d7664198b623986adf979d2",
+      "bytes": 11898
+    },
+    {
+      "path": "fixtures/dev/images/0a7fa00bee1cffde06a3f3b215999961.png",
+      "sha256": "7af7a056b180980d782dc63a07a519c13949fc8179c36ff22172de33b96277d8",
+      "bytes": 11634
+    },
+    {
+      "path": "fixtures/dev/images/0b95cd769c3a17db813f8bc52d450b29.png",
+      "sha256": "7f6899f63bf9946ee8a1c85543a783c272bb2faa5f853cdf5f460af6fef7a11a",
+      "bytes": 11462
+    },
+    {
+      "path": "fixtures/dev/images/0e9897b1fb5440ad3640e224cbe493fb.png",
+      "sha256": "9e83fd04e6ab115d54f7c9f13f37dcc695b3b0acdd89443153c2acaa826c6b33",
+      "bytes": 10299
+    },
+    {
+      "path": "fixtures/dev/images/16b9fe031c2f793807160a5f44783fab.png",
+      "sha256": "586dd726476668ad2c6f10033a3a38766bd8f02e77f99f9af6b9dce8e0d97e2a",
+      "bytes": 10534
+    },
+    {
+      "path": "fixtures/dev/images/273672c03af87ef69b26b403f5418624.png",
+      "sha256": "6db918a9ba9ad60b9b07da05f34397ed98e305f921dcebd0e91d691523f726e0",
+      "bytes": 13057
+    },
+    {
+      "path": "fixtures/dev/images/317206ef763a6e3da54bd06af30e70be.png",
+      "sha256": "17729a048c19c6e82cf2f367349d795066edcac493ca08ab8b36a5f6673333c0",
+      "bytes": 26753
+    },
+    {
+      "path": "fixtures/dev/images/31aa7da97ec4a7df050edf4d3fb3d7d2.png",
+      "sha256": "31b3214846767ee7bbed4317dae2c91a6bc20d66c79552da177a98f469ceb4b9",
+      "bytes": 25706
+    },
+    {
+      "path": "fixtures/dev/images/37e115cf2f183c97caa748ed10a9d0f6.png",
+      "sha256": "13fff3577bc9ed6cde20c0e2480752b21e2f1a9bffadfc82d0de9ddf20cfbf9f",
+      "bytes": 2454
+    },
+    {
+      "path": "fixtures/dev/images/3935084690a0837b19dc389fbde299e4.png",
+      "sha256": "e2f5cceb4932210fdba9abdd9bc1c5206debb8704fda1fcf0f3ac6a6f5fd1957",
+      "bytes": 2100
+    },
+    {
+      "path": "fixtures/dev/images/3b448b148a2d83ada2d5f4380d1033c6.png",
+      "sha256": "3279cad93dd19a7a41d29d3ddc0404d664900aeb5be73aca48f7c08e446ca004",
+      "bytes": 12230
+    },
+    {
+      "path": "fixtures/dev/images/4cd5d8e74a4f6bac3dcc98d4cf954812.png",
+      "sha256": "9661df7e6ebcecd60e2bc6779ccd8ec4162190a603538121e947bcfbeef7a27e",
+      "bytes": 11945
+    },
+    {
+      "path": "fixtures/dev/images/4f86df6c9092b33a1d55fc38470c3e30.png",
+      "sha256": "fcebb3ee91f4131ee5d76ca70068dd58633236e45ccee9c48b9a6c9d06eb334b",
+      "bytes": 12415
+    },
+    {
+      "path": "fixtures/dev/images/56dabe1323d324250d756e1100d9a56e.png",
+      "sha256": "24d1549567e6b1d86b3f5516e4251d3cf3823779200934d26a439e6c7690d6e2",
+      "bytes": 11678
+    },
+    {
+      "path": "fixtures/dev/images/63c53930b39b92b518a87304da170780.png",
+      "sha256": "3b5d8ceba9bf01bff46765e760b96e9bf69d4af269808cab16da1a3cfba16ce9",
+      "bytes": 11465
+    },
+    {
+      "path": "fixtures/dev/images/6583e958eea2466f5428c76c8b683f38.png",
+      "sha256": "dd9f45ff17437645a89785e334c143581f2445025045966b9fd4654acf3fc982",
+      "bytes": 12660
+    },
+    {
+      "path": "fixtures/dev/images/76ee25f641b4c8c86ff7d47c907c9d0c.png",
+      "sha256": "ea8c59a98ef9b35599d9b7a74187570d9b1c2073f404afc7bbbdeb7468f3e8b5",
+      "bytes": 11579
+    },
+    {
+      "path": "fixtures/dev/images/9e1c5e82ede92b943410825cf0c93213.png",
+      "sha256": "32078edf5ca9e21098888dd6711d704694aaa7833802566e565173011261bdc8",
+      "bytes": 11313
+    },
+    {
+      "path": "fixtures/dev/images/a11cd6d1338dbbdfe155aa3e4f351cfc.png",
+      "sha256": "7994405c9739e1264e28d2fbb693f9a84b1885792e08f28fd80e54e38800bc3f",
+      "bytes": 12032
+    },
+    {
+      "path": "fixtures/dev/images/ae390ff6be235ec35ed2a3b70ea656e4.png",
+      "sha256": "ec1eb6e875c73ab3c90c62675fb675cc7b9bdc4ea22684f5394617d863c5d9b1",
+      "bytes": 11490
+    },
+    {
+      "path": "fixtures/dev/images/af9d346a670dcaa546cb48bbcf92dfb0.png",
+      "sha256": "dd8fef21ed033241a68eac07e9aef8d4256dbf8e0e911cc7c906baf078480fd8",
+      "bytes": 11729
+    },
+    {
+      "path": "fixtures/dev/images/c0a7dc187c33638327f1e1d24b8e8345.png",
+      "sha256": "ee14497c6f66c7b103d795886d6303499f1ba5100e0e6cfeebcdec2e8b2a8c5e",
+      "bytes": 14432
+    },
+    {
+      "path": "fixtures/dev/images/c803c81cd76ef5e678896a31c493f77f.png",
+      "sha256": "abf09449349c5f6914909b6c33bf3c2cc37a337e782ced8ca7a855b93e2b75d0",
+      "bytes": 12178
+    },
+    {
+      "path": "fixtures/dev/images/d68c4ab59b563c03e0a0b189a6268a6c.png",
+      "sha256": "7750ca46319f1036c36b243d36db62062a90915205d5e36869efa70f69f7030f",
+      "bytes": 11566
+    },
+    {
+      "path": "fixtures/dev/images/e86dd36766564b6bdbf8509ce7029e2c.png",
+      "sha256": "8904639a2ac92ecc89419f96e3b134ad0bc0114000d31057ce09c9491baf2241",
+      "bytes": 24891
+    },
+    {
+      "path": "fixtures/dev/images/e9036b76038481b04eb3c1cc26a433e1.png",
+      "sha256": "a1a8dec6b9cbad8d7f2da66b1506027fc489ac23fc47c62c977ff23f5e75b257",
+      "bytes": 11705
+    },
+    {
+      "path": "fixtures/dev/images/ec87057578b71a13d5ef1b549b5ea07a.png",
+      "sha256": "93e775a2c7f3da0cd5479567317ca51d1f1c4ba5efe2597058c9ae58d741196e",
+      "bytes": 26084
+    },
+    {
+      "path": "fixtures/dev/images/ef1509fca991c625595f2ff59593b07f.png",
+      "sha256": "777651dd6f98d83e66e20b1386b45291b124255c94eff6227d45a32c5b5f1c5d",
+      "bytes": 9835
+    },
+    {
+      "path": "fixtures/dev/images/f8f1bf8299d0a410e6cb726e80a9fd21.png",
+      "sha256": "29a7f12d1e8c72180e58aef8c231ad4e47051a2e66ba939bdb54a236f8b9a672",
+      "bytes": 13298
+    },
+    {
+      "path": "gold/dev.PROVISIONAL.canon",
+      "sha256": "2ef53fa1aaac4e301b804e4e87288b625c7c5669e8887aa7a9a4944803526fd1",
+      "bytes": 84468
+    },
+    {
+      "path": "gold/dev.PROVISIONAL.json",
+      "sha256": "bc6f0bf2ecd079f9d8f978000e893847c3f881670610673c10aa4556cf94dffb",
+      "bytes": 124696
+    },
+    {
+      "path": "gold/dev.public.PROVISIONAL.canon",
+      "sha256": "fd984777d1c55367288b6c07fbf6f9259cff85e83c0a66c40414b09c86b9065f",
+      "bytes": 23011
+    },
+    {
+      "path": "gold/dev.public.PROVISIONAL.json",
+      "sha256": "daadef0ebf7485f72d66e6fe58ddc446f92f45429feb558dbab9ac0004cfeb49",
+      "bytes": 28400
+    }
+  ]
+}

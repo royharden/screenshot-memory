@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "af9d346a670dcaa546cb48bbcf92dfb0",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "dd8fef21ed033241a68eac07e9aef8d4256dbf8e0e911cc7c906baf078480fd8",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "808f7741e7efef8c9a82017ee78838665c8e52887a119ba3cb201dfc7fcd1bfb",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Estuary reed bundle",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        266,
+        70
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Reed bundle 57 counted",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        54,
+        138
+      ],
+      "bbox_source_px": [
+        54,
+        141,
+        239,
+        154
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "ESTUARY REED BUNDLE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        54,
+        172
+      ],
+      "bbox_source_px": [
+        54,
+        174,
+        190,
+        182
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Hand-drawn fixture",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        54,
+        213
+      ],
+      "bbox_source_px": [
+        54,
+        214,
+        183,
+        223
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "board",
+    "motif_count": 3,
+    "accent": "slate"
+  }
+}

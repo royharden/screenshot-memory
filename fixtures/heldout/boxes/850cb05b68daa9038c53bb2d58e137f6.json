@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "850cb05b68daa9038c53bb2d58e137f6",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "410276a344dd33cbbebf3c40606ff5c6db54b7c33b2a762606b0f3b18515876f",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "1aad625ff4dfa3fefd738379586821432b1d03d282c52d1f7d1d2bc8feb39430",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Opal plasma manifold",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        387,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Opal manifold 59 balanced",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        148,
+        142
+      ],
+      "bbox_source_px": [
+        148,
+        146,
+        350,
+        161
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "OPAL PLASMA MANIFOLD",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        176
+      ],
+      "bbox_source_px": [
+        148,
+        178,
+        291,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        217
+      ],
+      "bbox_source_px": [
+        148,
+        218,
+        291,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "orbit",
+    "motif_count": 6,
+    "accent": "bronze"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "76ee25f641b4c8c86ff7d47c907c9d0c",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "ea8c59a98ef9b35599d9b7a74187570d9b1c2073f404afc7bbbdeb7468f3e8b5",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "840e52906607119c4d12eb2bcc862514370e49fd51a34e9c72195575bc1bde53",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Hazel loom shuttle",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        248,
+        65
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Hazel shuttle 83 oiled",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        48,
+        138
+      ],
+      "bbox_source_px": [
+        48,
+        141,
+        211,
+        154
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "HAZEL LOOM SHUTTLE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        48,
+        172
+      ],
+      "bbox_source_px": [
+        48,
+        174,
+        177,
+        182
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Hand-drawn fixture",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        48,
+        213
+      ],
+      "bbox_source_px": [
+        48,
+        214,
+        177,
+        223
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "ledger",
+    "motif_count": 6,
+    "accent": "rust"
+  }
+}

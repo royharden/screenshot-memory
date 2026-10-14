@@ -1,0 +1,245 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "ec87057578b71a13d5ef1b549b5ea07a",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "93e775a2c7f3da0cd5479567317ca51d1f1c4ba5efe2597058c9ae58d741196e",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "557875337badf4be8894fdaa8b9490d4b0b13d8683583d34eb9e07a33ec495d2",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Bakery proof schedule",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        291,
+        70
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Dough batch RYE 84 rests",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        48,
+        138
+      ],
+      "bbox_source_px": [
+        48,
+        141,
+        249,
+        157
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "BAKERY PROOF SCHEDULE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        48,
+        172
+      ],
+      "bbox_source_px": [
+        48,
+        174,
+        198,
+        182
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-0",
+      "kind": "text",
+      "text": "01  Bakery      900   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        208
+      ],
+      "bbox_source_px": [
+        48,
+        209,
+        217,
+        219
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-1",
+      "kind": "text",
+      "text": "02  Bakery      913   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        225
+      ],
+      "bbox_source_px": [
+        48,
+        226,
+        217,
+        236
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-2",
+      "kind": "text",
+      "text": "03  Bakery      926   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        242
+      ],
+      "bbox_source_px": [
+        48,
+        243,
+        217,
+        253
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-3",
+      "kind": "text",
+      "text": "04  Bakery      939   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        259
+      ],
+      "bbox_source_px": [
+        48,
+        260,
+        217,
+        270
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-4",
+      "kind": "text",
+      "text": "05  Bakery      952   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        276
+      ],
+      "bbox_source_px": [
+        48,
+        277,
+        217,
+        287
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-5",
+      "kind": "text",
+      "text": "06  Bakery      965   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        293
+      ],
+      "bbox_source_px": [
+        48,
+        294,
+        217,
+        304
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-6",
+      "kind": "text",
+      "text": "07  Bakery      978   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        310
+      ],
+      "bbox_source_px": [
+        48,
+        311,
+        217,
+        321
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-7",
+      "kind": "text",
+      "text": "08  Bakery      991   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        327
+      ],
+      "bbox_source_px": [
+        48,
+        328,
+        217,
+        338
+      ],
+      "fill": "#a6aaa4"
+    },
+    {
+      "element_id": "dense-row-8",
+      "kind": "text",
+      "text": "09  Bakery      007   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        48,
+        344
+      ],
+      "bbox_source_px": [
+        48,
+        345,
+        217,
+        355
+      ],
+      "fill": "#a6aaa4"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "ledger",
+    "motif_count": 4,
+    "accent": "olive"
+  }
+}

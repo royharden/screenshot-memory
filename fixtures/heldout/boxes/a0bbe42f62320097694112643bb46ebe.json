@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "a0bbe42f62320097694112643bb46ebe",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "93a9af4db17e3ee984a95766015790f51ab1c4734284023566e9eedeb7eda2e0",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "c75885cb048d74ce364920cb5194ab7423298355fdc7b7b5ef783e36503c801d",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Dune prism carriage",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        370,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Dune prism 27 aligned",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        179,
+        142
+      ],
+      "bbox_source_px": [
+        179,
+        146,
+        349,
+        161
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "DUNE PRISM CARRIAGE",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        176
+      ],
+      "bbox_source_px": [
+        179,
+        178,
+        315,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        179,
+        217
+      ],
+      "bbox_source_px": [
+        179,
+        218,
+        322,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "rail",
+    "motif_count": 1,
+    "accent": "emerald"
+  }
+}

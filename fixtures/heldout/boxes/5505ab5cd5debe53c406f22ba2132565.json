@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "5505ab5cd5debe53c406f22ba2132565",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 736,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "cb24caa75d34c1fd558b1c96ec9885ca8a3e3d8ad48ec1c4121fdd1fd84cf84f",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 736,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "b541835cecae3d2b524910e37c2ed84571c2eafca1f540c5c85322eb10fd5f68",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Jade photon chamber",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        388,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Jade chamber 96 cooled",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        182,
+        152
+      ],
+      "bbox_source_px": [
+        182,
+        156,
+        368,
+        168
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "JADE PHOTON CHAMBER",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        186
+      ],
+      "bbox_source_px": [
+        182,
+        188,
+        318,
+        196
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        227
+      ],
+      "bbox_source_px": [
+        182,
+        228,
+        325,
+        237
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "folio",
+    "motif_count": 1,
+    "accent": "amber"
+  }
+}

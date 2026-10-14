@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "9bb18123de3b5be4642dd497b9b92d50",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "00b23e1f483ebde654523f1893503139f6f6e535ed3048e55398650fa990d05d",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "4312c135cfe824fb495120e5370854718291608689c417b6ce72170a0d2044f7",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Saffron reactor dial",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        356,
+        68
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Coolant marked OPEN",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        148,
+        142
+      ],
+      "bbox_source_px": [
+        148,
+        145,
+        321,
+        158
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "SAFFRON REACTOR DIAL",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        176
+      ],
+      "bbox_source_px": [
+        148,
+        178,
+        291,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        217
+      ],
+      "bbox_source_px": [
+        148,
+        218,
+        291,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "orbit",
+    "motif_count": 6,
+    "accent": "cyan"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "6a444b19955afc664b456394b0b373f3",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "36d036aa7b9acf07e306a19c7ca5b1c709f3f7b56164bcee42531ddb32178953",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "a40eb27be2a4555ec9e1929379ca585b7e9e993c9843f1246ef0c67aeba6bf78",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Fjord antenna array",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        364,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Fjord antenna 49 tuned",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        182,
+        152
+      ],
+      "bbox_source_px": [
+        182,
+        155,
+        358,
+        171
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "FJORD ANTENNA ARRAY",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        186
+      ],
+      "bbox_source_px": [
+        182,
+        188,
+        319,
+        196
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        182,
+        227
+      ],
+      "bbox_source_px": [
+        182,
+        228,
+        325,
+        237
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "folio",
+    "motif_count": 3,
+    "accent": "berry"
+  }
+}

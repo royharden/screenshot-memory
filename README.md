@@ -43,8 +43,10 @@ local metadata boundaries are generated under contracts/generated from the Pytho
 models. No shared-owner dependencies have been vendored.
 
 Quality, latency and cost are **not yet measured**. Provisional synthetic reference
-material requires a validated freeze and integration before evaluation; no measured
-results table exists. The status demo makes no API calls and loads no credentials.
+material has its first data-only freeze:60original images,264cases and54groups,
+bound by gold/manifest.json and fixtures/heldout/FROZEN. Model/config/experiment
+locks and evaluation remain pending; no measured results table exists.
+The status demo makes no API calls and loads no credentials.
 See docs/LIMITATIONS.md and BOLT-HANDOFF.md for current gaps.
 
 Codex authored this local core. Focused checks verify the documented core boundaries;

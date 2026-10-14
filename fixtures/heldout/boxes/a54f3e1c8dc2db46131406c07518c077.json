@@ -1,0 +1,101 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "a54f3e1c8dc2db46131406c07518c077",
+  "source_id": "f3a0024126ff013c31bfbd7461b6c0fb",
+  "page_index": 0,
+  "width_px": 752,
+  "height_px": 464,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "9445fc3d0ccb18eda8f9f362905a72ff9a6bc6a6471831a2d6c1a8fcf85d247d",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 752,
+    "height_px": 464,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "1eaa01d7ac22b9b9990983d0bc2a8efd205b530a5acb541219931f212fec2010",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Krypton ridge rover",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        145,
+        45
+      ],
+      "bbox_source_px": [
+        145,
+        50,
+        358,
+        73
+      ],
+      "fill": "#24334a"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Krypton rover 14 parked",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        148,
+        142
+      ],
+      "bbox_source_px": [
+        148,
+        145,
+        330,
+        161
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "KRYPTON RIDGE ROVER",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        176
+      ],
+      "bbox_source_px": [
+        148,
+        178,
+        284,
+        186
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "detail",
+      "kind": "text",
+      "text": "Fictional instrument",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        148,
+        217
+      ],
+      "bbox_source_px": [
+        148,
+        218,
+        291,
+        227
+      ],
+      "fill": "#697361"
+    }
+  ],
+  "visual_authoring": {
+    "background": "cool paper",
+    "layout": "orbit",
+    "motif_count": 2,
+    "accent": "cyan"
+  }
+}

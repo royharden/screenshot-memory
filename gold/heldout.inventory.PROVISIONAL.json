@@ -1,0 +1,477 @@
+{
+  "schema": "S7-file-hash-inventory/1",
+  "status": "PROVISIONAL",
+  "split": "heldout",
+  "files": [
+    {
+      "path": "fixtures/heldout/boxes/0079e012ec00a32344d7043e1c2b51a3.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/0079e012ec00a32344d7043e1c2b51a3.json",
+      "sha256": "d0363bf2a14f2c08871612f53be3514ecd9b41da3cfd7466d2e7c9f7c6b6aa23",
+      "bytes": 2272
+    },
+    {
+      "path": "fixtures/heldout/boxes/0bd6c68375c3d0109dae35307e5caf71.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/0bd6c68375c3d0109dae35307e5caf71.json",
+      "sha256": "746bf104884bda4bb0948148d8cc4cacbc33f47a141cb1278b1cf530c2c89cda",
+      "bytes": 4996
+    },
+    {
+      "path": "fixtures/heldout/boxes/0cc7bdd2e2b4ec58ba5e86401ad66872.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/0cc7bdd2e2b4ec58ba5e86401ad66872.json",
+      "sha256": "957d5355b9e720121b6e282147caa0dd23a375a0e41e1c68a62669f243b674d5",
+      "bytes": 1190
+    },
+    {
+      "path": "fixtures/heldout/boxes/0f74df5605fa1b9f9a7d25c2e6c74e8b.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/0f74df5605fa1b9f9a7d25c2e6c74e8b.json",
+      "sha256": "ae60d2b0530897d422ec53f7c7369375835913d4f7ef55b63f7e0f47f0df1a19",
+      "bytes": 2263
+    },
+    {
+      "path": "fixtures/heldout/boxes/129dba7b33b5b13cddfb6757d9a89f91.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/129dba7b33b5b13cddfb6757d9a89f91.json",
+      "sha256": "fdcee879038890bf3c9a34a5a6fb46782e9e641fc118278ac38af41695363a4d",
+      "bytes": 2273
+    },
+    {
+      "path": "fixtures/heldout/boxes/130299e2d86b5e1c90c8c7a3cc1f19bf.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/130299e2d86b5e1c90c8c7a3cc1f19bf.json",
+      "sha256": "12f3a0f16d45f6588237a61bbbc664119da0a525cda69319225b79f4725160b6",
+      "bytes": 2263
+    },
+    {
+      "path": "fixtures/heldout/boxes/1e369b0f6128ae8446f8103e73ca60db.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/1e369b0f6128ae8446f8103e73ca60db.json",
+      "sha256": "78c01211ac70b8c4ebe6e0dd39f8c8591bb45155fe9c03a72092cf5cb275aec1",
+      "bytes": 2270
+    },
+    {
+      "path": "fixtures/heldout/boxes/2423add59a451523de3e501ce8a0727c.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/2423add59a451523de3e501ce8a0727c.json",
+      "sha256": "12d292333bbf9f5a623ba9cbd98d73cbeee1db6957d39707dad3084d1dff992b",
+      "bytes": 2263
+    },
+    {
+      "path": "fixtures/heldout/boxes/24f6094334d7461fe98b06867032e377.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/24f6094334d7461fe98b06867032e377.json",
+      "sha256": "05760cbcc36946a0b13f013025c8efce9fd408762a4044c0fbd31eff51a75661",
+      "bytes": 2311
+    },
+    {
+      "path": "fixtures/heldout/boxes/416257ab4f5aed507a851cbeabde6f28.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/416257ab4f5aed507a851cbeabde6f28.json",
+      "sha256": "87a3de5a0df69eb552d34b2d57fd357b648bddd08344badff32010c8bbebe191",
+      "bytes": 2268
+    },
+    {
+      "path": "fixtures/heldout/boxes/44aec6107c6858b3fd2e47a136b5090f.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/44aec6107c6858b3fd2e47a136b5090f.json",
+      "sha256": "24ffd82fbeb70e868cf8410392dc6487631e60efc410d8df5ffb0bc48d4785cb",
+      "bytes": 2273
+    },
+    {
+      "path": "fixtures/heldout/boxes/46feb9cfbd2587d6fb2006e8f3d3e708.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/46feb9cfbd2587d6fb2006e8f3d3e708.json",
+      "sha256": "e18a0d8981e7ead383faae2e96c54a5594a5b63ff3d22c3ae16dd9307f8ec7cb",
+      "bytes": 2268
+    },
+    {
+      "path": "fixtures/heldout/boxes/4da2d5a6475d3618b406d1bba9722dbe.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/4da2d5a6475d3618b406d1bba9722dbe.json",
+      "sha256": "5446179468b57dce3793f1c29d1e900c769539da79c118413961e0019dfeef68",
+      "bytes": 2298
+    },
+    {
+      "path": "fixtures/heldout/boxes/539fc95366cd900fe0f5b1a2a1e7dafc.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/539fc95366cd900fe0f5b1a2a1e7dafc.json",
+      "sha256": "b3b705349b47651b15299998b09f762e548bb1bf1e906a33446548b438535236",
+      "bytes": 4989
+    },
+    {
+      "path": "fixtures/heldout/boxes/5505ab5cd5debe53c406f22ba2132565.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/5505ab5cd5debe53c406f22ba2132565.json",
+      "sha256": "e11ed39744d6e6f7a11b2a55da87fea3ca23dd722075d7b1eb6e5f3cf05a825f",
+      "bytes": 2265
+    },
+    {
+      "path": "fixtures/heldout/boxes/59786e0329889fb079ba0f121303a01a.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/59786e0329889fb079ba0f121303a01a.json",
+      "sha256": "df68942e350123051c121e1b80ad38f5c7952dc9736b107df7d0d889126b3990",
+      "bytes": 2268
+    },
+    {
+      "path": "fixtures/heldout/boxes/63ea25af55bd9b2d4ed8136e7b6df032.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/63ea25af55bd9b2d4ed8136e7b6df032.json",
+      "sha256": "84b55258525e33a185181b0640e4131f6cce4c62aeec0301a425a3d17999e953",
+      "bytes": 960
+    },
+    {
+      "path": "fixtures/heldout/boxes/6a444b19955afc664b456394b0b373f3.grid-header.canon",
+      "sha256": "95d24b52814c0dde6e79fed49a2d85ffad7716592ec9fb46604de61ea016f61c",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/6a444b19955afc664b456394b0b373f3.json",
+      "sha256": "b7f5eba7e96ae4e5b352806e5ed788e0ac49665da3c2e4aac12d5f175afa1c42",
+      "bytes": 2265
+    },
+    {
+      "path": "fixtures/heldout/boxes/6c2ae42ff9ba2bfa165af44189a295a0.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/6c2ae42ff9ba2bfa165af44189a295a0.json",
+      "sha256": "64563a02ff0f6de15f448271f53f03190283fc6b7f050ce7519ad74d584dc621",
+      "bytes": 2270
+    },
+    {
+      "path": "fixtures/heldout/boxes/850cb05b68daa9038c53bb2d58e137f6.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/850cb05b68daa9038c53bb2d58e137f6.json",
+      "sha256": "d5ed9cf3d9e8f4d31610664b7e4cbbe2abfc29463c31dfa6d06610e7cf42ce94",
+      "bytes": 2271
+    },
+    {
+      "path": "fixtures/heldout/boxes/886e3509e1f345b05894f6bce8a41b25.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/886e3509e1f345b05894f6bce8a41b25.json",
+      "sha256": "a8b4bfa71830965afe494510bbde6c822148b26463e49a441794819966b7b195",
+      "bytes": 5004
+    },
+    {
+      "path": "fixtures/heldout/boxes/8ad9a5cf9b45c4233d335312a19251eb.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/8ad9a5cf9b45c4233d335312a19251eb.json",
+      "sha256": "60393768a5c0769a07c375fa7cc3abd2feea4cad3cbd168052ca76e2ab6f461f",
+      "bytes": 2272
+    },
+    {
+      "path": "fixtures/heldout/boxes/9bb18123de3b5be4642dd497b9b92d50.grid-header.canon",
+      "sha256": "ec12c3c136c7aef65bcbee617bf25df1547f9e3c853d8308b7b2932b143c22fe",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/9bb18123de3b5be4642dd497b9b92d50.json",
+      "sha256": "439e173f51b8f149a87e35661768c4ec53b804062738566773e6e32b30375c00",
+      "bytes": 2263
+    },
+    {
+      "path": "fixtures/heldout/boxes/a0bbe42f62320097694112643bb46ebe.grid-header.canon",
+      "sha256": "a3b1f610c319d8069f3727936c75c48720d4f469993e8c96d3c3a10ae3bcada6",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/a0bbe42f62320097694112643bb46ebe.json",
+      "sha256": "8f3014eef25ef7b417c6b59db78762dac0d876a68a1cbdbc9db9669c8972c6a6",
+      "bytes": 2265
+    },
+    {
+      "path": "fixtures/heldout/boxes/a54f3e1c8dc2db46131406c07518c077.grid-header.canon",
+      "sha256": "7951c15aad55b0d207a45f81f635058dabd0b34e38f49a2dee7151af18fb13d2",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/a54f3e1c8dc2db46131406c07518c077.json",
+      "sha256": "66f7fe288929b205a246a7f942d228763f50938c17fb84b97bdee3b0259ac871",
+      "bytes": 2265
+    },
+    {
+      "path": "fixtures/heldout/boxes/aef3fc121e82b656a0d3162e6f6e6bf2.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/aef3fc121e82b656a0d3162e6f6e6bf2.json",
+      "sha256": "ba006af762abb30bfe68fedbecf4891d4775d7a3e8382c9433fda64a6e88746c",
+      "bytes": 2300
+    },
+    {
+      "path": "fixtures/heldout/boxes/c3c589d2cfecdeb0ef7df63576296f2f.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/c3c589d2cfecdeb0ef7df63576296f2f.json",
+      "sha256": "86da85428980fda152dd543ffdaae719ad5b43a9d6c598731e6bd3f5c27bd2f7",
+      "bytes": 2263
+    },
+    {
+      "path": "fixtures/heldout/boxes/caeedd651e2d7d92358569c967ae803e.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/caeedd651e2d7d92358569c967ae803e.json",
+      "sha256": "d50c302766a4d1bb816d48ce2bf3d83671d74de2a55e321740c17f28140b5a56",
+      "bytes": 4999
+    },
+    {
+      "path": "fixtures/heldout/boxes/d362b00d9492d4675aa5806f8b651f37.grid-header.canon",
+      "sha256": "90ff09234e9d05af326a3470505214e4ccb44635dcf4a208dbb8a443c8e00d75",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/d362b00d9492d4675aa5806f8b651f37.json",
+      "sha256": "99aa86ecc05d010e306333778f2129c5656f96a543f26fa83b21973b497e90a3",
+      "bytes": 2259
+    },
+    {
+      "path": "fixtures/heldout/boxes/f8e3c5c5c58453a469b58b31b3eb7ad4.grid-header.canon",
+      "sha256": "ddeeb91c294e8bd90886998ab94e25f831c0faba410d8fc4374907a69305bffd",
+      "bytes": 133
+    },
+    {
+      "path": "fixtures/heldout/boxes/f8e3c5c5c58453a469b58b31b3eb7ad4.json",
+      "sha256": "062efe092cba54a7fa7cc58afec4716eb53bc5afc8bc5a50ac723943509cfa8b",
+      "bytes": 2275
+    },
+    {
+      "path": "fixtures/heldout/images/0079e012ec00a32344d7043e1c2b51a3.png",
+      "sha256": "c7c0c65b0e9c396d23f9e5a6db06dabb70999172ab6d0099bc555f94e81b52bc",
+      "bytes": 12434
+    },
+    {
+      "path": "fixtures/heldout/images/0bd6c68375c3d0109dae35307e5caf71.png",
+      "sha256": "9c99a6965fc65a7b3980f23ea7017e45392228a4f69a7159b71441bdedec23ca",
+      "bytes": 26805
+    },
+    {
+      "path": "fixtures/heldout/images/0cc7bdd2e2b4ec58ba5e86401ad66872.png",
+      "sha256": "16cf5f5194a882d68a7d37b14f876dcc300d76097834fbe73093e0a6dd263f85",
+      "bytes": 2876
+    },
+    {
+      "path": "fixtures/heldout/images/0f74df5605fa1b9f9a7d25c2e6c74e8b.png",
+      "sha256": "d36b96921bf3ff839ba57818de49c9c46fed477008b08f22cd512fabf4d83fd5",
+      "bytes": 11117
+    },
+    {
+      "path": "fixtures/heldout/images/129dba7b33b5b13cddfb6757d9a89f91.png",
+      "sha256": "35b259310f798e9677981233c943c6524bc477fc7ddde989d6f817db357df11c",
+      "bytes": 13060
+    },
+    {
+      "path": "fixtures/heldout/images/130299e2d86b5e1c90c8c7a3cc1f19bf.png",
+      "sha256": "a957eecafb3e3f79734d8ecab686bc2bef75ac973b5410a0d0ab68ba817d6244",
+      "bytes": 12438
+    },
+    {
+      "path": "fixtures/heldout/images/1e369b0f6128ae8446f8103e73ca60db.png",
+      "sha256": "b468a08754dcbaad4cb3896b24a7677f664af5874f8d2e6575ef3c2d4403690e",
+      "bytes": 12246
+    },
+    {
+      "path": "fixtures/heldout/images/2423add59a451523de3e501ce8a0727c.png",
+      "sha256": "dec9f3e7684d01d8dd10e4553bf5131f1bddce5d2dc8542dcda28dfe8add3730",
+      "bytes": 12885
+    },
+    {
+      "path": "fixtures/heldout/images/24f6094334d7461fe98b06867032e377.png",
+      "sha256": "adffb6651ca863282fff14bda142141ac2eef9ba744bf669600b92f4932021d6",
+      "bytes": 15356
+    },
+    {
+      "path": "fixtures/heldout/images/416257ab4f5aed507a851cbeabde6f28.png",
+      "sha256": "ebcdc1f2fc9f4741cca3bfa3da6ae52a61c83d21c1ec656c0e7b7e5457214da1",
+      "bytes": 12104
+    },
+    {
+      "path": "fixtures/heldout/images/44aec6107c6858b3fd2e47a136b5090f.png",
+      "sha256": "7884637c530df280a1fad4cfdb3148b4ca26eb61addee86ea319a6dd29ffe592",
+      "bytes": 13066
+    },
+    {
+      "path": "fixtures/heldout/images/46feb9cfbd2587d6fb2006e8f3d3e708.png",
+      "sha256": "23479a9fa9f9ceba9c54b201c6eb9280d08fdf1973c04fd1a7763d817ff0753e",
+      "bytes": 12581
+    },
+    {
+      "path": "fixtures/heldout/images/4da2d5a6475d3618b406d1bba9722dbe.png",
+      "sha256": "de7d9677d63c49c67b1644770dd678f8ea41934b2dc159f6bccfac4be316cfd6",
+      "bytes": 12389
+    },
+    {
+      "path": "fixtures/heldout/images/539fc95366cd900fe0f5b1a2a1e7dafc.png",
+      "sha256": "ca4d1b51074728d8ca061cdc97bfa8f39d9fac8f5fad5e5adeb50d4c7f3c81ae",
+      "bytes": 26156
+    },
+    {
+      "path": "fixtures/heldout/images/5505ab5cd5debe53c406f22ba2132565.png",
+      "sha256": "cb24caa75d34c1fd558b1c96ec9885ca8a3e3d8ad48ec1c4121fdd1fd84cf84f",
+      "bytes": 12533
+    },
+    {
+      "path": "fixtures/heldout/images/59786e0329889fb079ba0f121303a01a.png",
+      "sha256": "53c305e8b1da60443a384c1e45d6c10f8da06c63684047860347331583f06edb",
+      "bytes": 13008
+    },
+    {
+      "path": "fixtures/heldout/images/63ea25af55bd9b2d4ed8136e7b6df032.png",
+      "sha256": "305384431433cbbd743e168b579fe43a00936c8aa295400b5ef20d5966175a33",
+      "bytes": 2100
+    },
+    {
+      "path": "fixtures/heldout/images/6a444b19955afc664b456394b0b373f3.png",
+      "sha256": "36d036aa7b9acf07e306a19c7ca5b1c709f3f7b56164bcee42531ddb32178953",
+      "bytes": 10634
+    },
+    {
+      "path": "fixtures/heldout/images/6c2ae42ff9ba2bfa165af44189a295a0.png",
+      "sha256": "6d52c097b0c2323121679af7246b3d6fc3fb586d6f9e3be328eae3545ce6e7ef",
+      "bytes": 12255
+    },
+    {
+      "path": "fixtures/heldout/images/850cb05b68daa9038c53bb2d58e137f6.png",
+      "sha256": "410276a344dd33cbbebf3c40606ff5c6db54b7c33b2a762606b0f3b18515876f",
+      "bytes": 13289
+    },
+    {
+      "path": "fixtures/heldout/images/886e3509e1f345b05894f6bce8a41b25.png",
+      "sha256": "bff6311bc7a9904b564776995951f9dd195bdcae57997d93c59b979181c2ce6e",
+      "bytes": 25651
+    },
+    {
+      "path": "fixtures/heldout/images/8ad9a5cf9b45c4233d335312a19251eb.png",
+      "sha256": "dd792c804adda43706c81170a2ee6d588bca841835b98c42054deef3cf4e974a",
+      "bytes": 12563
+    },
+    {
+      "path": "fixtures/heldout/images/9bb18123de3b5be4642dd497b9b92d50.png",
+      "sha256": "00b23e1f483ebde654523f1893503139f6f6e535ed3048e55398650fa990d05d",
+      "bytes": 13066
+    },
+    {
+      "path": "fixtures/heldout/images/a0bbe42f62320097694112643bb46ebe.png",
+      "sha256": "93a9af4db17e3ee984a95766015790f51ab1c4734284023566e9eedeb7eda2e0",
+      "bytes": 12448
+    },
+    {
+      "path": "fixtures/heldout/images/a54f3e1c8dc2db46131406c07518c077.png",
+      "sha256": "9445fc3d0ccb18eda8f9f362905a72ff9a6bc6a6471831a2d6c1a8fcf85d247d",
+      "bytes": 13376
+    },
+    {
+      "path": "fixtures/heldout/images/aef3fc121e82b656a0d3162e6f6e6bf2.png",
+      "sha256": "30d62be2e7674d4488914d3bbd6d0f7e3da96abbca0152ca5f3ee17a6360246a",
+      "bytes": 12648
+    },
+    {
+      "path": "fixtures/heldout/images/c3c589d2cfecdeb0ef7df63576296f2f.png",
+      "sha256": "0125d875395ff38bc966ce6daff2d0047ace2dc2e39cf390212411b54a880136",
+      "bytes": 12906
+    },
+    {
+      "path": "fixtures/heldout/images/caeedd651e2d7d92358569c967ae803e.png",
+      "sha256": "7d6f90eb1f99fb79879d74a328142ad5ce1e6b6be557282da310ee18d097ab36",
+      "bytes": 25272
+    },
+    {
+      "path": "fixtures/heldout/images/d362b00d9492d4675aa5806f8b651f37.png",
+      "sha256": "e132b41d93fe13b0fcb2ecd1f3eea06ff8c05711bfac565d160f4cf94c7192f2",
+      "bytes": 11060
+    },
+    {
+      "path": "fixtures/heldout/images/f8e3c5c5c58453a469b58b31b3eb7ad4.png",
+      "sha256": "f2210dae600917e30eac332a455afd5fd4dccb7dbfa0103fc31c9f2bf15cae18",
+      "bytes": 13992
+    },
+    {
+      "path": "gold/heldout.PROVISIONAL.canon",
+      "sha256": "d7d7fb6cf56478f0149803dfb13892647f26c3a2bd2bae91989ba2f963b117db",
+      "bytes": 84701
+    },
+    {
+      "path": "gold/heldout.PROVISIONAL.json",
+      "sha256": "37c3811a556c6d701782933719fc8cdb6d1a4f7a4aea07d44b85224ea31a3db1",
+      "bytes": 124929
+    },
+    {
+      "path": "gold/heldout.public.PROVISIONAL.canon",
+      "sha256": "18599fea0452e2b8375ff0f5a5e2451d185b98ef86d6ee8ab6cbec640d4755e0",
+      "bytes": 23028
+    },
+    {
+      "path": "gold/heldout.public.PROVISIONAL.json",
+      "sha256": "9e078797701b53c019e015083a1615bfa8d24fd4b6a5c3a81d1e09a7d39782f4",
+      "bytes": 28417
+    }
+  ]
+}

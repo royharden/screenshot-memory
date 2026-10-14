@@ -8,6 +8,12 @@ copied-module consumer tests cover those cores. No integrated frontend, API,
 uploads, model weights, OCR/embedding/caption pipeline or provider integration
 exists yet. There is no deployment-ready application artifact.
 
+Original synthetic source data has a first data-only freeze:60PNGs,264cases and
+54groups. Default fixture verification is portable and does not need the original
+Windows fonts; explicit historical rerender requires actual recorded capabilities.
+Data/reference/source files are enumerated by exact path/hash in the source-package
+policy. A source archive must not substitute user data under an approved filename.
+
 Database provisioning: not required for the planned local SQLite tool. The future
 Python/ONNX/local-filesystem core requires a separately operated runtime; a Vite
 fixture preview would not establish OCR/retrieval/deletion functionality. No static

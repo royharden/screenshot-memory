@@ -1,0 +1,245 @@
+{
+  "schema": "S7-authored-source-boxes/1",
+  "asset_id": "31aa7da97ec4a7df050edf4d3fb3d7d2",
+  "source_id": "1e4376bf3af3feb8864bf162899c379d",
+  "page_index": 0,
+  "width_px": 720,
+  "height_px": 440,
+  "coordinate_space": "displayed-source-pixel-top-left",
+  "encoded_sha256": "31b3214846767ee7bbed4317dae2c91a6bc20d66c79552da177a98f469ceb4b9",
+  "source_grid_header": {
+    "algorithm": "rgba8-source-grid-v1",
+    "width_px": 720,
+    "height_px": 440,
+    "mode": "RGBA8",
+    "row_order": "top-to-bottom",
+    "channel_order": "RGBA"
+  },
+  "source_grid_sha256": "74e137e462acec14a26f973a42f3f4e4e54315453531591dddb1081654543fe9",
+  "source_grid_preimage_recipe": "canon/1(header) + LF + decoded PNG converted RGBA8 row-major bytes; recoverable exactly from frozen PNG",
+  "native_ocr_executed": false,
+  "elements": [
+    {
+      "element_id": "heading",
+      "kind": "text",
+      "text": "Pigment inventory",
+      "font_key": "heading",
+      "font_size_px": 25,
+      "draw_origin_px": [
+        42,
+        42
+      ],
+      "bbox_source_px": [
+        42,
+        47,
+        243,
+        70
+      ],
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "focus",
+      "kind": "text",
+      "text": "Pigment ULTRAMARINE 31 reserved",
+      "font_key": "body",
+      "font_size_px": 17,
+      "draw_origin_px": [
+        54,
+        156
+      ],
+      "bbox_source_px": [
+        54,
+        159,
+        336,
+        175
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "subheading",
+      "kind": "text",
+      "text": "PIGMENT INVENTORY",
+      "font_key": "small",
+      "font_size_px": 13,
+      "draw_origin_px": [
+        54,
+        190
+      ],
+      "bbox_source_px": [
+        54,
+        192,
+        176,
+        200
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-0",
+      "kind": "text",
+      "text": "01  Pigment     900   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        226
+      ],
+      "bbox_source_px": [
+        54,
+        227,
+        223,
+        237
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-1",
+      "kind": "text",
+      "text": "02  Pigment     913   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        243
+      ],
+      "bbox_source_px": [
+        54,
+        244,
+        223,
+        254
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-2",
+      "kind": "text",
+      "text": "03  Pigment     926   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        260
+      ],
+      "bbox_source_px": [
+        54,
+        261,
+        223,
+        271
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-3",
+      "kind": "text",
+      "text": "04  Pigment     939   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        277
+      ],
+      "bbox_source_px": [
+        54,
+        278,
+        223,
+        288
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-4",
+      "kind": "text",
+      "text": "05  Pigment     952   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        294
+      ],
+      "bbox_source_px": [
+        54,
+        295,
+        223,
+        305
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-5",
+      "kind": "text",
+      "text": "06  Pigment     965   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        311
+      ],
+      "bbox_source_px": [
+        54,
+        312,
+        223,
+        322
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-6",
+      "kind": "text",
+      "text": "07  Pigment     978   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        328
+      ],
+      "bbox_source_px": [
+        54,
+        329,
+        223,
+        339
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-7",
+      "kind": "text",
+      "text": "08  Pigment     991   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        345
+      ],
+      "bbox_source_px": [
+        54,
+        346,
+        223,
+        356
+      ],
+      "fill": "#243328"
+    },
+    {
+      "element_id": "dense-row-8",
+      "kind": "text",
+      "text": "09  Pigment     007   review",
+      "font_key": "tiny",
+      "font_size_px": 11,
+      "draw_origin_px": [
+        54,
+        362
+      ],
+      "bbox_source_px": [
+        54,
+        363,
+        223,
+        373
+      ],
+      "fill": "#243328"
+    }
+  ],
+  "visual_authoring": {
+    "background": "warm paper",
+    "layout": "shelf",
+    "motif_count": 2,
+    "accent": "rust"
+  }
+}

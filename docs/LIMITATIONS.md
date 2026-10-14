@@ -5,7 +5,9 @@ pure ranking metric functions. The empty status demo has no integrated fixture
 pipeline, OCR, captions, embeddings, retrieval, regions or upload/delete workflow.
 Evaluation exits nonzero; quality/latency/cost and held-out results are not measured.
 
-Provisional synthetic references require validated freeze/integration before use.
+Original synthetic references now have a first data-only freeze, with no original-
+gallery feature/tuning/benchmark output in that operation. Integration and actual
+model/config/experiment locks remain pending; the references remain provisional.
 No provider/SDK/account/model
 capability, model licence, checkpoint or vendored source has been verified here.
 No viewer/Bolt preview, API listener, container or cloud resource exists.

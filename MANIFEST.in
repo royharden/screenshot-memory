@@ -1,0 +1,18 @@
+include LICENSE README.md pyproject.toml uv.lock .python-version BOLT-HANDOFF.md
+recursive-include src/screenshot_memory *.py
+recursive-include scripts *.py
+recursive-include tests *.py
+recursive-include contracts *.json *.md
+recursive-include docs *.md
+prune .git
+prune .venv
+prune .creds
+prune .agent-registry
+prune .agent-work
+prune .chatexports
+prune .thinking
+prune planning
+prune agentops
+prune build
+prune dist
+global-exclude __pycache__ *.py[cod] .env .env.* *.log *.jsonl *.png *.jpg *.jpeg *.webp *.gif *.sqlite* *.db *.onnx *.safetensors *.pt

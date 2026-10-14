@@ -1,0 +1,284 @@
+{
+  "$comment": "Generated from screenshot_memory.contracts. Runtime validators additionally enforce cross-field caps, identity/generation and status coherence. This is no execution proof.",
+  "$defs": {
+    "StageStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "feature_space_id": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Feature Space Id"
+        },
+        "item_generation": {
+          "maximum": 9223372036854775807,
+          "minimum": 0,
+          "title": "Item Generation",
+          "type": "integer"
+        },
+        "processing_revision": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Processing Revision"
+        },
+        "provenance": {
+          "default": "none",
+          "enum": [
+            "none",
+            "declared",
+            "synthetic",
+            "observed"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "unavailable",
+                "dependency_missing",
+                "timeout",
+                "limit_exceeded",
+                "truncated",
+                "invalid_output",
+                "policy_hold",
+                "generation_mismatch",
+                "not_applicable",
+                "processing_failed"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "result_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Result Sha256"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "stage": {
+          "enum": [
+            "decode",
+            "ocr",
+            "caption",
+            "text_embeddings",
+            "image_embeddings"
+          ],
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "running",
+            "ready",
+            "partial",
+            "failed",
+            "missing",
+            "blocked",
+            "stale",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stage",
+        "status",
+        "item_generation"
+      ],
+      "title": "StageStatus",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "collection_generation": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Collection Generation",
+      "type": "integer"
+    },
+    "collection_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Collection Id",
+      "type": "string"
+    },
+    "encoded_bytes": {
+      "maximum": 8388608,
+      "minimum": 1,
+      "title": "Encoded Bytes",
+      "type": "integer"
+    },
+    "evidence_artifact_sha256": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Artifact Sha256"
+    },
+    "generation": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "height_px": {
+      "maximum": 20000000,
+      "minimum": 1,
+      "title": "Height Px",
+      "type": "integer"
+    },
+    "item_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Item Id",
+      "type": "string"
+    },
+    "original_content_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Original Content Sha256",
+      "type": "string"
+    },
+    "raw_source_revision": {
+      "maxLength": 256,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+      "title": "Raw Source Revision",
+      "type": "string"
+    },
+    "revision": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source_grid_sha256": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Grid Sha256"
+    },
+    "source_object_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Source Object Id",
+      "type": "string"
+    },
+    "stages": {
+      "items": {
+        "$ref": "#/$defs/StageStatus"
+      },
+      "maxItems": 5,
+      "minItems": 5,
+      "title": "Stages",
+      "type": "array"
+    },
+    "state": {
+      "enum": [
+        "pending",
+        "partial",
+        "ready",
+        "failed",
+        "deleting",
+        "cleanup_pending"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "width_px": {
+      "maximum": 20000000,
+      "minimum": 1,
+      "title": "Width Px",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "item_id",
+    "collection_id",
+    "source_object_id",
+    "original_content_sha256",
+    "raw_source_revision",
+    "revision",
+    "generation",
+    "collection_generation",
+    "encoded_bytes",
+    "width_px",
+    "height_px",
+    "state",
+    "stages"
+  ],
+  "title": "Item",
+  "type": "object"
+}

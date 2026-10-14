@@ -1,0 +1,132 @@
+{
+  "$comment": "Generated from screenshot_memory.contracts. Runtime validators additionally enforce cross-field caps, identity/generation and status coherence. This is no execution proof.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "feature_space_id": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Feature Space Id"
+    },
+    "item_generation": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Item Generation",
+      "type": "integer"
+    },
+    "processing_revision": {
+      "anyOf": [
+        {
+          "maxLength": 256,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Processing Revision"
+    },
+    "provenance": {
+      "default": "none",
+      "enum": [
+        "none",
+        "declared",
+        "synthetic",
+        "observed"
+      ],
+      "title": "Provenance",
+      "type": "string"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "enum": [
+            "unavailable",
+            "dependency_missing",
+            "timeout",
+            "limit_exceeded",
+            "truncated",
+            "invalid_output",
+            "policy_hold",
+            "generation_mismatch",
+            "not_applicable",
+            "processing_failed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reason"
+    },
+    "result_sha256": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Result Sha256"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "stage": {
+      "enum": [
+        "decode",
+        "ocr",
+        "caption",
+        "text_embeddings",
+        "image_embeddings"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "not_run",
+        "running",
+        "ready",
+        "partial",
+        "failed",
+        "missing",
+        "blocked",
+        "stale",
+        "not_applicable"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "stage",
+    "status",
+    "item_generation"
+  ],
+  "title": "StageStatus",
+  "type": "object"
+}

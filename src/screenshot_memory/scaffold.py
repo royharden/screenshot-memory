@@ -5,10 +5,11 @@ def scaffold_status() -> dict[str, object]:
     """Report implemented capabilities without implying future features work."""
     return {
         "schema_version": 1,
-        "stage": "scaffold",
+        "stage": "contracts_only",
         "mode": "mock",
         "capabilities": {
             "status": True,
+            "metadata_contracts": True,
             "ingest": False,
             "ocr": False,
             "caption": False,
@@ -22,5 +23,7 @@ def scaffold_status() -> dict[str, object]:
         "feature_provenance": "none",
         "items": [],
         "hits": [],
-        "message": "Scaffold only; no screenshots, model output or retrieval measurements.",
+        "message": (
+            "Metadata contracts only; no screenshots, model output or retrieval measurements."
+        ),
     }

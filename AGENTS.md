@@ -1,4 +1,4 @@
-# Repository instructions — v1
+# Repository instructions — v2
 
 This checkout contains product code only. Keep agent plans, reviews, receipts,
 registries and chat exports outside this repository. Do not initialize a registry
@@ -6,16 +6,17 @@ or copy credentials here. Do not modify another checkout or shared module owner.
 
 ## Current implementation
 
-Only a keyless package scaffold exists. OCR, captions, embeddings, persistence,
+A keyless package scaffold and strict owned metadata contracts exist. OCR, captions, embeddings, persistence,
 search, region resolution, upload/delete and evaluation are not implemented.
-Boundary JSON schemas under contracts/proposed are proposals, not validated runtime
-contracts. Shared owner contracts require explicit agreed versions before use.
+Collection/Item/StageStatus/FeatureSpace live in src/screenshot_memory/contracts.py;
+contracts/generated is derived, and runtime cross-field validators are additionally
+required. Valid declared metadata is not verified source/model/execution evidence.
+Shared owner contracts require explicit agreed versions before use.
 
 ## Commands
 
-Use Python 3.12. No dependency installation is needed for the scaffold commands:
+Use Python3.12. The empty scaffold commands need no model/provider setup:
 
-    python -m unittest discover -s tests -v
     python scripts/demo.py --mock
     python scripts/check_secrets.py
 
@@ -23,13 +24,14 @@ The evaluation entrypoint intentionally returns nonzero until implemented:
 
     python scripts/eval.py --mode mock --split dev
 
-The committed uv.lock covers the minimal developer tools. With an already populated
+The committed uv.lock covers Pydantic and minimal developer tools. With an already populated
 cache, create the tool environment without building/installing the project:
 
     uv sync --offline --frozen --no-install-project --no-build --group dev
     uv run --offline --frozen --no-sync ruff check src scripts tests
     uv run --offline --frozen --no-sync ruff format --check src scripts tests
     uv run --offline --frozen --no-sync python -m pytest
+    uv run --offline --frozen --no-sync python scripts/generate_schemas.py --check
 
 Project installation/distribution builds and real-feature checks remain separate
 setup steps. Missing cache must fail rather than silently download during an offline check.
@@ -47,4 +49,5 @@ setup steps. Missing cache must fail rather than silently download during an off
 - Confirmed deletion must eventually verify every owned store; a static preview
   cannot establish backend deletion, OCR or retrieval acceptance.
 
-Changelog: v1 establishes scaffold commands/boundaries and the cached developer-tool path.
+Changelog: v2 records the owned metadata boundary, generated schema source and required
+test environment; operating policy/harness pointers unchanged. v1 established the scaffold.

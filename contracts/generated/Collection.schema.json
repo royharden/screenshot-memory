@@ -1,0 +1,53 @@
+{
+  "$comment": "Generated from screenshot_memory.contracts. Runtime validators additionally enforce cross-field caps, identity/generation and status coherence. This is no execution proof.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cap": {
+      "default": 30,
+      "maximum": 30,
+      "minimum": 1,
+      "title": "Cap",
+      "type": "integer"
+    },
+    "collection_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Collection Id",
+      "type": "string"
+    },
+    "encoded_bytes": {
+      "default": 0,
+      "maximum": 104857600,
+      "minimum": 0,
+      "title": "Encoded Bytes",
+      "type": "integer"
+    },
+    "generation": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "item_count": {
+      "default": 0,
+      "maximum": 30,
+      "minimum": 0,
+      "title": "Item Count",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "collection_id",
+    "generation"
+  ],
+  "title": "Collection",
+  "type": "object"
+}

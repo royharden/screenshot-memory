@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: repository-secret-shapes
+        name: Repository secret-shape check
+        entry: python scripts/check_secrets.py
+        language: system
+        pass_filenames: false
+        always_run: true

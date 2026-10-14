@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "PROPOSAL ONLY. No runtime validator or persistence is implemented.",
+  "title": "S7CollectionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "collection_id", "cap", "generation"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "collection_id": {"type": "string", "pattern": "^[a-f0-9]{32}$"},
+    "cap": {"type": "integer", "minimum": 1, "maximum": 30},
+    "generation": {"type": "integer", "minimum": 0}
+  }
+}

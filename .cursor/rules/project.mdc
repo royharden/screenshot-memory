@@ -1,0 +1,6 @@
+---
+description: Product repository commands and invariants
+alwaysApply: true
+---
+
+Read the repository-root AGENTS.md. Agent-only artifacts belong outside this checkout.

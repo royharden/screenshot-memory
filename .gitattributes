@@ -25,3 +25,6 @@ tests/contracts/test_result_provenance.py -text
 tests/contracts/test_results_and_copy.py -text
 tests/contracts/test_typed_wire.py -text
 prices/synthetic-unit-v1.json -text
+src/screenshot_memory/shared/cited/** -text
+tests/cited/** -text
+docs/third-party/cited-LICENSE.md -text

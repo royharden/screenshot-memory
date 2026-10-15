@@ -10,7 +10,7 @@ from pathlib import Path, PurePosixPath
 POLICY_FILE = "scripts/synthetic_distribution.json"
 POLICY_SHA256 = "5b40b0419aa84edd6d2d6d34778771c2c75db7b5f8cfaa5efeced761fa1f4477"
 PROVIDER_POLICY_FILE = "scripts/provider_distribution.json"
-PROVIDER_POLICY_SHA256 = "7600d4809341763d8d9f32e818d14db86e6acb6e53019899aea277ddedc23c1e"
+PROVIDER_POLICY_SHA256 = "7af6ce6927cedaa98cb7c4a45bbaab8d29fa58f3fd9aba921dbfbb39bf5aafdf"
 MAX_ENTRIES = 512
 MAX_FILE_BYTES = 256 * 1024
 MAX_TOTAL_BYTES = 8 * 1024 * 1024
@@ -58,7 +58,7 @@ def provider_policy() -> dict[str, dict[str, object]]:
     if policy["schema"] != "S7-published-offline-provider-distribution/1":
         raise ValueError("unknown provider source policy")
     files = policy["files"]
-    if len(files) != 63 or SYNTHETIC_FILES.keys() & files.keys():
+    if len(files) != 65 or SYNTHETIC_FILES.keys() & files.keys():
         raise ValueError("wrong or overlapping provider source policy")
     for name, entry in files.items():
         if (

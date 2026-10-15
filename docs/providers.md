@@ -24,6 +24,13 @@ and changing run IDs does not reset authority counters. A strict offline lookup
 requires a genuinely admitted zero-outbound allocation and explicit zero attempt
 limit. An authored synthetic capture remains mock-origin after lookup.
 
+The purpose successor additionally checks each declared child purpose against its
+stored child bound, independently of the root operation purpose. Omitting optional
+caller limits cannot bypass that stored binding. Valid distinct stage purposes
+complete the same admitted operation; an undeclared purpose fails before replay
+lookup or transport. Six authored purpose controls accompany the original232
+provider/ledger scenarios. The underlying controller/model types stay canonical.
+
 No live OpenAI/TypeSafe SDK, credential loader, hosted caption capability, paid
 price/token proof or model access is supplied by this component release. Actual
 screening integration must use the canonical APIs and same accounting objects;

@@ -293,3 +293,5 @@ include tests/providers/test_foundation_cases.py
 include tests/providers/test_images.py
 include tests/providers/test_payloads.py
 include tests/providers/test_provider_privacy.py
+include tests/callledger/test_child_purpose_reuse.py
+include tests/providers/test_child_purpose_controller.py

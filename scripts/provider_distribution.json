@@ -113,8 +113,8 @@
       "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571"
     },
     "src/screenshot_memory/shared/callledger/ledger.py": {
-      "bytes": 49859,
-      "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d"
+      "bytes": 49969,
+      "sha256": "ca38e0776e8b13d95e6ac31087431d45b8c984a40a33f8f8212d7c7bcf16eecb"
     },
     "src/screenshot_memory/shared/callledger/models.py": {
       "bytes": 12351,
@@ -180,6 +180,10 @@
       "bytes": 5318,
       "sha256": "8254e8a47133b1ab577efab679d03bb630560acc7c0dca201702b85f934dc673"
     },
+    "tests/callledger/test_child_purpose_reuse.py": {
+      "bytes": 4030,
+      "sha256": "311fb5c853e5eb8ca8e6b3f7d74e5ea9bee95ec0417b83d09c90eaf343fd7f13"
+    },
     "tests/callledger/test_durability.py": {
       "bytes": 8015,
       "sha256": "eeccd8634d30a1bc7fb4c503142fd40d6e4185e03f5ae7a309d1d18e24b998ea"
@@ -232,6 +236,10 @@
       "bytes": 13468,
       "sha256": "8dbc52102fb6f46fe399cd34b15821562a0d5df70c9502b7925bdef9c26d3095"
     },
+    "tests/providers/test_child_purpose_controller.py": {
+      "bytes": 5489,
+      "sha256": "a4411bca8a5a7afb606c45a491282c7c7b1138421243a34557dec8c526c87424"
+    },
     "tests/providers/test_controller.py": {
       "bytes": 14193,
       "sha256": "08f6ef012cc3c11f6c52ea5e4204073b01439e681f6c8327fea9a2d3f3b273a7"
@@ -253,7 +261,10 @@
       "sha256": "34b564521976f6e586e02e23863794a0d2047885ed28e22a300730243839d282"
     }
   },
-  "owner_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+  "owner_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+  "prior_owner_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+  "prior_policy_sha256": "7600d4809341763d8d9f32e818d14db86e6acb6e53019899aea277ddedc23c1e",
   "schema": "S7-published-offline-provider-distribution/1",
-  "scope": "Exact14canonical product source files, MIT, public schema/source/test assets and supplied synthetic prices only. Test/tool namespace/root/import formatting adaptations explicitly recorded. No SDK/model/runtime/payload store/user data/realprices/agent/private files."
+  "scope": "Exact14canonical offline product files/MIT; onlyledger differs from priorc7, remaining13byteidentical. Previouslygrantedpublicassets/syntheticprices plusfourpurposeassets(twonewtestfiles,twoexistinghelpers), namespace/root-only test adaptations. No optional24scorer/privatedata/Gold/SDK/live/currentprice/model/agentassets.",
+  "successor_publication_sha256": "c18c5a2b52a96d408985734422a10dbb48b4255a00b57229f3832add320969a0"
 }

@@ -69,14 +69,17 @@ REQUIRED = frozenset(
         "contracts/generated/FeatureSpace.schema.json",
         "contracts/generated/StageStatus.schema.json",
         "contracts/generated/DeleteReceipt.schema.json",
+        "contracts/generated/CrossModalAlignment.schema.json",
         "src/screenshot_memory/shared/vindex/storage.py",
         "src/screenshot_memory/shared/vindex/deletion.py",
         "src/screenshot_memory/shared/vindex/__init__.py",
+        "src/screenshot_memory/shared/vindex/spaces.py",
         "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
         "src/screenshot_memory/shared/retrievaleval/__init__.py",
         "src/screenshot_memory/shared/retrievaleval/metrics.py",
         "tests/eval/test_metrics.py",
         "tests/storage/test_storage_deletion.py",
+        "tests/features/test_spaces.py",
         POLICY_FILE,
     }
 ) | frozenset(SYNTHETIC_FILES)

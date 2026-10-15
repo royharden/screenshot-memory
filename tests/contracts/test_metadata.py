@@ -457,6 +457,7 @@ class SchemaTests(unittest.TestCase):
                 "FeatureSpace.schema.json",
                 "StageStatus.schema.json",
                 "DeleteReceipt.schema.json",
+                "CrossModalAlignment.schema.json",
             },
         )
         for name, data in documents.items():

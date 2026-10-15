@@ -10,11 +10,12 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from screenshot_memory.contracts import Collection, FeatureSpace, Item, StageStatus  # noqa: E402
 from screenshot_memory.shared.vindex.deletion import DeleteReceipt  # noqa: E402
+from screenshot_memory.shared.vindex.spaces import CrossModalAlignment  # noqa: E402
 
 
 def schema_documents() -> dict[str, str]:
     documents = {}
-    for model in (Collection, Item, FeatureSpace, StageStatus, DeleteReceipt):
+    for model in (Collection, Item, FeatureSpace, StageStatus, DeleteReceipt, CrossModalAlignment):
         schema = model.model_json_schema(mode="validation")
         schema["$schema"] = "https://json-schema.org/draft/2020-12/schema"
         schema["$comment"] = (
@@ -27,6 +28,12 @@ def schema_documents() -> dict[str, str]:
                 "Generated from screenshot_memory.shared.vindex.deletion. Runtime validators "
                 "also enforce completion evidence coherence. A valid declaration alone does "
                 "not prove any store or file was deleted."
+            )
+        if model is CrossModalAlignment:
+            schema["$comment"] = (
+                "Generated from screenshot_memory.shared.vindex.spaces. Runtime validators also "
+                "enforce ordered exact text/image space and alignment identities. Metadata and "
+                "opaque observation receipt validation do not authenticate any actual model pair."
             )
         documents[f"{model.__name__}.schema.json"] = (
             json.dumps(schema, ensure_ascii=False, indent=2, sort_keys=True, allow_nan=False) + "\n"

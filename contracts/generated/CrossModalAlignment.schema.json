@@ -1,0 +1,406 @@
+{
+  "$comment": "Generated from screenshot_memory.shared.vindex.spaces. Runtime validators also enforce ordered exact text/image space and alignment identities. Metadata and opaque observation receipt validation do not authenticate any actual model pair.",
+  "$defs": {
+    "CrossModalAlignmentDescriptor": {
+      "additionalProperties": false,
+      "description": "Complete ordered metadata binding; not verification of the referenced proof.",
+      "properties": {
+        "capability_receipt_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability Receipt Sha256"
+        },
+        "dimensions": {
+          "default": 512,
+          "maximum": 512,
+          "minimum": 512,
+          "title": "Dimensions",
+          "type": "integer"
+        },
+        "image_config_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Image Config Sha256",
+          "type": "string"
+        },
+        "image_export_revision": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Image Export Revision",
+          "type": "string"
+        },
+        "joint_checkpoint_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Joint Checkpoint Id",
+          "type": "string"
+        },
+        "joint_checkpoint_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Joint Checkpoint Sha256",
+          "type": "string"
+        },
+        "paired_source_metadata_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Paired Source Metadata Sha256",
+          "type": "string"
+        },
+        "provenance": {
+          "enum": [
+            "declared",
+            "synthetic",
+            "observed"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "query_space": {
+          "$ref": "#/$defs/FeatureSpace"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "target_space": {
+          "$ref": "#/$defs/FeatureSpace"
+        },
+        "text_config_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Text Config Sha256",
+          "type": "string"
+        },
+        "text_export_revision": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Text Export Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query_space",
+        "target_space",
+        "joint_checkpoint_id",
+        "joint_checkpoint_sha256",
+        "text_export_revision",
+        "image_export_revision",
+        "text_config_sha256",
+        "image_config_sha256",
+        "paired_source_metadata_sha256",
+        "provenance"
+      ],
+      "title": "CrossModalAlignmentDescriptor",
+      "type": "object"
+    },
+    "FeatureSpace": {
+      "additionalProperties": false,
+      "properties": {
+        "descriptor": {
+          "$ref": "#/$defs/FeatureSpaceDescriptor"
+        },
+        "feature_space_id": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Feature Space Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "feature_space_id",
+        "descriptor"
+      ],
+      "title": "FeatureSpace",
+      "type": "object"
+    },
+    "FeatureSpaceDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checkpoint Sha256"
+        },
+        "dimensions": {
+          "maximum": 16384,
+          "minimum": 1,
+          "title": "Dimensions",
+          "type": "integer"
+        },
+        "document_prefix": {
+          "default": "",
+          "maxLength": 512,
+          "title": "Document Prefix",
+          "type": "string"
+        },
+        "dtype": {
+          "const": "float32",
+          "default": "float32",
+          "title": "Dtype",
+          "type": "string"
+        },
+        "implementation_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Implementation Version",
+          "type": "string"
+        },
+        "max_input_tokens": {
+          "anyOf": [
+            {
+              "maximum": 32768,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Input Tokens"
+        },
+        "modality": {
+          "enum": [
+            "text",
+            "image"
+          ],
+          "title": "Modality",
+          "type": "string"
+        },
+        "model_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "model_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Model Version",
+          "type": "string"
+        },
+        "normalization": {
+          "enum": [
+            "l2",
+            "none"
+          ],
+          "title": "Normalization",
+          "type": "string"
+        },
+        "normalization_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Normalization Sha256",
+          "type": "string"
+        },
+        "normalization_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Normalization Version",
+          "type": "string"
+        },
+        "preprocessing_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Preprocessing Id",
+          "type": "string"
+        },
+        "preprocessing_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Preprocessing Sha256",
+          "type": "string"
+        },
+        "preprocessing_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+          "title": "Preprocessing Version",
+          "type": "string"
+        },
+        "provenance": {
+          "enum": [
+            "declared",
+            "synthetic",
+            "observed"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "provenance_receipt_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provenance Receipt Sha256"
+        },
+        "query_prefix": {
+          "default": "",
+          "maxLength": 512,
+          "title": "Query Prefix",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "tokenizer_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokenizer Id"
+        },
+        "tokenizer_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokenizer Sha256"
+        },
+        "tokenizer_version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokenizer Version"
+        },
+        "weights_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weights Sha256"
+        }
+      },
+      "required": [
+        "modality",
+        "provenance",
+        "model_id",
+        "model_version",
+        "implementation_version",
+        "dimensions",
+        "preprocessing_id",
+        "preprocessing_version",
+        "preprocessing_sha256",
+        "normalization",
+        "normalization_version",
+        "normalization_sha256"
+      ],
+      "title": "FeatureSpaceDescriptor",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alignment_id": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Alignment Id",
+      "type": "string"
+    },
+    "descriptor": {
+      "$ref": "#/$defs/CrossModalAlignmentDescriptor"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "alignment_id",
+    "descriptor"
+  ],
+  "title": "CrossModalAlignment",
+  "type": "object"
+}

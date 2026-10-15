@@ -2,7 +2,10 @@
 
 `src/screenshot_memory/contracts.py` is the source for Collection, Item,
 StageStatus and FeatureSpace. DeleteReceipt is defined in shared/vindex/deletion.py.
-`generated/` contains all five derived JSON Schema2020-12 documents:
+CrossModalAlignment is defined in shared/vindex/spaces.py; it binds an explicitly
+ordered pair while preserving strict FeatureSpace equality. Its metadata and
+opaque receipt references do not authenticate a real model pair.
+`generated/` contains all six derived JSON Schema2020-12 documents:
 
 ```sh
 python scripts/generate_schemas.py

@@ -43,6 +43,18 @@ Metadata generation memoization contains no payloads and confers no authority.
 Payloads are at most1MiB/row, database caches4MiB/entry, managed files8MiB/file.
 These per-record bounds do not impose a total derived-data disk quota.
 
+`admit_batch` accepts1..30 distinct items in one collection/current generation.
+It requires initial pending/not-run metadata with no declared reusable projections.
+Count and encoded-byte quotas, duplicate/retired IDs and all metadata are checked
+before rows/counters commit in one writer transaction. A failed member or injected
+SQL failure rolls the whole metadata batch back. Competing batches serialize;
+the losing batch cannot leave a partial first item. The existing single-item
+admission contract uses the same internal transaction and retains its earlier
+initial-state behavior. Returned tokens describe the commit and must be rechecked.
+These are metadata admission guarantees, not actual decode/format validation or
+all-or-none managed-file writing. Original files retain the separate durable
+intent/verified-write lifecycle. Atomic feature-stage publication remains pending.
+
 Managed files use a durable reserved intent before a second transaction checks
 the generation, exclusively creates the object and records its actual OS file
 identity. A stale producer cannot finish after deletion marks the item. An

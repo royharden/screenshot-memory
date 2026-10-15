@@ -113,6 +113,7 @@ REQUIRED = (
             "src/screenshot_memory/shared/vindex/search.py",
             "tests/storage/test_migrations.py",
             "tests/storage/test_sqlite_probe.py",
+            "tests/storage/test_batch_admission.py",
             "tests/search/test_keyword.py",
             "docs/keyword-search.md",
             "docs/client-state.md",

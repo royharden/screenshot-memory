@@ -240,44 +240,94 @@ class Store:
 
     def admit(self, item: Item) -> GenerationToken:
         """Admit declared metadata only; image decoding is a separate obligation."""
-        item = Item.model_validate(item)
-        if item.state in {"deleting", "cleanup_pending"}:
-            raise StoreError("invalid_initial_state")
+        return self._admit_many((Item.model_validate(item),), require_unprocessed=False)[0]
+
+    def admit_batch(self, items: tuple[Item, ...]) -> tuple[GenerationToken, ...]:
+        """All-or-none initial metadata admission, not a decode or file-write proof."""
+        if type(items) is not tuple or not 1 <= len(items) <= 30:
+            raise StoreError("invalid_batch")
+        return self._admit_many(
+            tuple(Item.model_validate(item) for item in items), require_unprocessed=True
+        )
+
+    def _admit_many(
+        self, items: tuple[Item, ...], *, require_unprocessed: bool
+    ) -> tuple[GenerationToken, ...]:
+        first = items[0]
+        if len({item.item_id for item in items}) != len(items):
+            raise StoreError("item_exists")
+        for item in items:
+            if (item.collection_id, item.collection_generation) != (
+                first.collection_id,
+                first.collection_generation,
+            ):
+                raise StoreError("invalid_batch_scope")
+            if item.state in {"deleting", "cleanup_pending"}:
+                raise StoreError("invalid_initial_state")
+            if require_unprocessed and (
+                item.state != "pending"
+                or item.source_grid_sha256 is not None
+                or item.evidence_artifact_sha256 is not None
+                or any(
+                    s.status != "not_run" or s.item_generation != item.generation
+                    for s in item.stages
+                )
+            ):
+                raise StoreError("batch_not_unprocessed")
+        total_bytes = sum(item.encoded_bytes for item in items)
         with self.transaction() as conn:
             collection = conn.execute(
-                "SELECT * FROM collections WHERE collection_id=?", (item.collection_id,)
+                "SELECT * FROM collections WHERE collection_id=?", (first.collection_id,)
             ).fetchone()
-            if collection is None or collection["generation"] != item.collection_generation:
+            if collection is None or collection["generation"] != first.collection_generation:
                 raise StoreError("generation_mismatch")
-            if collection["item_count"] >= collection["cap"]:
+            if collection["item_count"] + len(items) > collection["cap"]:
                 raise StoreError("collection_full")
-            if collection["encoded_bytes"] + item.encoded_bytes > MAX_COLLECTION_BYTES:
+            if collection["encoded_bytes"] + total_bytes > MAX_COLLECTION_BYTES:
                 raise StoreError("collection_bytes_full")
-            if conn.execute(
-                "SELECT 1 FROM tombstones WHERE collection_id=? AND item_id=?",
-                (item.collection_id, item.item_id),
-            ).fetchone():
-                raise StoreError("item_retired")
+            for item in items:
+                if conn.execute(
+                    "SELECT 1 FROM tombstones WHERE collection_id=? AND item_id=?",
+                    (item.collection_id, item.item_id),
+                ).fetchone():
+                    raise StoreError("item_retired")
+                if conn.execute(
+                    "SELECT 1 FROM items WHERE collection_id=? AND item_id=?",
+                    (item.collection_id, item.item_id),
+                ).fetchone():
+                    raise StoreError("item_exists")
             try:
-                conn.execute(
+                conn.executemany(
                     "INSERT INTO items VALUES(?,?,?,?,?,?)",
-                    (
-                        item.collection_id,
-                        item.item_id,
-                        item.generation,
-                        item.state,
-                        item.encoded_bytes,
-                        item.model_dump_json(),
-                    ),
+                    [
+                        (
+                            item.collection_id,
+                            item.item_id,
+                            item.generation,
+                            item.state,
+                            item.encoded_bytes,
+                            item.model_dump_json(),
+                        )
+                        for item in items
+                    ],
                 )
             except sqlite3.IntegrityError:
                 raise StoreError("item_exists") from None
             conn.execute(
-                "UPDATE collections SET item_count=item_count+1,encoded_bytes=encoded_bytes+? "
+                "UPDATE collections SET item_count=item_count+?,encoded_bytes=encoded_bytes+? "
                 "WHERE collection_id=?",
-                (item.encoded_bytes, item.collection_id),
+                (len(items), total_bytes, first.collection_id),
             )
-        return self.token(item.collection_id, item.item_id)
+            tokens = tuple(
+                GenerationToken(
+                    collection_id=item.collection_id,
+                    item_id=item.item_id,
+                    collection_generation=item.collection_generation,
+                    item_generation=item.generation,
+                )
+                for item in items
+            )
+        return tokens
 
     @staticmethod
     def _live(conn, token: GenerationToken):

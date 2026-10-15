@@ -67,10 +67,53 @@ def is_link(path: Path) -> bool:
     return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0) & 0x400)
 
 
+def require_sqlite_features() -> str:
+    """Probe actual native behavior in MEMORY; never infer support from Python."""
+    conn = sqlite3.connect(":memory:", isolation_level=None)
+    try:
+        version = conn.execute("SELECT sqlite_version()").fetchone()[0]
+        if tuple(int(part) for part in version.split(".")) < (3, 42, 0):
+            raise StoreError("sqlite_fts5_setup_required")
+        conn.execute("PRAGMA secure_delete=ON")
+        if conn.execute("PRAGMA secure_delete").fetchone()[0] != 1:
+            raise StoreError("sqlite_fts5_setup_required")
+        conn.execute(
+            "CREATE VIRTUAL TABLE capability_probe USING fts5(body,"
+            "tokenize='unicode61 remove_diacritics 2')"
+        )
+        conn.execute("INSERT INTO capability_probe VALUES(?)", ("ộ probecanary",))
+        if (
+            conn.execute(
+                "SELECT count(*) FROM capability_probe WHERE capability_probe MATCH 'o'"
+            ).fetchone()[0]
+            != 1
+        ):
+            raise StoreError("sqlite_fts5_setup_required")
+        conn.execute(
+            "INSERT INTO capability_probe(capability_probe,rank) VALUES('secure-delete',1)"
+        )
+        if (
+            conn.execute(
+                "SELECT v FROM capability_probe_config WHERE k='secure-delete'"
+            ).fetchone()[0]
+            != 1
+        ):
+            raise StoreError("sqlite_fts5_setup_required")
+        conn.execute("DELETE FROM capability_probe")
+        if conn.execute("SELECT count(*) FROM capability_probe").fetchone()[0] != 0:
+            raise StoreError("sqlite_fts5_setup_required")
+        return version
+    except (sqlite3.DatabaseError, ValueError, TypeError, IndexError):
+        raise StoreError("sqlite_fts5_setup_required") from None
+    finally:
+        conn.close()
+
+
 class Store:
     def __init__(self, root: Path, *, busy_ms: int = 50):
         if type(busy_ms) is not int or not 0 <= busy_ms <= 250:
             raise StoreError("invalid_busy_bound")
+        require_sqlite_features()
         root = Path(root).absolute()
         for part in (root, *root.parents):
             if part.exists() and is_link(part):

@@ -6,6 +6,12 @@ provider or validate a model output. Payload row names reserve stores for those
 later integrations. Synthetic tests exercise bytes and records only.
 
 `Store(private_root)` explicitly creates a SQLite database in WAL mode and runs
+an actual in-memory SQLite capability probe before creating the private root.
+The native runtime must report SQLite3.42 or newer and pass core secure-delete,
+Unicode61 remove_diacritics2 matching and FTS5 secure-delete insert/delete controls.
+An unsupported runtime refuses with `sqlite_fts5_setup_required`; install a Python
+3.12 runtime linked to a supported SQLite build. Python version alone is no proof.
+The persistent database then runs
 the immutable version1 SQL migration followed by version2. Both run within one
 writer transaction, with the current version read after obtaining the lock.
 Version2 rebuilds both FTS tables using `unicode61 remove_diacritics 2`, retaining

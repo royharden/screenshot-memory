@@ -112,6 +112,7 @@ REQUIRED = (
             "src/screenshot_memory/shared/vindex/migrations/002_unicode_fts.sql",
             "src/screenshot_memory/shared/vindex/search.py",
             "tests/storage/test_migrations.py",
+            "tests/storage/test_sqlite_probe.py",
             "tests/search/test_keyword.py",
             "docs/keyword-search.md",
             "src/screenshot_memory/shared/retrievaleval/__init__.py",

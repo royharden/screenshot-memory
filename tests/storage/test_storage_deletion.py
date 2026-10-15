@@ -88,10 +88,13 @@ def test_positive_controls_every_store_then_complete_and_idempotent(store):
         "cache_entries",
         "cache_dependencies",
         "owned_files",
+        "import_members",
         "items",
     )
     with store.connection() as conn:
         for table in explicit_stores:
+            if table == "import_members":
+                continue
             assert (
                 conn.execute(
                     f"SELECT COUNT(*) FROM {table} WHERE collection_id=?", (COLLECTION,)
@@ -106,6 +109,14 @@ def test_positive_controls_every_store_then_complete_and_idempotent(store):
                 == 1
             )
     assert store.get_cache(CACHE, token) == b"cache distinctcanary"
+    # Positive control for the added visibility barrier, before all-store deletion.
+    with store.transaction() as conn:
+        conn.execute(
+            "INSERT INTO import_batches(batch_id,collection_id,member_count) VALUES(?,?,1)",
+            ("e" * 32, COLLECTION),
+        )
+        conn.execute("INSERT INTO import_members VALUES(?,?,?)", ("e" * 32, COLLECTION, ITEM))
+        assert conn.execute("SELECT count(*) FROM import_members").fetchone()[0] == 1
     receipt = Deleter(store).delete(COLLECTION, ITEM)
     assert receipt.status == "deleted"
     assert receipt.files_planned == receipt.files_absent == 4
@@ -430,7 +441,7 @@ def test_sql_migration_has_foreign_keys_for_all_payloads(store):
                     f"INSERT INTO {table} VALUES(?,?,?,?,?)",
                     (COLLECTION, "9" * 32, ROW, 0, b"orphan"),
                 )
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
 
 
 def test_receipt_strict_and_completion_checks_cannot_be_omitted(store):

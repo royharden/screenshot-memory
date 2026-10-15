@@ -50,7 +50,7 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(payload["feature_provenance"], "none")
 
     def test_unimplemented_mutations_reject_instead_of_succeeding(self):
-        for action in ["add", "index", "delete", "serve"]:
+        for action in ["add", "index", "serve"]:
             with self.subTest(action=action):
                 result = self.run_cli(action)
                 self.assertNotEqual(result.returncode, 0)

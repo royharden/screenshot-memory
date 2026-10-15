@@ -166,22 +166,24 @@ name = "screenshot-memory"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "pillow" },
     { name = "pydantic" },
 ]
 
 [package.dev-dependencies]
 dev = [
-    { name = "pillow" },
     { name = "pytest" },
     { name = "ruff" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pydantic", specifier = "==2.14.1" }]
+requires-dist = [
+    { name = "pillow", specifier = "==10.4.0" },
+    { name = "pydantic", specifier = "==2.14.1" },
+]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pillow", specifier = "==10.4.0" },
     { name = "pytest", specifier = ">=8,<10" },
     { name = "ruff", specifier = ">=0.9,<1" },
 ]

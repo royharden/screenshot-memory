@@ -1,50 +1,58 @@
-# Bolt handoff — local core, application pending
+# Bolt handoff — local construction CLI; application pending
 
-Development is paused as of 2026-10-15. See docs/LIMITATIONS.md for the completed
-components, unfinished work and lessons. No deployment or provisioning job is
-ready to run.
+Current target is a Python3.12/SQLite local application. No cloud database,
+authentication service, buckets, edge functions or provisioning actions are required
+for the implemented CLI. No frontend/API listener, Docker resource or deployment
+artifact is running. The planned React/Vite viewer remains unbuilt.
 
-Current inventory: a Python package scaffold, keyless status demo, explicit
-unimplemented evaluation entrypoint, strict owned metadata models and generated
-JSON Schemas, local SQLite/WAL/FTS stores with an owned SQL migration and resumable
-deletion, strict float32/exact-space/ordered-alignment helpers, pure domain
-ranking metrics and pinned canonical Docio/offline screen/offline S3 components.
-The latter uses a real local SQLite ledger with synthetic prices and transports.
-Focused source and detached
-copied-module consumer tests cover those cores. No integrated frontend, API,
-uploads, installed model runtime, OCR/embedding/caption pipeline or provider integration
-exists yet. There is no deployment-ready application artifact.
+## Implemented inventory
 
-The current source also includes atomic initial metadata batch admission,
-visible-collection FTS keyword scoring, canonical whole-group metric callbacks
-and pure TypeScript client state. These pieces are not connected into an import
-or search workflow. Atomic stage publication and screenshot evidence resolution
-remain unimplemented. Cached dependency archives outside the product tree include
-bundled OCR weights; no installation, native model execution or live provider
-integration has occurred. No cloud database, migrations service or edge functions
-are needed by the present local SQLite core. The intended Python/ONNX runtime
-requires an explicit portability decision before any Bolt-hosted integration.
+- `smem` / `python -m screenshot_memory`: create, explicit bounded PNG/JPEG import,
+  inspect, query-refusal, confirmed delete and collection-scoped recovery.
+- Strict metadata schemas; SQLite migrations001→002→003; managed original files;
+  atomic generation/revision-checked stage publication; durable batch visibility
+  and cancellation/recovery; verified all-store logical deletion.
+- Existing domain metrics, FTS/fusion cores, pinned canonical document/citation,
+  screening and offline provider/ledger/evaluation components. Their component
+  checks are separate from native/whole-app integration.
 
-Original synthetic source data has a first data-only freeze:60PNGs,264cases and
-54groups. Default fixture verification is portable and does not need the original
-Windows fonts; explicit historical rerender requires actual recorded capabilities.
-Data/reference/source files are enumerated by exact path/hash in the source-package
-policy. A source archive must not substitute user data under an approved filename.
+Imports report partial with observed decode metadata and four unexecuted model
+stages. Query reports unavailable, not executed, exit2. No fake OCR, filenames-as-
+captions, fake embeddings or semantic results are supplied. Caller-owned source
+images remain intact after managed-copy deletion. Recovery explicitly cancels an
+incomplete import and can cancel a running importer in that collection.
 
-Database provisioning: not required for the planned local SQLite tool. The future
-Python/ONNX/local-filesystem core requires a separately operated runtime; a Vite
-fixture preview would not establish OCR/retrieval/deletion functionality. No static
-preview has been built at this stage.
+## Setup and checks
 
-Local check: Python3.12; run the README commands. Minimal pytest/Ruff tools are
-pinned alongside Pydantic in uv.lock and can use the AGENTS.md cache-only frozen
-setup. The current source/fixture/component candidate needs distribution rebuild verification;
-complete detached-source and real-feature acceptance remain separate checks.
-VENDORED.md records owner commits, notices and the supported component scope.
+See README for commands and storage bounds. Pillow10.4.0 and Pydantic are runtime
+requirements in uv.lock. Offline lock checking and frozen cache-only synchronization
+were checked against the existing environment, with no acquisition/model action.
+Local workflow/storage/search/scaffold checks:147 passed, two Windows link-privilege
+skips, six passed subtests. Inputs were new tiny images; real child-process exits
+exercise persistence/recovery. Clean-cache setup and distribution rebuilds remain
+unverified. Existing failure receipts retain their original scope.
 
-Future server secrets by name only: OPENAI_API_KEY and TYPESAFE_API_KEY. Scaffold
-loads neither. No browser/public secrets. Hosted processing, import, provisioning,
-remote repository and publication actions require their actual configuration/grants.
+## Portability and remaining work
 
-Future Bolt action: inspect this inventory and implemented source before proposing
-an import/provisioning job. Do not deploy the scaffold as a finished application.
+Python/ONNX and a private local filesystem need a separately operated runtime;
+importing this repository into Bolt does not provision those capabilities. A future
+static Vite fixture preview cannot establish native OCR/retrieval/deletion behavior.
+No Supabase or replacement backend should be introduced for this local milestone.
+
+Still required: real OCR word/line geometry, captions, text/image embeddings,
+retrieval and region resolution, API/React/browser integration, controlled dev and
+held-out evaluation, distributions and independent finished-app review. Quality,
+latency and cost are not measured. No frozen corpus/evaluation was run for this
+checkpoint; no release/provisioning-ready claim is made.
+
+Future server-only names, when actually configured: OPENAI_API_KEY and
+TYPESAFE_API_KEY. This CLI loads neither. No browser/public secrets exist. Actual
+provider, model acquisition, remote repository, hosting or publication actions
+retain separate authorization/configuration requirements.
+
+## Future Bolt inspection prompt
+
+Inspect this exact repository and BOLT-HANDOFF.md. Preserve the implemented local
+Python/SQLite workflow and documented limits. Identify concrete runtime/frontend
+gaps before preparing any import or deployment plan. Do not provision cloud
+resources or publish the unfinished application from this inspection.

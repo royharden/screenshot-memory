@@ -12,13 +12,15 @@ Unicode61 remove_diacritics2 matching and FTS5 secure-delete insert/delete contr
 An unsupported runtime refuses with `sqlite_fts5_setup_required`; install a Python
 3.12 runtime linked to a supported SQLite build. Python version alone is no proof.
 The persistent database then runs
-the immutable version1 SQL migration followed by version2. Both run within one
+the immutable version1 SQL migration followed by versions2 and3. All run within one
 writer transaction, with the current version read after obtaining the lock.
 Version2 rebuilds both FTS tables using `unicode61 remove_diacritics 2`, retaining
 only current visible rows and their row IDs. Failure rolls back the schema,
 version and rows together. Non-FTS stores and deletion journals are preserved.
 Future schema versions refuse startup. SQLite core secure-delete is enabled on
 each connection; version2 enables the FTS5 secure-delete setting on both tables.
+Version3 adds durable import batches/membership and excludes incomplete batches
+from visible FTS views. It preserves the version2 tables and source rows.
 These settings do not extend the logical deletion guarantee to forensic erasure.
 Importing the module performs no IO. The root
 must be exclusively managed private application storage, outside a repository.
@@ -53,7 +55,31 @@ admission contract uses the same internal transaction and retains its earlier
 initial-state behavior. Returned tokens describe the commit and must be rechecked.
 These are metadata admission guarantees, not actual decode/format validation or
 all-or-none managed-file writing. Original files retain the separate durable
-intent/verified-write lifecycle. Atomic feature-stage publication remains pending.
+intent/verified-write lifecycle.
+
+`publish_stage` atomically rechecks the item/collection generations and expected
+metadata revision, advances exactly one revision, and writes the named stage with
+its bounded payload/FTS projections. Other stages and source identity are immutable.
+Output requires the actual unchanged owned original. Stage-owned table names are
+closed, duplicate/colliding rows refuse, and failures roll every projection and
+metadata change back. Collection database caches are invalidated on publication.
+The MVP keeps ready/partial output immutable within a generation; explicitly delete
+and re-import to reindex. Each row is bounded to1MiB, each publication to32768 rows
+and32MiB total. This method verifies storage consistency; each adapter still must
+validate its actual decoder/native/provider output and canonical evidence. Cache
+consumers must bind feature revisions or avoid caching during indexing.
+
+The image workflow uses `begin_import` to commit metadata admission and a durable
+batch visibility barrier in the same transaction. Files and decode projections
+stage behind that barrier. `complete_import` validates every member/generation and
+owned original, then releases the whole batch atomically. Until then, public item,
+file, payload, cache and FTS reads cannot expose even an already-decoded member.
+A caught failure aborts and deletes the batch. Abrupt process exit leaves the
+reservation hidden; the explicit collection-scoped CLI `recover` cancels incomplete
+imports and retries pending deletions. Recovery also prevents a concurrent stale
+producer from publishing. It is cancellation, not automatic background resumption.
+Quota remains reserved until verified deletion succeeds. Invalid or replaced files
+remain cleanup_pending, hidden, for operator reconciliation.
 
 Managed files use a durable reserved intent before a second transaction checks
 the generation, exclusively creates the object and records its actual OS file
@@ -72,7 +98,8 @@ thumbnails, derived files and collection cache files are captured for cleanup.
 
 `resume` explicitly purges content, native-line/word payload slots, captions,
 feature spaces, vectors, stages, both FTS tables, database caches/dependencies
-and owned-file records. It verifies files against their captured identity,
+and owned-file records, plus import membership. Empty import barriers are removed.
+It verifies files against their captured identity,
 size and hash, unlinks only verified owned files and checks for unexpected
 objects in the target namespace. A missing file is counted as absent. A changed
 file, unsafe path or permission failure is retained and yields cleanup_pending.

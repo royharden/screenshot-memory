@@ -1,61 +1,78 @@
 # Screenshot Memory
 
-Planned: search a bounded local collection of screenshots, inspect the matching
-OCR region and verify deletion from every store. **Current state: local core.**
-Strict metadata, SQLite storage/deletion and pure retrieval metric helpers have
-focused tests. Screenshot ingestion, OCR, captioning, embeddings, search,
-region viewing and the end-to-end application/evaluation workflow remain pending.
+Import a bounded local collection of PNG/JPEG images, inspect verified decode
+metadata, and explicitly delete each managed copy from the implemented stores.
+**Current milestone: local construction CLI.** OCR, captions, embeddings, semantic
+search, region display, the API/viewer and evaluation remain unfinished.
 
-Development is paused as of 2026-10-15. [Current status and lessons](docs/LIMITATIONS.md)
-record finished components, work in progress and the remaining application work.
+## Quickstart
 
-With Python3.12, the empty demo needs no keys or model downloads:
+Use Python3.12 linked to SQLite/FTS5 >=3.42; startup probes actual required features.
+No models, keys or hosted service are needed for this local workflow. From this
+repository in PowerShell, install the pinned tools, then use the source directly:
 
-```sh
-python scripts/demo.py --mock
-python scripts/check_secrets.py
+```powershell
+uv sync --frozen --no-install-project --no-build --group dev
+$env:PYTHONPATH = "src"
+uv run --frozen --no-sync python -m screenshot_memory create --root ../smem-data
 ```
 
-The demo reports core availability and an empty preview with no image/model/retrieval output.
-Pydantic and pytest/Ruff developer tools are pinned in uv.lock; AGENTS.md describes
-the cache-only frozen setup. The full test suite needs that environment:
+Use the returned collection ID and an explicitly selected PNG/JPEG:
 
-```sh
-uv run --offline --frozen --no-sync python -m pytest
+```powershell
+uv run --frozen --no-sync python -m screenshot_memory import --root ../smem-data --collection COLLECTION ./example.png
+uv run --frozen --no-sync python -m screenshot_memory inspect --root ../smem-data --collection COLLECTION
+uv run --frozen --no-sync python -m screenshot_memory query --root ../smem-data --collection COLLECTION "settings"
+uv run --frozen --no-sync python -m screenshot_memory delete --root ../smem-data --collection COLLECTION --item ITEM --confirm
+uv run --frozen --no-sync python -m screenshot_memory recover --root ../smem-data --collection COLLECTION
+```
+
+`import` reports `imported_partial`: the original copy, actual dimensions/grid hash
+and decode provenance are stored; the four model stages are `not_run`. `query`
+returns `unavailable`, `executed:false`, no hits and exit2 until those stages exist.
+It never substitutes filenames, fabricated captions or hash vectors for search.
+Delete requires `--confirm`; `deleted` requires verified absence from every
+implemented store and managed file. Caller-owned source images are preserved.
+`recover` explicitly cancels incomplete imports and resumes pending deletions in
+the selected collection. It can cancel an in-progress import; stop that importer
+first unless cancellation is intended. Nothing scans folders or runs in the background.
+
+## Bounds and persistence
+
+At most30 PNG/JPEG images,8MiB/image,20megapixels/image and100MiB/collection.
+Animation, corrupt content, unsafe paths/symlinks and an overflowing batch refuse.
+Duplicate bytes get independent opaque IDs and copies, including across collections.
+Keep storage outside a repository in an exclusively managed private directory.
+
+SQLite transactions govern admission, generation/revision checks, atomic feature
+publication and batch visibility. A process exit during import leaves the whole
+batch hidden until explicit recovery. Durable deletion invalidates stale workers,
+purges metadata/projections/caches and verifies owned files; failures remain hidden
+as `cleanup_pending`. This is logical active-store removal, with no forensic,
+backup or external-provider erasure claim. See [storage](docs/storage.md).
+
+## Verification and remaining work
+
+Focused tests use newly generated tiny images and actual SQLite/subprocess crashes.
+The legacy `python scripts/demo.py --mock` still shows the empty core status; it is
+not the image journey. Tests/schema checks use the frozen developer environment:
+
+```powershell
+uv run --offline --frozen --no-sync python -m pytest tests/test_workflow.py tests/storage tests/search
 uv run --offline --frozen --no-sync python scripts/generate_schemas.py --check
 ```
 
-Collection/Item/StageStatus/FeatureSpace validate bounded metadata and internal
-identity/status consistency. They perform no source access or model initialization;
-valid declared hashes are not verified checkpoint or execution evidence.
-See contracts/README.md for the owned schema boundary and digest definitions.
-The owned vindex API stores bounded records and managed objects with generation
-checks and resumable all-store deletion; see docs/storage.md for exact limits.
-Domain recall/hit/full-MRR functions and whole-group metric callbacks are
-described in docs/retrieval-metrics.md. They do not execute retrieval methods.
-Exact float32/L2 vector validation and ordered cross-modal alignment declarations
-are described in docs/feature-spaces.md. No real model pair has been admitted.
-The future evaluation entrypoint reports not_implemented and exits nonzero:
+Owned vindex/retrievaleval cores and pinned canonical document, citation, screening,
+provider/ledger and evaluation components have separate consumer checks; see
+[VENDORED.md](VENDORED.md). A component check does not establish native model or
+finished-application integration. The planned architecture remains Python/SQLite
+with a React/Vite viewer. No API/listener or cloud resource is created by this CLI.
 
-```sh
-python scripts/eval.py --mode mock --split dev
-```
+Quality, latency and cost are **not measured**. Evaluation still exits nonzero;
+the frozen reference corpus has not been used for this construction checkpoint.
+Native OCR/caption/text-image embeddings, matching regions, browser workflow,
+distribution rebuilds and independent review remain release requirements.
+See [limitations and lessons](docs/LIMITATIONS.md) and [Bolt handoff](BOLT-HANDOFF.md).
 
-The intended architecture is a local Python/SQLite/NumPy core and a React/Vite
-viewer. S7 will export vindex, retrievaleval and the region-display/ablation method;
-other shared modules require verified owner contracts/source provenance. Owned
-local metadata boundaries are generated under contracts/generated from the Python
-models. Pinned canonical Docio, offline screening and offline provider/real-ledger
-sources have actual local and detached consumer conformance checks; see
-VENDORED.md. These components do not establish an integrated native pipeline,
-live provider access or completed application behavior.
-
-Quality, latency and cost are **not yet measured**. Provisional synthetic reference
-material has its first data-only freeze:60original images,264cases and54groups,
-bound by gold/manifest.json and fixtures/heldout/FROZEN. Model/config/experiment
-locks and evaluation remain pending; no measured results table exists.
-The status demo makes no API calls and loads no credentials.
-See docs/LIMITATIONS.md and BOLT-HANDOFF.md for current gaps.
-
-Codex authored this local core. Focused checks verify the documented core boundaries;
-they do not establish the planned application's functionality or release acceptance.
+Coding agents authored the implementation. Local construction checks support only
+the boundaries above; they do not certify the planned application or its quality.

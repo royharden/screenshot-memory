@@ -142,14 +142,14 @@ class Store:
         # its implicit commit would break atomic rollback across both migrations.
         with self.transaction() as conn:
             version = conn.execute("PRAGMA user_version").fetchone()[0]
-            if version not in (0, 1, 2):
+            if version not in (0, 1, 2, 3):
                 raise StoreError("unsupported_schema")
-            for target in range(version + 1, 3):
+            for target in range(version + 1, 4):
                 self._apply_migration(conn, target)
 
     @staticmethod
     def _apply_migration(conn, target: int) -> None:
-        name = {1: "001_initial.sql", 2: "002_unicode_fts.sql"}[target]
+        name = {1: "001_initial.sql", 2: "002_unicode_fts.sql", 3: "003_import_staging.sql"}[target]
         migration = Path(__file__).with_name("migrations") / name
         statement = ""
         for line in migration.read_text("utf-8").splitlines(keepends=True):
@@ -251,7 +251,7 @@ class Store:
         )
 
     def _admit_many(
-        self, items: tuple[Item, ...], *, require_unprocessed: bool
+        self, items: tuple[Item, ...], *, require_unprocessed: bool, import_batch: str | None = None
     ) -> tuple[GenerationToken, ...]:
         first = items[0]
         if len({item.item_id for item in items}) != len(items):
@@ -313,6 +313,15 @@ class Store:
                 )
             except sqlite3.IntegrityError:
                 raise StoreError("item_exists") from None
+            if import_batch is not None:
+                conn.execute(
+                    "INSERT INTO import_batches(batch_id,collection_id,member_count) VALUES(?,?,?)",
+                    (import_batch, first.collection_id, len(items)),
+                )
+                conn.executemany(
+                    "INSERT INTO import_members VALUES(?,?,?)",
+                    [(import_batch, i.collection_id, i.item_id) for i in items],
+                )
             conn.execute(
                 "UPDATE collections SET item_count=item_count+?,encoded_bytes=encoded_bytes+? "
                 "WHERE collection_id=?",
@@ -328,6 +337,72 @@ class Store:
                 for item in items
             )
         return tokens
+
+    def begin_import(self, items: tuple[Item, ...]) -> tuple[str, tuple[GenerationToken, ...]]:
+        """Reserve the whole decoded batch and its durable visibility barrier atomically."""
+        if type(items) is not tuple or not 1 <= len(items) <= 30:
+            raise StoreError("invalid_batch")
+        batch_id = uuid.uuid4().hex
+        tokens = self._admit_many(
+            tuple(Item.model_validate(i) for i in items),
+            require_unprocessed=True,
+            import_batch=batch_id,
+        )
+        return batch_id, tokens
+
+    def complete_import(self, batch_id: str, tokens: tuple[GenerationToken, ...]) -> None:
+        """Publish every member together, only after verified original/decode writes."""
+        checked_id(batch_id)
+        if (
+            type(tokens) is not tuple
+            or not 1 <= len(tokens) <= 30
+            or not all(isinstance(t, GenerationToken) for t in tokens)
+        ):
+            raise StoreError("invalid_batch")
+        tokens = tuple(GenerationToken.model_validate(t) for t in tokens)
+        with self.transaction() as conn:
+            batch = conn.execute(
+                "SELECT * FROM import_batches WHERE batch_id=?", (batch_id,)
+            ).fetchone()
+            members = {
+                (r[0], r[1])
+                for r in conn.execute(
+                    "SELECT collection_id,item_id FROM import_members WHERE batch_id=?", (batch_id,)
+                )
+            }
+            if (
+                batch is None
+                or batch["status"] != "staging"
+                or len(members) != batch["member_count"]
+                or members != {(t.collection_id, t.item_id) for t in tokens}
+                or len(tokens) != len(members)
+            ):
+                raise StoreError("import_incomplete")
+            for token in tokens:
+                row = self._live(conn, token)
+                item = Item.model_validate_json(row["metadata"])
+                if item.state != "partial" or item.source_grid_sha256 is None:
+                    raise StoreError("import_incomplete")
+                original = conn.execute(
+                    "SELECT * FROM owned_files WHERE collection_id=? AND item_id=? "
+                    "AND object_id=? AND role='original' AND state='ready'",
+                    (token.collection_id, token.item_id, item.source_object_id),
+                ).fetchone()
+                if original is None:
+                    raise StoreError("import_incomplete")
+                self._verified_file(
+                    self.object_path(token.collection_id, token.item_id, item.source_object_id),
+                    original,
+                )
+            conn.execute("DELETE FROM import_batches WHERE batch_id=?", (batch_id,))
+
+    @staticmethod
+    def _published(conn, token: GenerationToken) -> None:
+        if conn.execute(
+            "SELECT 1 FROM import_members WHERE collection_id=? AND item_id=?",
+            (token.collection_id, token.item_id),
+        ).fetchone():
+            raise StoreError("import_incomplete")
 
     @staticmethod
     def _live(conn, token: GenerationToken):
@@ -363,15 +438,194 @@ class Store:
                 item_generation=row["generation"],
                 collection_generation=row["cg"],
             )
+            self._published(conn, token)
             self._generation_memo[(collection_id, item_id)] = token
             return token
 
     def item(self, token: GenerationToken) -> Item:
         with self.transaction() as conn:
             row = self._live(conn, token)
+            self._published(conn, token)
             data = Item.model_validate_json(row["metadata"]).model_dump()
             data["collection_generation"] = row["cg"]
             return Item.model_validate(data)
+
+    def list_items(self, collection_id: str) -> tuple[Item, ...]:
+        """Visible metadata in one bounded snapshot, without source content."""
+        checked_id(collection_id)
+        with self.transaction() as conn:
+            collection = conn.execute(
+                "SELECT generation FROM collections WHERE collection_id=?", (collection_id,)
+            ).fetchone()
+            if collection is None:
+                raise StoreError("collection_missing")
+            rows = conn.execute(
+                "SELECT metadata FROM items i WHERE collection_id=? "
+                "AND state NOT IN ('deleting','cleanup_pending') "
+                "AND NOT EXISTS (SELECT 1 FROM import_members m WHERE "
+                "m.collection_id=i.collection_id AND m.item_id=i.item_id) "
+                "ORDER BY item_id LIMIT 31",
+                (collection_id,),
+            ).fetchall()
+            if len(rows) > 30:
+                raise StoreError("collection_full")
+            items = []
+            for row in rows:
+                data = Item.model_validate_json(row["metadata"]).model_dump()
+                data["collection_generation"] = collection["generation"]
+                items.append(Item.model_validate(data))
+            return tuple(items)
+
+    def publish_stage(
+        self,
+        token: GenerationToken,
+        expected_revision: int,
+        stage_name: str,
+        updated: Item,
+        payload_writes: tuple[tuple[str, str, bytes], ...] = (),
+        fts_writes: tuple[tuple[str, str, str], ...] = (),
+    ) -> Item:
+        """Commit one stage and its projections; adapters validate actual outputs.
+
+        Completed output is immutable within a generation. Reindex by explicit
+        delete/reimport. Generic put APIs are not a stage publication protocol.
+        """
+        tables = {
+            "decode": {"content"},
+            "ocr": {"content", "lines", "words"},
+            "caption": {"captions"},
+            "text_embeddings": {"spaces", "vectors"},
+            "image_embeddings": {"spaces", "vectors"},
+        }
+        fts_tables = {"ocr": {"item_fts", "line_fts"}, "caption": {"item_fts"}}
+        if type(stage_name) is not str or stage_name not in tables:
+            raise StoreError("invalid_stage")
+        if type(expected_revision) is not int or not 0 <= expected_revision < MAX_COUNTER:
+            raise StoreError("invalid_revision")
+        updated = Item.model_validate(updated)
+        if updated.state in {"deleting", "cleanup_pending"}:
+            raise StoreError("invalid_stage_state")
+        if (
+            type(payload_writes) is not tuple
+            or type(fts_writes) is not tuple
+            or len(payload_writes) + len(fts_writes) > 32768
+        ):
+            raise StoreError("invalid_stage_writes")
+        cells = set()
+        total_bytes = 0
+        for writes, allowed, text in (
+            (payload_writes, tables[stage_name], False),
+            (fts_writes, fts_tables.get(stage_name, set()), True),
+        ):
+            for cell in writes:
+                if type(cell) is not tuple or len(cell) != 3:
+                    raise StoreError("invalid_stage_writes")
+                table, row_id, value = cell
+                if type(table) is not str or table not in allowed:
+                    raise StoreError("invalid_table")
+                checked_id(row_id)
+                if (table, row_id) in cells:
+                    raise StoreError("duplicate_stage_row")
+                cells.add((table, row_id))
+                if text:
+                    if type(value) is not str:
+                        raise StoreError("invalid_payload")
+                    try:
+                        value = value.encode("utf-8")
+                    except UnicodeEncodeError:
+                        raise StoreError("invalid_payload") from None
+                total_bytes += len(bounded_bytes(value, MAX_PAYLOAD))
+        if total_bytes > 32 * MAX_PAYLOAD:
+            raise StoreError("stage_bytes_exceeded")
+        with self.transaction() as conn:
+            row = self._live(conn, token)
+            before = Item.model_validate_json(row["metadata"]).model_dump()
+            before["collection_generation"] = row["cg"]
+            old = Item.model_validate(before)
+            if old.revision != expected_revision or updated.revision != expected_revision + 1:
+                raise StoreError("revision_mismatch")
+            previous = {s.stage: s for s in old.stages}[stage_name]
+            following = {s.stage: s for s in updated.stages}[stage_name]
+            if previous.status in {"ready", "partial"}:
+                raise StoreError("stage_output_immutable")
+            if following.item_generation != token.item_generation:
+                raise StoreError("generation_mismatch")
+            mutable = {"revision", "state", "stages"}
+            if stage_name == "decode":
+                mutable.add("source_grid_sha256")
+            if stage_name == "ocr":
+                mutable.add("evidence_artifact_sha256")
+            after = updated.model_dump()
+            if any(before[k] != after[k] for k in before if k not in mutable) or any(
+                a != b
+                for a, b in zip(old.stages, updated.stages, strict=True)
+                if a.stage != stage_name
+            ):
+                raise StoreError("stage_identity_mismatch")
+            if tuple(s.stage for s in old.stages) != tuple(s.stage for s in updated.stages):
+                raise StoreError("stage_identity_mismatch")
+            has_output = following.status in {"ready", "partial"}
+            if not has_output and cells:
+                raise StoreError("non_output_stage_writes")
+            if has_output:
+                original = conn.execute(
+                    "SELECT * FROM owned_files WHERE collection_id=? AND item_id=? "
+                    "AND role='original'",
+                    (token.collection_id, token.item_id),
+                ).fetchone()
+                if (
+                    original is None
+                    or original["state"] != "ready"
+                    or original["object_id"] != old.source_object_id
+                    or original["expected_sha256"] != old.original_content_sha256
+                    or original["size_bytes"] != old.encoded_bytes
+                ):
+                    raise StoreError("file_unavailable")
+                try:
+                    self._verified_file(
+                        self.object_path(token.collection_id, token.item_id, old.source_object_id),
+                        original,
+                    )
+                except OSError:
+                    raise StoreError("file_unavailable") from None
+            slot = hashlib.sha256(stage_name.encode("ascii")).hexdigest()[:32]
+            prior = conn.execute(
+                "SELECT payload,generation FROM stages WHERE collection_id=? AND item_id=? "
+                "AND row_id=?",
+                (token.collection_id, token.item_id, slot),
+            ).fetchone()
+            if prior is not None and (
+                bytes(prior["payload"]) != previous.model_dump_json().encode("utf-8")
+                or prior["generation"] != token.item_generation
+            ):
+                raise StoreError("stage_row_collision")
+            for writes in (payload_writes, fts_writes):
+                for table, row_id, value in writes:
+                    if conn.execute(
+                        f"SELECT 1 FROM {table} WHERE collection_id=? AND item_id=? AND row_id=?",
+                        (token.collection_id, token.item_id, row_id),
+                    ).fetchone():
+                        raise StoreError("stage_row_collision")
+                    conn.execute(
+                        f"INSERT INTO {table} VALUES(?,?,?,?,?)",
+                        (token.collection_id, token.item_id, row_id, token.item_generation, value),
+                    )
+            conn.execute(
+                "INSERT OR REPLACE INTO stages VALUES(?,?,?,?,?)",
+                (
+                    token.collection_id,
+                    token.item_id,
+                    slot,
+                    token.item_generation,
+                    following.model_dump_json().encode("utf-8"),
+                ),
+            )
+            conn.execute(
+                "UPDATE items SET state=?,metadata=? WHERE collection_id=? AND item_id=?",
+                (updated.state, updated.model_dump_json(), token.collection_id, token.item_id),
+            )
+            conn.execute("DELETE FROM cache_entries WHERE collection_id=?", (token.collection_id,))
+        return updated
 
     def put(self, table: str, token: GenerationToken, row_id: str, payload: bytes) -> None:
         if table not in PAYLOAD_TABLES:
@@ -391,6 +645,7 @@ class Store:
         checked_id(row_id)
         with self.transaction() as conn:
             self._live(conn, token)
+            self._published(conn, token)
             row = conn.execute(
                 f"SELECT payload FROM {table} WHERE collection_id=? AND item_id=? "
                 "AND row_id=? AND generation=?",
@@ -433,6 +688,7 @@ class Store:
             self._cache_writable(conn, first.collection_id)
             for token in dependencies:
                 self._live(conn, token)
+                self._published(conn, token)
                 if (token.collection_id, token.collection_generation) != (
                     first.collection_id,
                     first.collection_generation,
@@ -463,6 +719,7 @@ class Store:
         checked_id(cache_id)
         with self.transaction() as conn:
             self._live(conn, token)
+            self._published(conn, token)
             row = conn.execute(
                 "SELECT payload FROM cache_entries WHERE collection_id=? AND cache_id=? "
                 "AND collection_generation=?",
@@ -627,6 +884,7 @@ class Store:
         checked_id(object_id)
         with self.transaction() as conn:
             self._live(conn, token)
+            self._published(conn, token)
             row = conn.execute(
                 "SELECT * FROM owned_files WHERE collection_id=? AND item_id=? AND object_id=?",
                 (token.collection_id, token.item_id, object_id),

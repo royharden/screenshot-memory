@@ -65,7 +65,7 @@ def test_fresh_and_idempotent_startup(tmp_path):
     for _ in range(2):
         store = Store(root)
         with store.connection() as conn:
-            assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+            assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
             assert conn.execute("PRAGMA secure_delete").fetchone()[0] == 1
             for table in ("item_fts", "line_fts"):
                 assert (
@@ -87,7 +87,7 @@ def test_upgrade_keeps_current_rows_and_nonfts_but_never_resurrects(tmp_path):
         )
     store = Store(root)
     with store.connection() as conn:
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
         for table in ("item_fts", "line_fts"):
             rows = conn.execute(
                 f"SELECT rowid,item_id FROM {table} WHERE {table} MATCH 'o'"
@@ -99,7 +99,8 @@ def test_upgrade_keeps_current_rows_and_nonfts_but_never_resurrects(tmp_path):
         assert conn.execute("SELECT count(*) FROM items").fetchone()[0] == 3
         # Every non-FTS table, including tombstone and pending-delete job, is unchanged.
         after = {name: [tuple(row) for row in rows] for name, rows in nonfts_snapshot(conn).items()}
-        assert after == before
+        assert {name: after[name] for name in before} == before
+        assert after["import_batches"] == after["import_members"] == []
 
 
 def test_mid_migration_fault_rolls_back_tables_views_version_and_rows(tmp_path):
@@ -153,7 +154,7 @@ def test_concurrent_fresh_startup_runs_both_migrations_once(tmp_path):
     with ThreadPoolExecutor(max_workers=2) as pool:
         assert len(list(pool.map(start, range(2)))) == 2
     with Store(root).connection() as conn:
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
         assert conn.execute("SELECT count(*) FROM items").fetchone()[0] == 0
 
 
@@ -174,11 +175,42 @@ def test_future_schema_refuses_without_downgrade(tmp_path):
     root = tmp_path / "store"
     Store(root)
     with sqlite3.connect(root / "index.sqlite3") as conn:
-        conn.execute("PRAGMA user_version=3")
+        conn.execute("PRAGMA user_version=4")
     with pytest.raises(StoreError, match="unsupported_schema"):
         Store(root)
     with sqlite3.connect(root / "index.sqlite3") as conn:
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 4
+
+
+def test_003_failure_preserves_existing_version2_schema_and_views(tmp_path):
+    root = tmp_path / "store"
+    root.mkdir()
+    with sqlite3.connect(root / "index.sqlite3") as conn:
+        conn.executescript(INITIAL.read_text("utf-8"))
+        conn.executescript(INITIAL.with_name("002_unicode_fts.sql").read_text("utf-8"))
+        before = conn.execute(
+            "SELECT sql FROM sqlite_master WHERE type='view' ORDER BY name"
+        ).fetchall()
+    original = Store._apply_migration
+
+    def fail(conn, target):
+        original(conn, target)
+        assert target == 3
+        raise RuntimeError("after_003_before_commit")
+
+    with patch.object(Store, "_apply_migration", side_effect=fail):
+        with pytest.raises(RuntimeError, match="after_003"):
+            Store(root)
+    with sqlite3.connect(root / "index.sqlite3") as conn:
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert not conn.execute(
+            "SELECT name FROM sqlite_master WHERE name LIKE 'import_%'"
+        ).fetchall()
+        assert (
+            conn.execute("SELECT sql FROM sqlite_master WHERE type='view' ORDER BY name").fetchall()
+            == before
+        )
+    assert Store(root)
 
 
 def test_sidecar_disappearing_during_inspection_is_allowed(tmp_path):
@@ -195,7 +227,7 @@ def test_sidecar_disappearing_during_inspection_is_allowed(tmp_path):
 
     with patch.object(Path, "lstat", transient):
         with store.connection() as conn:
-            assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+            assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
     assert observed == ["index.sqlite3-shm"]
 
 

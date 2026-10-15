@@ -29,6 +29,7 @@ STORES = (
     "cache_entries",
     "cache_dependencies",
     "owned_files",
+    "import_members",
     "items",
 )
 DeleteReason = Literal[
@@ -240,8 +241,13 @@ class Deleter:
 
     def _purge(self, conn, job) -> None:
         params = (job["collection_id"], job["item_id"])
-        for table in (*PAYLOAD_TABLES, *FTS_TABLES):
+        for table in (*PAYLOAD_TABLES, *FTS_TABLES, "import_members"):
             conn.execute(f"DELETE FROM {table} WHERE collection_id=? AND item_id=?", params)
+        conn.execute(
+            "DELETE FROM import_batches WHERE collection_id=? AND NOT EXISTS "
+            "(SELECT 1 FROM import_members m WHERE m.batch_id=import_batches.batch_id)",
+            (params[0],),
+        )
         conn.execute("DELETE FROM cache_entries WHERE collection_id=?", (params[0],))
         conn.execute(
             "DELETE FROM owned_files WHERE collection_id=? AND (item_id=? OR role='cache')", params
@@ -250,7 +256,7 @@ class Deleter:
     @staticmethod
     def _stores_clear(conn, job) -> bool:
         params = (job["collection_id"], job["item_id"])
-        for table in (*PAYLOAD_TABLES, *FTS_TABLES, "owned_files"):
+        for table in (*PAYLOAD_TABLES, *FTS_TABLES, "owned_files", "import_members"):
             if conn.execute(
                 f"SELECT 1 FROM {table} WHERE collection_id=? AND item_id=? LIMIT 1", params
             ).fetchone():

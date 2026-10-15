@@ -1,6 +1,6 @@
 # Current limitations
 
-Development is paused as of 2026-10-15. The application is not ready for release.
+The local construction CLI is implemented; the application is not ready for release.
 
 ## Finished local components
 
@@ -9,7 +9,7 @@ Development is paused as of 2026-10-15. The application is not ready for release
 - SQLite capability checks, transactional migrations, bounded managed objects,
   generation-checked access and resumable verified logical deletion.
 - Atomic initial metadata batch admission with quota and concurrent-writer
-  controls. This does not make original-file writes or feature publication atomic.
+  controls, atomic feature publication and a durable whole-import visibility barrier.
 - Current-visible-row FTS keyword search, pure BM25/reference fusion helpers,
   ranking metrics and whole-group resampling callbacks.
 - Pinned canonical document/evidence, citation, offline screening, provider/ledger
@@ -19,17 +19,35 @@ Development is paused as of 2026-10-15. The application is not ready for release
   coordinate mapping. This has Node execution checks, not a browser renderer or
   frontend build.
 
-The last completed source batch passed 140 tests with one Windows symlink
-privilege skip. Earlier component checks have separate scopes; their totals are
-not an integrated application acceptance result.
+The local workflow/storage/search/scaffold run reported147 passed, two skipped
+for unavailable Windows link privileges, and six passed subtests. Its JUnit file
+records155 cases including subtests, zero failures/errors and two skips.
+It used newly generated tiny PNG/JPEG inputs and real SQLite/process termination,
+not the frozen reference gallery or model output. An earlier run had three failures
+(two outdated new-schema expectations and one subprocess timeout); those failures
+remain recorded separately. These counts do not establish application acceptance.
 
-## Work in progress
+## Current local workflow
 
-Atomic feature-stage publication and the screenshot evidence resolver were
-designed but have no product implementation. The intended stage publication
-checks both metadata revision and generation, commits projections with metadata,
-and prevents a stale producer from publishing after deletion. The proposed MVP
-keeps completed output immutable until explicit deletion and re-import.
+The CLI creates collections, imports explicit bounded PNG/JPEG files, inspects
+actual decode dimensions/grid provenance and verifies confirmed deletion. File
+validation precedes admission. Independent opaque originals and decode projections
+stage behind a durable batch barrier; the complete batch becomes visible only
+after every original and decoded member is verified. Caught staging failure rolls
+back through the deletion journal. Abrupt termination leaves every member hidden;
+explicit collection-scoped `recover` cancels the incomplete batch and retries
+pending cleanup. Quota stays reserved while cleanup is incomplete. Recovery is an
+explicit cancellation operation, including against an in-progress importer.
+
+Query explicitly reports unavailable/not-executed while OCR, captions and vectors
+are absent. This is a refusal path, not measured retrieval. Screenshot evidence
+resolution remains design only. The status demo still shows the empty core.
+
+Pillow10.4.0 is a runtime requirement, retaining the existing locked archive/version
+hashes. The predecessor's isolated offline resolver-cache failure is preserved.
+The reconciled lock passes offline checking and the existing isolated environment
+passes cache-only frozen synchronization. This is not a clean-cache install or a
+rebuilt wheel/source-distribution claim.
 
 Dependency archives and selected source notices were inspected outside the
 product tree. The acquired RapidOCR archive contains three model weights; they
@@ -40,8 +58,8 @@ runtime check.
 
 ## Outstanding work
 
-1. Implement and verify atomic stage publication, then the smallest actual local
-   image import, inspect and verified-delete workflow with bounded image decoding.
+1. Independently review the local construction CLI, stage publication, import
+   visibility/recovery and verified deletion checkpoint.
 2. Implement current-source screenshot evidence resolution using measured OCR
    geometry and the canonical evidence validator.
 3. Complete the native runtime/config/model closure and native OCR, caption,
@@ -54,6 +72,12 @@ runtime check.
    finished-application review. Quality, latency and cost remain unmeasured.
 
 ## Lessons learned
+
+- Per-item atomic publication is insufficient for all-or-none import visibility.
+  Persist a batch barrier with admission, test actual process exits after file and
+  stage writes, and release visibility only in one final validated transaction.
+- New stores need deletion positive controls and explicit receipt enumeration;
+  a row disappearing through a cascade alone is not a complete verification record.
 
 - Metadata shape, copied-module conformance and mock replay prove different
   boundaries from native execution and finished-application behavior.
@@ -70,10 +94,13 @@ runtime check.
   their own explicit record; none establishes an installed, usable model.
 - Keep the fixture verifier portable. Historical font-dependent rerendering is a
   separate capability check and cannot establish execution on another platform.
+- A wheel cache and an existing environment do not necessarily contain resolver
+  metadata needed by a new isolated offline lock operation. Preserve lock failures
+  and reconcile the real dependency closure before advertising frozen setup.
 
 This is a local core with strict metadata, SQLite stores/resumable deletion and
 pure ranking metric functions. The empty status demo has no integrated fixture
-pipeline, OCR, captions, embeddings, retrieval, regions or upload/delete workflow.
+pipeline, OCR, captions, embeddings, retrieval, regions or an integrated application workflow. The separate local CLI supports import/inspect/delete.
 Evaluation exits nonzero; quality/latency/cost and held-out results are not measured.
 
 Original synthetic references now have a first data-only freeze, with no original-

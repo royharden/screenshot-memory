@@ -28,3 +28,6 @@ prices/synthetic-unit-v1.json -text
 src/screenshot_memory/shared/cited/** -text
 tests/cited/** -text
 docs/third-party/cited-LICENSE.md -text
+src/screenshot_memory/shared/evalkit/** -text
+tests/evalkit/** -text
+docs/third-party/evalkit-LICENSE.md -text

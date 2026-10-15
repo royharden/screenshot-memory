@@ -31,8 +31,10 @@ returns arithmetic deltas. Incomplete methods must first be rejected by the run
 adapter; eligibility mismatches fail. These helpers do not choose random draws
 or calculate confidence intervals.
 
-Still pending: verified owner execution/manifest/source adapters, original-corpus
-freeze and feature/ranking integrations, guard and region metrics, the prescribed
-2000 fixed-seed grouped/paired bootstrap with pinned support policy, actual dev
-tuning and a single sealed held-out event. No quality, uncertainty, latency or
-cost measurement follows from these synthetic unit controls.
+The canonical owner evalkit source is now retained separately under shared/evalkit,
+including its 2000-draw paired whole-group engine. The original synthetic corpus
+has a recorded data-only freeze. Still pending: S7 execution/manifest/scorer
+adapters, native feature/ranking integration, guard and region metrics, retrieval
+callbacks with frozen support policy, actual dev tuning and one sealed held-out
+event. No quality, uncertainty, latency or cost measurement follows from these
+synthetic unit controls or from importing the generic evaluation framework.

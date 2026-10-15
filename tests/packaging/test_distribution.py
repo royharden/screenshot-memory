@@ -53,6 +53,8 @@ class DistributionTests(unittest.TestCase):
             "uv.lock",
             "contracts/generated/Item.schema.json",
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/vindex/migrations/002_unicode_fts.sql",
+            "src/screenshot_memory/shared/vindex/search.py",
             "src/screenshot_memory/shared/retrievaleval/metrics.py",
             distribution.POLICY_FILE,
             distribution.PROVIDER_POLICY_FILE,

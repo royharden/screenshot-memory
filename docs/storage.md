@@ -6,7 +6,15 @@ provider or validate a model output. Payload row names reserve stores for those
 later integrations. Synthetic tests exercise bytes and records only.
 
 `Store(private_root)` explicitly creates a SQLite database in WAL mode and runs
-the owned version1 SQL migration. Importing the module performs no IO. The root
+the immutable version1 SQL migration followed by version2. Both run within one
+writer transaction, with the current version read after obtaining the lock.
+Version2 rebuilds both FTS tables using `unicode61 remove_diacritics 2`, retaining
+only current visible rows and their row IDs. Failure rolls back the schema,
+version and rows together. Non-FTS stores and deletion journals are preserved.
+Future schema versions refuse startup. SQLite core secure-delete is enabled on
+each connection; version2 enables the FTS5 secure-delete setting on both tables.
+These settings do not extend the logical deletion guarantee to forensic erasure.
+Importing the module performs no IO. The root
 must be exclusively managed private application storage, outside a repository.
 Never point it at a shared directory, user gallery or attacker-writable folder.
 No caller-supplied filesystem paths are accepted by object APIs. Objects use
@@ -72,6 +80,7 @@ after the checkpoint; the API does not promise a permanently empty WAL file.
 Raw SQL handles or external open snapshots are not revocable application APIs.
 
 The same owned modules, metadata dependency and SQL migration must travel
-together in a detached consumer. Later feature adapters must use the same
+together in a detached consumer. The separate keyword search module uses these
+generation boundaries; see [keyword-search.md](keyword-search.md). Later feature adapters must use the same
 generation and cache-dependency boundaries rather than writing tables or paths
 directly. No executable foreign canonical module has been supplied by this core.

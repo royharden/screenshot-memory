@@ -430,7 +430,7 @@ def test_sql_migration_has_foreign_keys_for_all_payloads(store):
                     f"INSERT INTO {table} VALUES(?,?,?,?,?)",
                     (COLLECTION, "9" * 32, ROW, 0, b"orphan"),
                 )
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 1
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
 
 
 def test_receipt_strict_and_completion_checks_cannot_be_omitted(store):

@@ -85,15 +85,37 @@ class Store:
         if db.exists() and (is_link(db) or not db.is_file()):
             raise StoreError("unsafe_database")
         with self.connection() as conn:
-            conn.execute("PRAGMA journal_mode=WAL")
+            for attempt in range(3):
+                try:
+                    if conn.execute("PRAGMA journal_mode=WAL").fetchone()[0] != "wal":
+                        raise StoreError("wal_unavailable")
+                    break
+                except sqlite3.OperationalError as exc:
+                    if "locked" not in str(exc).lower() or attempt == 2:
+                        raise StoreError("database_busy") from None
+                    time.sleep(0.01)
+        # Acquire the writer lock before reading the version. Another startup may
+        # have migrated while this instance was waiting. Never use executescript:
+        # its implicit commit would break atomic rollback across both migrations.
+        with self.transaction() as conn:
             version = conn.execute("PRAGMA user_version").fetchone()[0]
-            if version == 0:
-                migration = Path(__file__).with_name("migrations") / "001_initial.sql"
-                conn.executescript(
-                    "BEGIN IMMEDIATE;\n" + migration.read_text("utf-8") + "\nCOMMIT;"
-                )
-            elif version != 1:
+            if version not in (0, 1, 2):
                 raise StoreError("unsupported_schema")
+            for target in range(version + 1, 3):
+                self._apply_migration(conn, target)
+
+    @staticmethod
+    def _apply_migration(conn, target: int) -> None:
+        name = {1: "001_initial.sql", 2: "002_unicode_fts.sql"}[target]
+        migration = Path(__file__).with_name("migrations") / name
+        statement = ""
+        for line in migration.read_text("utf-8").splitlines(keepends=True):
+            statement += line
+            if sqlite3.complete_statement(statement):
+                conn.execute(statement)
+                statement = ""
+        if statement.strip():
+            raise StoreError("invalid_migration")
 
     def _check_root(self) -> None:
         for part in (self.root, *self.root.parents):
@@ -108,13 +130,26 @@ class Store:
         self._check_root()
         db = self.root / "index.sqlite3"
         for path in (db, Path(str(db) + "-wal"), Path(str(db) + "-shm")):
-            if path.exists() and (is_link(path) or not path.is_file()):
+            try:
+                info = path.lstat()
+            except FileNotFoundError:
+                # SQLite removes its transient sidecars when the last handle
+                # closes. Absence is allowed; an unsafe observed entry is not.
+                continue
+            if (
+                stat.S_ISLNK(info.st_mode)
+                or bool(getattr(info, "st_file_attributes", 0) & 0x400)
+                or not stat.S_ISREG(info.st_mode)
+            ):
                 raise StoreError("unsafe_database")
         conn = sqlite3.connect(db, timeout=self.busy_ms / 1000, isolation_level=None)
         conn.row_factory = sqlite3.Row
         try:
             conn.execute("PRAGMA foreign_keys=ON")
             conn.execute(f"PRAGMA busy_timeout={self.busy_ms}")
+            conn.execute("PRAGMA secure_delete=ON")
+            if conn.execute("PRAGMA secure_delete").fetchone()[0] != 1:
+                raise StoreError("secure_delete_unavailable")
             yield conn
         finally:
             conn.close()

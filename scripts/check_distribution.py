@@ -109,6 +109,11 @@ REQUIRED = (
             "src/screenshot_memory/shared/vindex/__init__.py",
             "src/screenshot_memory/shared/vindex/spaces.py",
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/vindex/migrations/002_unicode_fts.sql",
+            "src/screenshot_memory/shared/vindex/search.py",
+            "tests/storage/test_migrations.py",
+            "tests/search/test_keyword.py",
+            "docs/keyword-search.md",
             "src/screenshot_memory/shared/retrievaleval/__init__.py",
             "src/screenshot_memory/shared/retrievaleval/metrics.py",
             "tests/eval/test_metrics.py",
@@ -218,6 +223,7 @@ def allowed_file(relative: str) -> bool:
     if parts[:2] == ("src", "screenshot_memory"):
         return relative.endswith(".py") or relative in {
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/vindex/migrations/002_unicode_fts.sql",
             "src/screenshot_memory/shared/docio/schema.json",
             "src/screenshot_memory/shared/docio/README.md",
             "src/screenshot_memory/shared/evalkit/schema.json",

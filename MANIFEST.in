@@ -2,6 +2,7 @@ include LICENSE README.md pyproject.toml uv.lock .python-version .gitattributes 
 include VENDORED.md
 recursive-include src/screenshot_memory *.py
 include src/screenshot_memory/shared/vindex/migrations/001_initial.sql
+include src/screenshot_memory/shared/vindex/migrations/002_unicode_fts.sql
 include src/screenshot_memory/shared/docio/schema.json
 include src/screenshot_memory/shared/docio/README.md
 include src/screenshot_memory/shared/evalkit/schema.json

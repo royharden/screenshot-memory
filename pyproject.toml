@@ -21,6 +21,7 @@ dev = ["pytest>=8,<10", "ruff>=0.9,<1", "Pillow==10.4.0"]
 where = ["src"]
 
 [tool.setuptools.package-data]
+"screenshot_memory.shared.vindex" = ["migrations/001_initial.sql", "migrations/002_unicode_fts.sql"]
 "screenshot_memory.shared.docio" = ["schema.json", "README.md"]
 "screenshot_memory.shared.callledger" = ["README.md"]
 "screenshot_memory.shared.evalkit" = ["schema.json", "README.md"]

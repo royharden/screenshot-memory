@@ -1,5 +1,9 @@
 # Bolt handoff — local core, application pending
 
+Development is paused as of 2026-10-15. See docs/LIMITATIONS.md for the completed
+components, unfinished work and lessons. No deployment or provisioning job is
+ready to run.
+
 Current inventory: a Python package scaffold, keyless status demo, explicit
 unimplemented evaluation entrypoint, strict owned metadata models and generated
 JSON Schemas, local SQLite/WAL/FTS stores with an owned SQL migration and resumable
@@ -8,8 +12,18 @@ ranking metrics and pinned canonical Docio/offline screen/offline S3 components.
 The latter uses a real local SQLite ledger with synthetic prices and transports.
 Focused source and detached
 copied-module consumer tests cover those cores. No integrated frontend, API,
-uploads, model weights, OCR/embedding/caption pipeline or provider integration
+uploads, installed model runtime, OCR/embedding/caption pipeline or provider integration
 exists yet. There is no deployment-ready application artifact.
+
+The current source also includes atomic initial metadata batch admission,
+visible-collection FTS keyword scoring, canonical whole-group metric callbacks
+and pure TypeScript client state. These pieces are not connected into an import
+or search workflow. Atomic stage publication and screenshot evidence resolution
+remain unimplemented. Cached dependency archives outside the product tree include
+bundled OCR weights; no installation, native model execution or live provider
+integration has occurred. No cloud database, migrations service or edge functions
+are needed by the present local SQLite core. The intended Python/ONNX runtime
+requires an explicit portability decision before any Bolt-hosted integration.
 
 Original synthetic source data has a first data-only freeze:60PNGs,264cases and
 54groups. Default fixture verification is portable and does not need the original

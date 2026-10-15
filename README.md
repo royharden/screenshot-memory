@@ -6,6 +6,9 @@ Strict metadata, SQLite storage/deletion and pure retrieval metric helpers have
 focused tests. Screenshot ingestion, OCR, captioning, embeddings, search,
 region viewing and the end-to-end application/evaluation workflow remain pending.
 
+Development is paused as of 2026-10-15. [Current status and lessons](docs/LIMITATIONS.md)
+record finished components, work in progress and the remaining application work.
+
 With Python3.12, the empty demo needs no keys or model downloads:
 
 ```sh

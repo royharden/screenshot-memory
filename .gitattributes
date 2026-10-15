@@ -5,3 +5,4 @@ scripts/make_fixtures.py -text
 tests/fixtures/** -text
 scripts/synthetic_distribution.json -text
 src/screenshot_memory/shared/docio/** -text
+src/screenshot_memory/shared/screen/** -text

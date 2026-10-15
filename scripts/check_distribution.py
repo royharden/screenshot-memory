@@ -88,6 +88,16 @@ REQUIRED = frozenset(
         "src/screenshot_memory/shared/docio/README.md",
         "docs/third-party/docio-LICENSE.md",
         "tests/docio/test_docio.py",
+        "src/screenshot_memory/shared/screen/__init__.py",
+        "src/screenshot_memory/shared/screen/models.py",
+        "src/screenshot_memory/shared/screen/prepare.py",
+        "src/screenshot_memory/shared/screen/questions.py",
+        "src/screenshot_memory/shared/screen/rules.py",
+        "src/screenshot_memory/shared/screen/typed.py",
+        "contracts/vendor/screen/README.md",
+        "docs/third-party/screen-LICENSE.md",
+        "tests/screen/test_screen.py",
+        "tests/screen/test_s7_profile.py",
         POLICY_FILE,
     }
 ) | frozenset(SYNTHETIC_FILES)

@@ -30,6 +30,8 @@ The owned vindex API stores bounded records and managed objects with generation
 checks and resumable all-store deletion; see docs/storage.md for exact limits.
 Domain recall/hit/full-MRR functions and whole-group metric callbacks are
 described in docs/retrieval-metrics.md. They do not execute retrieval methods.
+Exact float32/L2 vector validation and ordered cross-modal alignment declarations
+are described in docs/feature-spaces.md. No real model pair has been admitted.
 The future evaluation entrypoint reports not_implemented and exits nonzero:
 
 ```sh
@@ -38,9 +40,12 @@ python scripts/eval.py --mode mock --split dev
 
 The intended architecture is a local Python/SQLite/NumPy core and a React/Vite
 viewer. S7 will export vindex, retrievaleval and the region-display/ablation method;
-other shared modules require verified owner contracts/source provenance. Draft
+other shared modules require verified owner contracts/source provenance. Owned
 local metadata boundaries are generated under contracts/generated from the Python
-models. No shared-owner dependencies have been vendored.
+models. Pinned canonical Docio, offline screening and offline provider/real-ledger
+sources have actual local and detached consumer conformance checks; see
+VENDORED.md. These components do not establish an integrated native pipeline,
+live provider access or completed application behavior.
 
 Quality, latency and cost are **not yet measured**. Provisional synthetic reference
 material has its first data-only freeze:60original images,264cases and54groups,

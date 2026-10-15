@@ -9,6 +9,8 @@ from pathlib import Path, PurePosixPath
 
 POLICY_FILE = "scripts/synthetic_distribution.json"
 POLICY_SHA256 = "5b40b0419aa84edd6d2d6d34778771c2c75db7b5f8cfaa5efeced761fa1f4477"
+PROVIDER_POLICY_FILE = "scripts/provider_distribution.json"
+PROVIDER_POLICY_SHA256 = "7600d4809341763d8d9f32e818d14db86e6acb6e53019899aea277ddedc23c1e"
 MAX_ENTRIES = 512
 MAX_FILE_BYTES = 256 * 1024
 MAX_TOTAL_BYTES = 8 * 1024 * 1024
@@ -43,68 +45,105 @@ def synthetic_policy() -> dict[str, dict[str, object]]:
 
 SYNTHETIC_FILES = synthetic_policy()
 
-REQUIRED = frozenset(
-    {
-        "LICENSE",
-        "README.md",
-        "pyproject.toml",
-        "uv.lock",
-        "MANIFEST.in",
-        ".gitattributes",
-        "src/screenshot_memory/__init__.py",
-        "src/screenshot_memory/contracts.py",
-        "src/screenshot_memory/cli.py",
-        "src/screenshot_memory/scaffold.py",
-        "scripts/demo.py",
-        "scripts/eval.py",
-        "scripts/check_secrets.py",
-        "scripts/generate_schemas.py",
-        "scripts/check_distribution.py",
-        "tests/test_scaffold.py",
-        "tests/contracts/test_metadata.py",
-        "tests/packaging/test_distribution.py",
-        "contracts/README.md",
-        "contracts/generated/Collection.schema.json",
-        "contracts/generated/Item.schema.json",
-        "contracts/generated/FeatureSpace.schema.json",
-        "contracts/generated/StageStatus.schema.json",
-        "contracts/generated/DeleteReceipt.schema.json",
-        "contracts/generated/CrossModalAlignment.schema.json",
-        "src/screenshot_memory/shared/vindex/storage.py",
-        "src/screenshot_memory/shared/vindex/deletion.py",
-        "src/screenshot_memory/shared/vindex/__init__.py",
-        "src/screenshot_memory/shared/vindex/spaces.py",
-        "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
-        "src/screenshot_memory/shared/retrievaleval/__init__.py",
-        "src/screenshot_memory/shared/retrievaleval/metrics.py",
-        "tests/eval/test_metrics.py",
-        "tests/storage/test_storage_deletion.py",
-        "tests/features/test_spaces.py",
-        "src/screenshot_memory/shared/docio/__init__.py",
-        "src/screenshot_memory/shared/docio/models.py",
-        "src/screenshot_memory/shared/docio/identity.py",
-        "src/screenshot_memory/shared/docio/interfaces.py",
-        "src/screenshot_memory/shared/docio/schema.json",
-        "src/screenshot_memory/shared/docio/README.md",
-        "docs/third-party/docio-LICENSE.md",
-        "tests/docio/test_docio.py",
-        "src/screenshot_memory/shared/screen/__init__.py",
-        "src/screenshot_memory/shared/screen/models.py",
-        "src/screenshot_memory/shared/screen/prepare.py",
-        "src/screenshot_memory/shared/screen/questions.py",
-        "src/screenshot_memory/shared/screen/rules.py",
-        "src/screenshot_memory/shared/screen/typed.py",
-        "contracts/vendor/screen/README.md",
-        "docs/third-party/screen-LICENSE.md",
-        "tests/screen/test_screen.py",
-        "tests/screen/test_s7_profile.py",
-        POLICY_FILE,
-    }
-) | frozenset(SYNTHETIC_FILES)
+
+def provider_policy() -> dict[str, dict[str, object]]:
+    """Fixed published source/test assets only, never an archive-selected policy."""
+    path = Path(__file__).with_name("provider_distribution.json")
+    if path.stat().st_size > MAX_FILE_BYTES:
+        raise ValueError("provider source policy too large")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PROVIDER_POLICY_SHA256:
+        raise ValueError("fixed provider source policy hash mismatch")
+    policy = json.loads(raw)
+    if policy["schema"] != "S7-published-offline-provider-distribution/1":
+        raise ValueError("unknown provider source policy")
+    files = policy["files"]
+    if len(files) != 63 or SYNTHETIC_FILES.keys() & files.keys():
+        raise ValueError("wrong or overlapping provider source policy")
+    for name, entry in files.items():
+        if (
+            name.startswith("/")
+            or "\\" in name
+            or any(part in {"", ".", ".."} for part in name.split("/"))
+            or not re.fullmatch(r"[0-9a-f]{64}", entry["sha256"])
+            or type(entry["bytes"]) is not int
+            or not 0 < entry["bytes"] <= MAX_FILE_BYTES
+        ):
+            raise ValueError("invalid fixed provider source member")
+    return files
+
+
+PROVIDER_FILES = provider_policy()
+
+REQUIRED = (
+    frozenset(
+        {
+            "LICENSE",
+            "README.md",
+            "VENDORED.md",
+            "pyproject.toml",
+            "uv.lock",
+            "MANIFEST.in",
+            ".gitattributes",
+            "src/screenshot_memory/__init__.py",
+            "src/screenshot_memory/contracts.py",
+            "src/screenshot_memory/cli.py",
+            "src/screenshot_memory/scaffold.py",
+            "scripts/demo.py",
+            "scripts/eval.py",
+            "scripts/check_secrets.py",
+            "scripts/generate_schemas.py",
+            "scripts/check_distribution.py",
+            "tests/test_scaffold.py",
+            "tests/contracts/test_metadata.py",
+            "tests/packaging/test_distribution.py",
+            "contracts/README.md",
+            "contracts/generated/Collection.schema.json",
+            "contracts/generated/Item.schema.json",
+            "contracts/generated/FeatureSpace.schema.json",
+            "contracts/generated/StageStatus.schema.json",
+            "contracts/generated/DeleteReceipt.schema.json",
+            "contracts/generated/CrossModalAlignment.schema.json",
+            "src/screenshot_memory/shared/vindex/storage.py",
+            "src/screenshot_memory/shared/vindex/deletion.py",
+            "src/screenshot_memory/shared/vindex/__init__.py",
+            "src/screenshot_memory/shared/vindex/spaces.py",
+            "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/retrievaleval/__init__.py",
+            "src/screenshot_memory/shared/retrievaleval/metrics.py",
+            "tests/eval/test_metrics.py",
+            "tests/storage/test_storage_deletion.py",
+            "tests/features/test_spaces.py",
+            "src/screenshot_memory/shared/docio/__init__.py",
+            "src/screenshot_memory/shared/docio/models.py",
+            "src/screenshot_memory/shared/docio/identity.py",
+            "src/screenshot_memory/shared/docio/interfaces.py",
+            "src/screenshot_memory/shared/docio/schema.json",
+            "src/screenshot_memory/shared/docio/README.md",
+            "docs/third-party/docio-LICENSE.md",
+            "tests/docio/test_docio.py",
+            "src/screenshot_memory/shared/screen/__init__.py",
+            "src/screenshot_memory/shared/screen/models.py",
+            "src/screenshot_memory/shared/screen/prepare.py",
+            "src/screenshot_memory/shared/screen/questions.py",
+            "src/screenshot_memory/shared/screen/rules.py",
+            "src/screenshot_memory/shared/screen/typed.py",
+            "contracts/vendor/screen/README.md",
+            "docs/third-party/screen-LICENSE.md",
+            "tests/screen/test_screen.py",
+            "tests/screen/test_s7_profile.py",
+            POLICY_FILE,
+            PROVIDER_POLICY_FILE,
+        }
+    )
+    | frozenset(SYNTHETIC_FILES)
+    | frozenset(PROVIDER_FILES)
+)
 ROOT_FILES = frozenset(
     {
         "LICENSE",
         "README.md",
+        "VENDORED.md",
         "pyproject.toml",
         "uv.lock",
         "MANIFEST.in",
@@ -129,7 +168,12 @@ EGG_INFO_FILES = frozenset(
 
 def allowed_file(relative: str) -> bool:
     parts = PurePosixPath(relative).parts
-    if relative in ROOT_FILES or relative in SYNTHETIC_FILES or relative == POLICY_FILE:
+    if (
+        relative in ROOT_FILES
+        or relative in SYNTHETIC_FILES
+        or relative in PROVIDER_FILES
+        or relative in {POLICY_FILE, PROVIDER_POLICY_FILE}
+    ):
         return True
     if len(parts) == 3 and parts[:2] == ("src", "screenshot_memory.egg-info"):
         return parts[2] in EGG_INFO_FILES
@@ -193,11 +237,13 @@ def inspect_archive(path: Path) -> dict[str, object]:
                     break
                 if not relative or not allowed_file(relative):
                     issues.append("unapproved_file")
-                expected = (
-                    POLICY_SHA256
-                    if relative == POLICY_FILE
-                    else SYNTHETIC_FILES.get(relative, {}).get("sha256")
-                )
+                policies = {
+                    POLICY_FILE: POLICY_SHA256,
+                    PROVIDER_POLICY_FILE: PROVIDER_POLICY_SHA256,
+                }
+                expected = policies.get(relative)
+                if expected is None:
+                    expected = (SYNTHETIC_FILES | PROVIDER_FILES).get(relative, {}).get("sha256")
                 if expected is not None:
                     stream = archive.extractfile(member)
                     payload = b"" if stream is None else stream.read(MAX_FILE_BYTES + 1)
@@ -207,11 +253,12 @@ def inspect_archive(path: Path) -> dict[str, object]:
                         len(payload) != member.size
                         or hashlib.sha256(payload).hexdigest() != expected
                     ):
-                        issues.append(
-                            "policy_hash_mismatch"
-                            if relative == POLICY_FILE
-                            else "synthetic_hash_mismatch"
-                        )
+                        if relative in policies:
+                            issues.append("policy_hash_mismatch")
+                        elif relative in PROVIDER_FILES:
+                            issues.append("provider_hash_mismatch")
+                        else:
+                            issues.append("synthetic_hash_mismatch")
                 files.add(relative)
     except (OSError, tarfile.TarError):
         issues.append("unreadable_archive")

@@ -1,0 +1,259 @@
+{
+  "files": {
+    "docs/schemas/allocation.schema.json": {
+      "bytes": 953,
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4"
+    },
+    "docs/schemas/billing-policy.schema.json": {
+      "bytes": 887,
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483"
+    },
+    "docs/schemas/budget-authority.schema.json": {
+      "bytes": 1304,
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9"
+    },
+    "docs/schemas/call-context.schema.json": {
+      "bytes": 2909,
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b"
+    },
+    "docs/schemas/capabilities.schema.json": {
+      "bytes": 1465,
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02"
+    },
+    "docs/schemas/cost-observation.schema.json": {
+      "bytes": 3875,
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60"
+    },
+    "docs/schemas/execution-envelope.schema.json": {
+      "bytes": 23937,
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4"
+    },
+    "docs/schemas/funding-declaration.schema.json": {
+      "bytes": 7772,
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96"
+    },
+    "docs/schemas/generate-request.schema.json": {
+      "bytes": 5091,
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641"
+    },
+    "docs/schemas/image-part.schema.json": {
+      "bytes": 1756,
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4"
+    },
+    "docs/schemas/limits.schema.json": {
+      "bytes": 2760,
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa"
+    },
+    "docs/schemas/metadata-record.schema.json": {
+      "bytes": 9543,
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988"
+    },
+    "docs/schemas/non-model-span.schema.json": {
+      "bytes": 4693,
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20"
+    },
+    "docs/schemas/normalized-usage.schema.json": {
+      "bytes": 1308,
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46"
+    },
+    "docs/schemas/operation-plan.schema.json": {
+      "bytes": 3699,
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2"
+    },
+    "docs/schemas/result.schema.json": {
+      "bytes": 14160,
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5"
+    },
+    "docs/schemas/typed-request.schema.json": {
+      "bytes": 6921,
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e"
+    },
+    "docs/schemas/typed-result.schema.json": {
+      "bytes": 3976,
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241"
+    },
+    "docs/third-party/providers-LICENSE.md": {
+      "bytes": 1067,
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6"
+    },
+    "docs/vendor/providers/INTERFACE.md": {
+      "bytes": 5518,
+      "sha256": "52f17a1b1e31d3ecee30d03a8feab6884e71d4ca762f67251f7be93b76e7516f"
+    },
+    "docs/vendor/providers/LIMITATIONS.md": {
+      "bytes": 1660,
+      "sha256": "e4ee289a4d9332cf87ec7826a1941e7b74f71b6c890a3d27b8507995307e24f2"
+    },
+    "docs/vendor/providers/provider-contracts.md": {
+      "bytes": 7715,
+      "sha256": "23e3560e3b4cf108e8029217a6fc012ec40d969429fc272f356f5d0badd0a71a"
+    },
+    "prices/synthetic-unit-v1.json": {
+      "bytes": 726,
+      "sha256": "9cec5acd6b2e2de720df07b90ddb0cdd049866146a2f33c7577a7dd7f345b91f"
+    },
+    "scripts/vendor_s3/generate_schemas.py": {
+      "bytes": 2486,
+      "sha256": "91e237dc3fe74d81b8999f12dbcd9cf82b3abad58f396fb13ad7a6b0ce3a71c0"
+    },
+    "scripts/vendor_s3/update_prices.py": {
+      "bytes": 1014,
+      "sha256": "b606ba56bedd9d895b742cfe8ab5f75235dea7323cc89020e248ee6bf7668958"
+    },
+    "src/screenshot_memory/shared/__init__.py": {
+      "bytes": 72,
+      "sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8"
+    },
+    "src/screenshot_memory/shared/callledger/README.md": {
+      "bytes": 7634,
+      "sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50"
+    },
+    "src/screenshot_memory/shared/callledger/__init__.py": {
+      "bytes": 234,
+      "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571"
+    },
+    "src/screenshot_memory/shared/callledger/ledger.py": {
+      "bytes": 49859,
+      "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d"
+    },
+    "src/screenshot_memory/shared/callledger/models.py": {
+      "bytes": 12351,
+      "sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7"
+    },
+    "src/screenshot_memory/shared/callledger/pricing.py": {
+      "bytes": 9444,
+      "sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74"
+    },
+    "src/screenshot_memory/shared/callledger/projection.py": {
+      "bytes": 1310,
+      "sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69"
+    },
+    "src/screenshot_memory/shared/providers/__init__.py": {
+      "bytes": 450,
+      "sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f"
+    },
+    "src/screenshot_memory/shared/providers/adapters.py": {
+      "bytes": 15650,
+      "sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023"
+    },
+    "src/screenshot_memory/shared/providers/captures.py": {
+      "bytes": 7673,
+      "sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00"
+    },
+    "src/screenshot_memory/shared/providers/controller.py": {
+      "bytes": 28270,
+      "sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac"
+    },
+    "src/screenshot_memory/shared/providers/images.py": {
+      "bytes": 3614,
+      "sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13"
+    },
+    "src/screenshot_memory/shared/providers/models.py": {
+      "bytes": 18364,
+      "sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2"
+    },
+    "src/screenshot_memory/shared/providers/schema.py": {
+      "bytes": 5605,
+      "sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391"
+    },
+    "tests/callledger/conftest.py": {
+      "bytes": 6902,
+      "sha256": "40fab22528fb35b3a61990a07078567116f22ebfa27864e7e7c056324f12d0eb"
+    },
+    "tests/callledger/fixtures/wp02-schema-v1-case.json": {
+      "bytes": 6915,
+      "sha256": "49313d66b9f4a5f27e847fd2058c2aad7ecd66e1020283b6c7582a6ef1a5c54d"
+    },
+    "tests/callledger/fixtures/wp02-schema-v1.sql": {
+      "bytes": 9118,
+      "sha256": "d0f223301262223bb84e977de5da3394f7f4f575c19491ad6d3031102a2a3656"
+    },
+    "tests/callledger/test_accounting.py": {
+      "bytes": 12042,
+      "sha256": "c02e2072d643c1465762587237b1085d774a1b5c8496a4980217dfd5fdbba8a9"
+    },
+    "tests/callledger/test_boundaries.py": {
+      "bytes": 7466,
+      "sha256": "e7bbe992fc137214dd7544253532e41b1e1fd0e750a5a034b5e022da89f3ebe4"
+    },
+    "tests/callledger/test_caller_limits.py": {
+      "bytes": 5318,
+      "sha256": "8254e8a47133b1ab577efab679d03bb630560acc7c0dca201702b85f934dc673"
+    },
+    "tests/callledger/test_durability.py": {
+      "bytes": 8015,
+      "sha256": "eeccd8634d30a1bc7fb4c503142fd40d6e4185e03f5ae7a309d1d18e24b998ea"
+    },
+    "tests/callledger/test_privacy.py": {
+      "bytes": 3914,
+      "sha256": "d6751ab5761d072a97afc4b2aee1a1aee8b767a5874ac55a63c64a0551edede9"
+    },
+    "tests/callledger/test_v1_migration.py": {
+      "bytes": 2206,
+      "sha256": "37c0a01447a02edc38fbcf5d5b63eefa07d15bf22d09dcdbb61b4d9a756ac608"
+    },
+    "tests/contracts/conftest.py": {
+      "bytes": 3867,
+      "sha256": "73a091142a458b3673104a5b54dc37ce33b08dd5c08eae1b9a4fbe0fc2e72295"
+    },
+    "tests/contracts/test_accounting_models.py": {
+      "bytes": 7986,
+      "sha256": "53a295acff6c31f4926dfe3121b575cf5d71d1113771e963d5bd67fb6d6d6a79"
+    },
+    "tests/contracts/test_context_identity.py": {
+      "bytes": 4501,
+      "sha256": "be6089bb180160641694e449717d6ece48d4e834d9b1856ad43d6cdfd2ff6d6b"
+    },
+    "tests/contracts/test_result_provenance.py": {
+      "bytes": 1674,
+      "sha256": "e230b103983b34cd97ebb9f3a6f28610b14e9fb02dcda29ac1c302b4e3cd4074"
+    },
+    "tests/contracts/test_results_and_copy.py": {
+      "bytes": 6071,
+      "sha256": "ef883130304e3e4dbd76eb835b073ec835692886a2ac177363fa407b3ad33341"
+    },
+    "tests/contracts/test_typed_wire.py": {
+      "bytes": 8554,
+      "sha256": "0fb40b151d8b401ede76f5e1cf2693f617da679282e6837dc089ef2e4e470ec8"
+    },
+    "tests/prices/test_pricing.py": {
+      "bytes": 7348,
+      "sha256": "024a86f4741590027494daeb4c830a61ec744660b682d359f17c9ad69dcdc5bb"
+    },
+    "tests/provider_payloads/README.md": {
+      "bytes": 640,
+      "sha256": "e90582e778189592456155d6c3a8951a7b31e2f525039a0a1e3d35be5c13700f"
+    },
+    "tests/provider_payloads/foundation-cases.v1.json": {
+      "bytes": 21993,
+      "sha256": "516b49c863b27130b9a18ee3e058e5738d3c4286d6c4753abb74a03ad05fbf42"
+    },
+    "tests/providers/conftest.py": {
+      "bytes": 13468,
+      "sha256": "8dbc52102fb6f46fe399cd34b15821562a0d5df70c9502b7925bdef9c26d3095"
+    },
+    "tests/providers/test_controller.py": {
+      "bytes": 14193,
+      "sha256": "08f6ef012cc3c11f6c52ea5e4204073b01439e681f6c8327fea9a2d3f3b273a7"
+    },
+    "tests/providers/test_foundation_cases.py": {
+      "bytes": 1734,
+      "sha256": "fe4aa683e992449b8c0d2948451a176e818c1c062b356f8eabf1759005d63483"
+    },
+    "tests/providers/test_images.py": {
+      "bytes": 3909,
+      "sha256": "f1ab284f778a704641d67fbcec4fc5aea172b8330c1d86a7d9923310256d9b83"
+    },
+    "tests/providers/test_payloads.py": {
+      "bytes": 6975,
+      "sha256": "e7e88c097ed5d32c4fcf926872491635d550e5f51f22a09078a7ff8306a08a04"
+    },
+    "tests/providers/test_provider_privacy.py": {
+      "bytes": 4366,
+      "sha256": "34b564521976f6e586e02e23863794a0d2047885ed28e22a300730243839d282"
+    }
+  },
+  "owner_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+  "schema": "S7-published-offline-provider-distribution/1",
+  "scope": "Exact14canonical product source files, MIT, public schema/source/test assets and supplied synthetic prices only. Test/tool namespace/root/import formatting adaptations explicitly recorded. No SDK/model/runtime/payload store/user data/realprices/agent/private files."
+}

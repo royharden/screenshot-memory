@@ -20,7 +20,12 @@ class DistributionTests(unittest.TestCase):
     def setUpClass(cls):
         cls.approved_bytes = {
             name: (ROOT / name).read_bytes()
-            for name in (*distribution.SYNTHETIC_FILES, distribution.POLICY_FILE)
+            for name in (
+                *distribution.SYNTHETIC_FILES,
+                *distribution.PROVIDER_FILES,
+                distribution.POLICY_FILE,
+                distribution.PROVIDER_POLICY_FILE,
+            )
         }
 
     def inspect(self, missing=(), extras=()):
@@ -50,6 +55,9 @@ class DistributionTests(unittest.TestCase):
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
             "src/screenshot_memory/shared/retrievaleval/metrics.py",
             distribution.POLICY_FILE,
+            distribution.PROVIDER_POLICY_FILE,
+            "docs/schemas/execution-envelope.schema.json",
+            "docs/third-party/providers-LICENSE.md",
             "fixtures/heldout/FROZEN",
             next(name for name in distribution.SYNTHETIC_FILES if name.endswith(".png")),
         ):
@@ -132,6 +140,33 @@ class DistributionTests(unittest.TestCase):
             member.size = len(block)
             members.append((member, block))
         self.assertIn("size_limit", self.inspect(extras=members)["issues"])
+
+    def test_exact_published_source_and_asset_bytes_cannot_be_replaced(self):
+        for name in (
+            "src/screenshot_memory/shared/providers/controller.py",
+            "docs/schemas/execution-envelope.schema.json",
+            "prices/synthetic-unit-v1.json",
+        ):
+            replacement = tarfile.TarInfo("screenshot_memory-0.1.0/" + name)
+            replacement.size = 7
+            with self.subTest(name=name):
+                result = self.inspect(missing=(name,), extras=((replacement, b"changed"),))
+                self.assertIn("provider_hash_mismatch", result["issues"])
+                self.assertNotIn(name, result["missing_required"])
+
+    def test_provider_policy_and_unlisted_json_cannot_expand_the_capsule(self):
+        policy = distribution.PROVIDER_POLICY_FILE
+        replacement = tarfile.TarInfo("screenshot_memory-0.1.0/" + policy)
+        replacement.size = 2
+        result = self.inspect(missing=(policy,), extras=((replacement, b"{}"),))
+        self.assertIn("policy_hash_mismatch", result["issues"])
+        for name in ("prices/live-current.json", "docs/schemas/unapproved.json"):
+            replacement = tarfile.TarInfo("screenshot_memory-0.1.0/" + name)
+            replacement.size = 2
+            with self.subTest(name=name):
+                self.assertIn(
+                    "unapproved_file", self.inspect(extras=((replacement, b"{}"),))["issues"]
+                )
 
 
 if __name__ == "__main__":

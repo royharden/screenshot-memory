@@ -26,8 +26,11 @@ See storage.md for logical deletion scope, OS handle/checkpoint limits, private
 root assumptions and the lack of forensic physical-erasure guarantees.
 
 The S6 operating profile remains rules-only with null hazard probabilities and no
-numeric typed threshold. Its injected gateway tests are separate from actual S3
-integration. S3's offline controller does not supply a live driver or paid image
+numeric typed threshold. The controlled native S6 binding now has combined
+detached checks against the same canonical S3 classes and real offline ledger;
+legacy injected gateway spies are separately labelled. Only mock/strict replay
+with supplied synthetic captures is supported, and atomic current-generation
+persistence remains a caller obligation. S3's offline controller supplies no live driver or paid image
 token bound; valid opaque evidence/receipt references do not authenticate sources.
 VENDORED.md and the component docs name the supported scopes.
 

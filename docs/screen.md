@@ -16,13 +16,28 @@ with a visible degraded reason. A pass is not human approval, an action grant or
 proof of source access. Actual application wiring and generation-bound deletion
 of caller caches remain pending.
 
-The optional typed interface is present as an unchanged owner port. Tests use
-injected gateway/accounting spies. Actual canonical S3 admission, ledger,
-whole-operation budget, dispatch identity, capture/replay and Jev integration
-are pending. Source declarations or test thresholds do not enable a production
-typed profile. Replay remains explicitly unavailable in this published version.
+The controlled owner successor adds an explicit native request binding alongside
+the original injected interface. The caller creates the immutable logical wrapper
+and native request once before external prepare/admit. Native checks use the same
+canonical S3 Provider, Ledger, request class and accounting objects already in
+this package. The binding checks the actual pending offline zero-outbound
+allocation, observes its native identity, then delegates the lookup and atomic
+reuse accounting to S3. Original/normalized/wrapped/native semantic/actual
+envelope identities remain distinct. There is no implicit admission or funding.
+
+Only mock and strict replay with supplied synthetic mock-origin captures are
+supported by this native integration. Actual Jev/live SDK behavior, real capture
+provenance, quality calibration and durable cache writes remain pending. Source
+declarations and synthetic test thresholds do not enable a production typed
+profile. Without an actual native binding, the legacy captured-wrapper path
+still holds as unavailable. The caller must atomically check current source
+generation and composition before persistent writes; a read-only guard alone
+does not prevent a later concurrent edit.
 
 The original owner test file has 61 collected scenarios. Consumer tests retain
-them all with only imports and the detached source path adapted. Two separate S7
-profile/generation scenarios are labelled as consumer tests. None measures model
-quality, calibrated detection, billing, native OCR or a completed application.
+them all with only imports and the detached source path adapted. The successor
+adds 26 native integration scenarios using the real canonical offline ledger;
+two separate S7 profile/generation scenarios remain labelled as consumer tests.
+Combined detached checks include all 232 canonical S3 scenarios in the same class
+namespace. None measures real model quality, calibrated detection, live billing,
+native OCR or a completed application.

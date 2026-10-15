@@ -1,0 +1,2807 @@
+{
+  "module": "docio",
+  "schema_bundle_version": 1,
+  "schemas": {
+    "Bounds": {
+      "additionalProperties": false,
+      "properties": {
+        "deadline_s": {
+          "exclusiveMinimum": 0,
+          "title": "Deadline S",
+          "type": "number"
+        },
+        "max_blocks": {
+          "exclusiveMinimum": 0,
+          "title": "Max Blocks",
+          "type": "integer"
+        },
+        "max_decoded_pixels": {
+          "exclusiveMinimum": 0,
+          "title": "Max Decoded Pixels",
+          "type": "integer"
+        },
+        "max_encoded_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Encoded Bytes",
+          "type": "integer"
+        },
+        "max_lines": {
+          "exclusiveMinimum": 0,
+          "title": "Max Lines",
+          "type": "integer"
+        },
+        "max_output_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Max Output Bytes",
+          "type": "integer"
+        },
+        "max_pages": {
+          "exclusiveMinimum": 0,
+          "title": "Max Pages",
+          "type": "integer"
+        },
+        "max_words": {
+          "exclusiveMinimum": 0,
+          "title": "Max Words",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_pages",
+        "max_encoded_bytes",
+        "max_decoded_pixels",
+        "max_words",
+        "max_lines",
+        "max_blocks",
+        "max_output_bytes",
+        "deadline_s"
+      ],
+      "title": "Bounds",
+      "type": "object"
+    },
+    "Document": {
+      "$defs": {
+        "Block": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Block",
+          "type": "object"
+        },
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "Line": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Line",
+          "type": "object"
+        },
+        "Page": {
+          "additionalProperties": false,
+          "properties": {
+            "blocks": {
+              "items": {
+                "$ref": "#/$defs/Block"
+              },
+              "title": "Blocks",
+              "type": "array"
+            },
+            "document_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Document Id",
+              "type": "string"
+            },
+            "grid_policy_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Grid Policy Id",
+              "type": "string"
+            },
+            "height_px": {
+              "exclusiveMinimum": 0,
+              "title": "Height Px",
+              "type": "integer"
+            },
+            "lines": {
+              "items": {
+                "$ref": "#/$defs/Line"
+              },
+              "title": "Lines",
+              "type": "array"
+            },
+            "page_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Page Id",
+              "type": "string"
+            },
+            "page_index": {
+              "minimum": 0,
+              "title": "Page Index",
+              "type": "integer"
+            },
+            "page_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Page Sha256",
+              "type": "string"
+            },
+            "processing_ref": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Processing Ref",
+              "type": "string"
+            },
+            "raw_source_revision": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Raw Source Revision",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_kind": {
+              "enum": [
+                "image",
+                "pdf",
+                "native_text",
+                "screenshot"
+              ],
+              "title": "Source Kind",
+              "type": "string"
+            },
+            "width_px": {
+              "exclusiveMinimum": 0,
+              "title": "Width Px",
+              "type": "integer"
+            },
+            "words": {
+              "items": {
+                "$ref": "#/$defs/Word"
+              },
+              "title": "Words",
+              "type": "array"
+            }
+          },
+          "required": [
+            "document_id",
+            "raw_source_revision",
+            "page_id",
+            "page_index",
+            "width_px",
+            "height_px",
+            "page_sha256",
+            "grid_policy_id",
+            "words",
+            "lines",
+            "blocks",
+            "source_kind",
+            "processing_ref"
+          ],
+          "title": "Page",
+          "type": "object"
+        },
+        "Provenance": {
+          "additionalProperties": false,
+          "properties": {
+            "config_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Config Sha256",
+              "type": "string"
+            },
+            "producer": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Producer",
+              "type": "string"
+            },
+            "refs": {
+              "default": [],
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Refs",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_grid_profile": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Grid Profile",
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "producer",
+            "version",
+            "config_sha256",
+            "source_grid_profile"
+          ],
+          "title": "Provenance",
+          "type": "object"
+        },
+        "Word": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version"
+          ],
+          "title": "Word",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "original_content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Original Content Sha256",
+          "type": "string"
+        },
+        "pages": {
+          "items": {
+            "$ref": "#/$defs/Page"
+          },
+          "title": "Pages",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "raw_source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Raw Source Revision",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_kind": {
+          "enum": [
+            "image",
+            "pdf",
+            "native_text",
+            "screenshot"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_id",
+        "original_content_sha256",
+        "raw_source_revision",
+        "source_kind",
+        "pages",
+        "provenance"
+      ],
+      "title": "Document",
+      "type": "object"
+    },
+    "EngineBox": {
+      "additionalProperties": false,
+      "properties": {
+        "frame": {
+          "const": "engine",
+          "default": "engine",
+          "title": "Frame",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "units": {
+          "const": "px",
+          "default": "px",
+          "title": "Units",
+          "type": "string"
+        },
+        "x0": {
+          "title": "X0",
+          "type": "number"
+        },
+        "x1": {
+          "title": "X1",
+          "type": "number"
+        },
+        "y0": {
+          "title": "Y0",
+          "type": "number"
+        },
+        "y1": {
+          "title": "Y1",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "EngineBox",
+      "type": "object"
+    },
+    "NormalizedBox": {
+      "additionalProperties": false,
+      "properties": {
+        "originating_height_px": {
+          "exclusiveMinimum": 0,
+          "title": "Originating Height Px",
+          "type": "integer"
+        },
+        "originating_width_px": {
+          "exclusiveMinimum": 0,
+          "title": "Originating Width Px",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "units": {
+          "const": "normalized",
+          "default": "normalized",
+          "title": "Units",
+          "type": "string"
+        },
+        "x0": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "X0",
+          "type": "number"
+        },
+        "x1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "X1",
+          "type": "number"
+        },
+        "y0": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Y0",
+          "type": "number"
+        },
+        "y1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Y1",
+          "type": "number"
+        }
+      },
+      "required": [
+        "originating_width_px",
+        "originating_height_px",
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "NormalizedBox",
+      "type": "object"
+    },
+    "OcrResult": {
+      "$defs": {
+        "Block": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Block",
+          "type": "object"
+        },
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "Line": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Line",
+          "type": "object"
+        },
+        "Page": {
+          "additionalProperties": false,
+          "properties": {
+            "blocks": {
+              "items": {
+                "$ref": "#/$defs/Block"
+              },
+              "title": "Blocks",
+              "type": "array"
+            },
+            "document_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Document Id",
+              "type": "string"
+            },
+            "grid_policy_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Grid Policy Id",
+              "type": "string"
+            },
+            "height_px": {
+              "exclusiveMinimum": 0,
+              "title": "Height Px",
+              "type": "integer"
+            },
+            "lines": {
+              "items": {
+                "$ref": "#/$defs/Line"
+              },
+              "title": "Lines",
+              "type": "array"
+            },
+            "page_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Page Id",
+              "type": "string"
+            },
+            "page_index": {
+              "minimum": 0,
+              "title": "Page Index",
+              "type": "integer"
+            },
+            "page_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Page Sha256",
+              "type": "string"
+            },
+            "processing_ref": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Processing Ref",
+              "type": "string"
+            },
+            "raw_source_revision": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Raw Source Revision",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_kind": {
+              "enum": [
+                "image",
+                "pdf",
+                "native_text",
+                "screenshot"
+              ],
+              "title": "Source Kind",
+              "type": "string"
+            },
+            "width_px": {
+              "exclusiveMinimum": 0,
+              "title": "Width Px",
+              "type": "integer"
+            },
+            "words": {
+              "items": {
+                "$ref": "#/$defs/Word"
+              },
+              "title": "Words",
+              "type": "array"
+            }
+          },
+          "required": [
+            "document_id",
+            "raw_source_revision",
+            "page_id",
+            "page_index",
+            "width_px",
+            "height_px",
+            "page_sha256",
+            "grid_policy_id",
+            "words",
+            "lines",
+            "blocks",
+            "source_kind",
+            "processing_ref"
+          ],
+          "title": "Page",
+          "type": "object"
+        },
+        "Word": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version"
+          ],
+          "title": "Word",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "issues": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Page"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "processing_artifact_ref": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Processing Artifact Ref"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "unsupported",
+            "unavailable",
+            "invalid",
+            "limit_exceeded",
+            "timeout"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "page",
+        "issues",
+        "capabilities",
+        "processing_artifact_ref"
+      ],
+      "title": "OcrResult",
+      "type": "object"
+    },
+    "Page": {
+      "$defs": {
+        "Block": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Block",
+          "type": "object"
+        },
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "Line": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Line",
+          "type": "object"
+        },
+        "Word": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version"
+          ],
+          "title": "Word",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/Block"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "document_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "grid_policy_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Grid Policy Id",
+          "type": "string"
+        },
+        "height_px": {
+          "exclusiveMinimum": 0,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/Line"
+          },
+          "title": "Lines",
+          "type": "array"
+        },
+        "page_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Page Id",
+          "type": "string"
+        },
+        "page_index": {
+          "minimum": 0,
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "page_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Page Sha256",
+          "type": "string"
+        },
+        "processing_ref": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Processing Ref",
+          "type": "string"
+        },
+        "raw_source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Raw Source Revision",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_kind": {
+          "enum": [
+            "image",
+            "pdf",
+            "native_text",
+            "screenshot"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "width_px": {
+          "exclusiveMinimum": 0,
+          "title": "Width Px",
+          "type": "integer"
+        },
+        "words": {
+          "items": {
+            "$ref": "#/$defs/Word"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "document_id",
+        "raw_source_revision",
+        "page_id",
+        "page_index",
+        "width_px",
+        "height_px",
+        "page_sha256",
+        "grid_policy_id",
+        "words",
+        "lines",
+        "blocks",
+        "source_kind",
+        "processing_ref"
+      ],
+      "title": "Page",
+      "type": "object"
+    },
+    "PageInput": {
+      "$defs": {
+        "AffineTransform": {
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Algorithm",
+              "type": "string"
+            },
+            "direction": {
+              "enum": [
+                "source_to_engine",
+                "engine_to_source"
+              ],
+              "title": "Direction",
+              "type": "string"
+            },
+            "matrix": {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                }
+              ],
+              "title": "Matrix",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "direction",
+            "algorithm",
+            "matrix"
+          ],
+          "title": "AffineTransform",
+          "type": "object"
+        },
+        "TransformPair": {
+          "additionalProperties": false,
+          "properties": {
+            "engine_to_source": {
+              "$ref": "#/$defs/AffineTransform"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_to_engine": {
+              "$ref": "#/$defs/AffineTransform"
+            }
+          },
+          "required": [
+            "source_to_engine",
+            "engine_to_source"
+          ],
+          "title": "TransformPair",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "execution_ref": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Execution Ref",
+          "type": "string"
+        },
+        "grid_policy_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Grid Policy Id",
+          "type": "string"
+        },
+        "height_px": {
+          "exclusiveMinimum": 0,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "original_content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Original Content Sha256",
+          "type": "string"
+        },
+        "page_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Page Id",
+          "type": "string"
+        },
+        "page_index": {
+          "minimum": 0,
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "page_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Page Sha256",
+          "type": "string"
+        },
+        "raw_source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Raw Source Revision",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_kind": {
+          "enum": [
+            "image",
+            "pdf",
+            "native_text",
+            "screenshot"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "transforms": {
+          "$ref": "#/$defs/TransformPair"
+        },
+        "width_px": {
+          "exclusiveMinimum": 0,
+          "title": "Width Px",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "execution_ref",
+        "document_id",
+        "original_content_sha256",
+        "raw_source_revision",
+        "page_id",
+        "page_index",
+        "page_sha256",
+        "width_px",
+        "height_px",
+        "grid_policy_id",
+        "source_kind",
+        "transforms"
+      ],
+      "title": "PageInput",
+      "type": "object"
+    },
+    "PageSourceResult": {
+      "$defs": {
+        "AffineTransform": {
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Algorithm",
+              "type": "string"
+            },
+            "direction": {
+              "enum": [
+                "source_to_engine",
+                "engine_to_source"
+              ],
+              "title": "Direction",
+              "type": "string"
+            },
+            "matrix": {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                }
+              ],
+              "title": "Matrix",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "direction",
+            "algorithm",
+            "matrix"
+          ],
+          "title": "AffineTransform",
+          "type": "object"
+        },
+        "PageInput": {
+          "additionalProperties": false,
+          "properties": {
+            "document_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Document Id",
+              "type": "string"
+            },
+            "execution_ref": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Execution Ref",
+              "type": "string"
+            },
+            "grid_policy_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Grid Policy Id",
+              "type": "string"
+            },
+            "height_px": {
+              "exclusiveMinimum": 0,
+              "title": "Height Px",
+              "type": "integer"
+            },
+            "original_content_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Content Sha256",
+              "type": "string"
+            },
+            "page_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Page Id",
+              "type": "string"
+            },
+            "page_index": {
+              "minimum": 0,
+              "title": "Page Index",
+              "type": "integer"
+            },
+            "page_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Page Sha256",
+              "type": "string"
+            },
+            "raw_source_revision": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Raw Source Revision",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_kind": {
+              "enum": [
+                "image",
+                "pdf",
+                "native_text",
+                "screenshot"
+              ],
+              "title": "Source Kind",
+              "type": "string"
+            },
+            "transforms": {
+              "$ref": "#/$defs/TransformPair"
+            },
+            "width_px": {
+              "exclusiveMinimum": 0,
+              "title": "Width Px",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "execution_ref",
+            "document_id",
+            "original_content_sha256",
+            "raw_source_revision",
+            "page_id",
+            "page_index",
+            "page_sha256",
+            "width_px",
+            "height_px",
+            "grid_policy_id",
+            "source_kind",
+            "transforms"
+          ],
+          "title": "PageInput",
+          "type": "object"
+        },
+        "Provenance": {
+          "additionalProperties": false,
+          "properties": {
+            "config_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Config Sha256",
+              "type": "string"
+            },
+            "producer": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Producer",
+              "type": "string"
+            },
+            "refs": {
+              "default": [],
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Refs",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_grid_profile": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Grid Profile",
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "producer",
+            "version",
+            "config_sha256",
+            "source_grid_profile"
+          ],
+          "title": "Provenance",
+          "type": "object"
+        },
+        "TransformPair": {
+          "additionalProperties": false,
+          "properties": {
+            "engine_to_source": {
+              "$ref": "#/$defs/AffineTransform"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_to_engine": {
+              "$ref": "#/$defs/AffineTransform"
+            }
+          },
+          "required": [
+            "source_to_engine",
+            "engine_to_source"
+          ],
+          "title": "TransformPair",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "issues": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "pages": {
+          "items": {
+            "$ref": "#/$defs/PageInput"
+          },
+          "title": "Pages",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "unsupported",
+            "unavailable",
+            "invalid",
+            "limit_exceeded",
+            "timeout"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "pages",
+        "issues",
+        "capabilities",
+        "provenance"
+      ],
+      "title": "PageSourceResult",
+      "type": "object"
+    },
+    "ProcessingArtifact": {
+      "$defs": {
+        "AffineTransform": {
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Algorithm",
+              "type": "string"
+            },
+            "direction": {
+              "enum": [
+                "source_to_engine",
+                "engine_to_source"
+              ],
+              "title": "Direction",
+              "type": "string"
+            },
+            "matrix": {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "maxItems": 3,
+                  "minItems": 3,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "type": "array"
+                }
+              ],
+              "title": "Matrix",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "direction",
+            "algorithm",
+            "matrix"
+          ],
+          "title": "AffineTransform",
+          "type": "object"
+        },
+        "Block": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Block",
+          "type": "object"
+        },
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "Line": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "ordered_child_ids": {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "title": "Ordered Child Ids",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version",
+            "ordered_child_ids"
+          ],
+          "title": "Line",
+          "type": "object"
+        },
+        "Word": {
+          "additionalProperties": false,
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "geometry_provenance": {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "title": "Geometry Provenance",
+              "type": "string"
+            },
+            "ocr_confidence": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ocr Confidence"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "source_engine": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine",
+              "type": "string"
+            },
+            "source_engine_version": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Source Engine Version",
+              "type": "string"
+            },
+            "stable_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Stable Id",
+              "type": "string"
+            },
+            "text": {
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "stable_id",
+            "text",
+            "bbox_px",
+            "ocr_confidence",
+            "geometry_provenance",
+            "source_engine",
+            "source_engine_version"
+          ],
+          "title": "Word",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Artifact Id",
+          "type": "string"
+        },
+        "blocks": {
+          "items": {
+            "$ref": "#/$defs/Block"
+          },
+          "title": "Blocks",
+          "type": "array"
+        },
+        "config_digest": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Config Digest",
+          "type": "string"
+        },
+        "document_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "engine": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Engine",
+          "type": "string"
+        },
+        "engine_to_source": {
+          "$ref": "#/$defs/AffineTransform"
+        },
+        "engine_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Engine Version",
+          "type": "string"
+        },
+        "grid_policy_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Grid Policy Id",
+          "type": "string"
+        },
+        "height_px": {
+          "exclusiveMinimum": 0,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/Line"
+          },
+          "title": "Lines",
+          "type": "array"
+        },
+        "page_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Page Id",
+          "type": "string"
+        },
+        "page_index": {
+          "minimum": 0,
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "page_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Page Sha256",
+          "type": "string"
+        },
+        "raw_source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Raw Source Revision",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_to_engine": {
+          "$ref": "#/$defs/AffineTransform"
+        },
+        "text_order_policy": {
+          "const": "docio-text/1",
+          "default": "docio-text/1",
+          "title": "Text Order Policy",
+          "type": "string"
+        },
+        "width_px": {
+          "exclusiveMinimum": 0,
+          "title": "Width Px",
+          "type": "integer"
+        },
+        "words": {
+          "items": {
+            "$ref": "#/$defs/Word"
+          },
+          "title": "Words",
+          "type": "array"
+        }
+      },
+      "required": [
+        "document_id",
+        "raw_source_revision",
+        "page_id",
+        "page_index",
+        "width_px",
+        "height_px",
+        "page_sha256",
+        "grid_policy_id",
+        "words",
+        "lines",
+        "blocks",
+        "artifact_id",
+        "engine",
+        "engine_version",
+        "config_digest",
+        "source_to_engine",
+        "engine_to_source"
+      ],
+      "title": "ProcessingArtifact",
+      "type": "object"
+    },
+    "SourceEvidence": {
+      "$defs": {
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Neutral producer evidence; deliberately not the external tagged Pointer union.",
+      "properties": {
+        "bbox_px": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoxPx"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "document_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "evidence_artifact_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Artifact Sha256",
+          "type": "string"
+        },
+        "excerpt_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Excerpt Sha256"
+        },
+        "grid_policy_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Grid Policy Id",
+          "type": "string"
+        },
+        "height_px": {
+          "exclusiveMinimum": 0,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "line_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line Ids"
+        },
+        "original_content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Original Content Sha256",
+          "type": "string"
+        },
+        "page_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Page Id",
+          "type": "string"
+        },
+        "page_index": {
+          "minimum": 0,
+          "title": "Page Index",
+          "type": "integer"
+        },
+        "page_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Page Sha256",
+          "type": "string"
+        },
+        "raw_source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Raw Source Revision",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "transform_ref": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Transform Ref"
+        },
+        "width_px": {
+          "exclusiveMinimum": 0,
+          "title": "Width Px",
+          "type": "integer"
+        },
+        "word_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Word Ids"
+        }
+      },
+      "required": [
+        "document_id",
+        "original_content_sha256",
+        "raw_source_revision",
+        "page_id",
+        "page_index",
+        "page_sha256",
+        "grid_policy_id",
+        "width_px",
+        "height_px",
+        "evidence_artifact_sha256",
+        "bbox_px",
+        "word_ids",
+        "line_ids",
+        "excerpt_sha256",
+        "transform_ref"
+      ],
+      "title": "SourceEvidence",
+      "type": "object"
+    }
+  },
+  "stage": "models-only"
+}

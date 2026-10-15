@@ -80,6 +80,14 @@ REQUIRED = frozenset(
         "tests/eval/test_metrics.py",
         "tests/storage/test_storage_deletion.py",
         "tests/features/test_spaces.py",
+        "src/screenshot_memory/shared/docio/__init__.py",
+        "src/screenshot_memory/shared/docio/models.py",
+        "src/screenshot_memory/shared/docio/identity.py",
+        "src/screenshot_memory/shared/docio/interfaces.py",
+        "src/screenshot_memory/shared/docio/schema.json",
+        "src/screenshot_memory/shared/docio/README.md",
+        "docs/third-party/docio-LICENSE.md",
+        "tests/docio/test_docio.py",
         POLICY_FILE,
     }
 ) | frozenset(SYNTHETIC_FILES)
@@ -116,9 +124,11 @@ def allowed_file(relative: str) -> bool:
     if len(parts) == 3 and parts[:2] == ("src", "screenshot_memory.egg-info"):
         return parts[2] in EGG_INFO_FILES
     if parts[:2] == ("src", "screenshot_memory"):
-        return relative.endswith(".py") or relative == (
-            "src/screenshot_memory/shared/vindex/migrations/001_initial.sql"
-        )
+        return relative.endswith(".py") or relative in {
+            "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",
+            "src/screenshot_memory/shared/docio/schema.json",
+            "src/screenshot_memory/shared/docio/README.md",
+        }
     if parts[0] in {"scripts", "tests"}:
         return relative.endswith(".py")
     if parts[0] == "contracts":

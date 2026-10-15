@@ -20,6 +20,9 @@ dev = ["pytest>=8,<10", "ruff>=0.9,<1", "Pillow==10.4.0"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"screenshot_memory.shared.docio" = ["schema.json", "README.md"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

@@ -33,8 +33,10 @@ or calculate confidence intervals.
 
 The canonical owner evalkit source is now retained separately under shared/evalkit,
 including its 2000-draw paired whole-group engine. The original synthetic corpus
-has a recorded data-only freeze. Still pending: S7 execution/manifest/scorer
-adapters, native feature/ranking integration, guard and region metrics, retrieval
-callbacks with frozen support policy, actual dev tuning and one sealed held-out
+has a recorded data-only freeze. The own domain callback and fixed support policy
+now use that canonical engine; see [retrieval-bootstrap.md](retrieval-bootstrap.md).
+Still pending: actual S7 execution/manifest/scorer and feature-coverage authority
+adapters, native feature/ranking integration, guard and region metrics,
+actual dev tuning and one sealed held-out
 event. No quality, uncertainty, latency or cost measurement follows from these
 synthetic unit controls or from importing the generic evaluation framework.

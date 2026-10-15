@@ -11,6 +11,9 @@ recursive-include scripts *.py
 recursive-include tests *.py
 recursive-include contracts *.json *.md
 recursive-include docs *.md
+include web/package.json
+include web/src/model.ts
+include web/tests/model.test.ts
 prune .git
 prune .venv
 prune .creds

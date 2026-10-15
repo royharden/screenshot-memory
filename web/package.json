@@ -1,0 +1,8 @@
+{
+  "name": "screenshot-memory-client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:state": "node --test tests/model.test.ts"
+  }
+}

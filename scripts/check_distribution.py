@@ -115,6 +115,10 @@ REQUIRED = (
             "tests/storage/test_sqlite_probe.py",
             "tests/search/test_keyword.py",
             "docs/keyword-search.md",
+            "docs/client-state.md",
+            "web/package.json",
+            "web/src/model.ts",
+            "web/tests/model.test.ts",
             "src/screenshot_memory/shared/retrievaleval/__init__.py",
             "src/screenshot_memory/shared/retrievaleval/metrics.py",
             "src/screenshot_memory/shared/retrievaleval/bootstrap.py",
@@ -224,6 +228,8 @@ def allowed_file(relative: str) -> bool:
         return True
     if len(parts) == 3 and parts[:2] == ("src", "screenshot_memory.egg-info"):
         return parts[2] in EGG_INFO_FILES
+    if parts[0] == "web":
+        return relative in {"web/package.json", "web/src/model.ts", "web/tests/model.test.ts"}
     if parts[:2] == ("src", "screenshot_memory"):
         return relative.endswith(".py") or relative in {
             "src/screenshot_memory/shared/vindex/migrations/001_initial.sql",

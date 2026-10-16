@@ -39,13 +39,14 @@ explicit collection-scoped `recover` cancels the incomplete batch and retries
 pending cleanup. Quota stays reserved while cleanup is incomplete. Recovery is an
 explicit cancellation operation, including against an in-progress importer.
 
-Query explicitly reports unavailable/not-executed while OCR, captions and vectors
-are absent. This is a refusal path, not measured retrieval. Screenshot evidence
-resolution has an explicit canonical-contract binding with original synthetic
+The CLI query command explicitly reports unavailable/not-executed; the Python OCR
+adapter does not enable that command. This is a refusal path, not measured
+retrieval. Screenshot evidence resolution has an explicit canonical-contract binding with original synthetic
 controls and a separate real PNG/JPEG/Pillow decode join using hand-built OCR
 artifacts and actual SQLite/files/deletion. The concrete decoder shares import's
-unchanged bounded source-grid policy. Native OCR, API admission, query wiring,
-region overlays and other native decoder/platform combinations remain unverified.
+unchanged bounded source-grid policy. The separate two-image native adapter check
+is described below. API admission, CLI query wiring, region overlays and other
+native decoder/platform combinations remain unverified.
 See [regions](regions.md).
 The status demo still shows the empty core.
 
@@ -59,18 +60,26 @@ Native dependency archives, model identities and notices are retained outside th
 product tree. A separate isolated runtime produced partial native OCR evidence but
 ended with a guard-count assertion failure. Its missing counters remain unknown;
 a later import-only diagnostic does not retroactively complete that qualification.
-The current [OCR adapter](ocr.md) has construction checks using synthetic engine
-controls and actual stores. Its new provided-session native backend, deployment
-closure and coherent native qualification remain pending. No embedding, provider
-or application-quality qualification follows from the partial OCR evidence.
+The [OCR adapter](ocr.md) has independently reviewed synthetic construction checks
+and one attributed native two-image execution at source revision
+`7a88b39fb7f2f126665b734bfaafeeeee56e3875`. Its readable and blank case receipts
+include verified deletion across all 14 stores. Independent review accepted consistency of
+the source/receipts/guard/origin/resource closure without rerunning inference.
+Query/resolver/stale predicates are worker assertions without separate payloads.
+The exact scope and configuration are recorded in the adapter docs; future source
+revisions are not silently qualified by that execution. A preceding import-origin
+assertion failure remains failed, with its missing final case receipts preserved
+as missing. Native runtime packaging, independent OCR/geometry/model-rights review
+and application quality remain open. No embedding or provider qualification follows.
 
 ## Outstanding work
 
 1. Independently review the local construction CLI, stage publication, import
    visibility/recovery and verified deletion checkpoint.
-2. Integrate and qualify current-source screenshot evidence resolution using real
-   measured OCR geometry and the canonical evidence validator.
-3. Complete the native runtime/config/model closure and native OCR, caption,
+2. Integrate application screenshot evidence resolution and independently qualify
+   OCR geometry using the canonical evidence validator. The two-image worker's
+   issued-access control does not implement production admission.
+3. Package the native runtime/model closure and connect CLI OCR/search, caption,
    text/image embedding and retrieval integration. Preserve explicit unsupported
    or unavailable results rather than substituting synthetic output.
 4. Connect the API and React/Vite viewer, verify browser behavior and deletion
@@ -92,6 +101,13 @@ or application-quality qualification follows from the partial OCR evidence.
 - Guard checks need named event phases and retained denial telemetry. An import
   capability probe may be denied successfully while violating a naive event-count
   assertion; retain the failed edition rather than retroactively calling it passed.
+- Resolve both module paths and their allowed roots before a physical containment
+  comparison. Interpreter junction aliases can otherwise reject an existing
+  in-root standard-library module; preserve the failure and check the corrected
+  edition separately.
+- Keep attributed execution, independent receipt/source review and independent
+  model-quality evaluation distinct. Worker assertions without retained result
+  payloads provide a narrower observation than a separately inspectable response.
 
 - Metadata shape, copied-module conformance and mock replay prove different
   boundaries from native execution and finished-application behavior.
@@ -122,15 +138,16 @@ gallery feature/tuning/benchmark output in that operation. Integration and actua
 model/config/experiment locks remain pending; the references remain provisional.
 Pinned canonical Docio, offline screen and offline provider/real-ledger source
 closures have local and detached consumer checks. Only supplied synthetic price,
-capture and transport cases are exercised. Actual SDK/account/model capability,
-installed model/checkpoint bytes and live provider integration remain unverified.
+capture and transport cases are exercised for those shared components. The local
+OCR backend has only the separate pinned two-image check above; installed provider
+models, live account capability and provider integration remain unverified.
 No viewer/Bolt preview, API listener, container or cloud resource exists.
 
 Metadata validation proves only declared shape and internal consistency; it does
-not authenticate source/evidence hashes or provenance receipts. Native qualification
-of the current application adapter remains pending. JSON Schema omits cross-field
-runtime validators; use the
-pinned Pydantic models for those invariants. Archive policy checks do not replace
+not authenticate source/evidence hashes or provenance receipts. The pinned OCR
+check does not qualify the integrated application or future adapter revisions.
+JSON Schema omits cross-field runtime validators; use the pinned Pydantic models
+for those invariants. Archive policy checks do not replace
 building and checking the actual candidate's detached source distribution.
 Storage, metrics, vector/alignment and imported component cores have detached
 copied-module consumer checks;

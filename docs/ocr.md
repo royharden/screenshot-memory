@@ -55,15 +55,50 @@ denied loopback capability probe. A Python audit hook does not provide OS isolat
 ## Current qualification boundary
 
 Construction tests use explicit synthetic engine controls and actual Pillow,
-SQLite, atomic publication, FTS, source-region resolution and deletion. A test
-import guard forbids native OCR SDK imports. Their output stages remain labelled
-synthetic; the native backend's new provided-session path remains unqualified.
-Earlier isolated partial native evidence and its failed guard check are separate
-editions and do not certify this implementation.
+SQLite, atomic publication, FTS, source-region resolution and deletion. Independent
+construction review accepted 26 tests with native OCR SDK imports forbidden, plus
+an original Unicode/null-confidence and reopened-store control. These output
+stages remain labelled synthetic.
+
+On 2026-10-16, source revision
+`7a88b39fb7f2f126665b734bfaafeeeee56e3875` completed one bounded native execution
+using the explicit backend, a separately prepared local runtime and two existing
+anonymous 640x160 PNGs. The persisted case receipts contain:
+
+- Readable image: `LOCAL OCR CHECK`, three words and one line.
+- Blank image: successful empty output, zero words and lines.
+- Each case: completed deletion, all 14 implemented stores verified empty and one
+  managed original verified absent.
+
+The exact worker also asserted atomic document/artifact/word/line/FTS publication,
+a `LOCAL` lexical hit and issued line-pointer resolution, then no hit and a stale
+pointer after deletion. Those predicates passed with worker exit 0; separate query
+and resolver result payloads were not retained. The injected issued-access port
+was a trusted qualification control, with production authorization still open.
+
+The recorded processing configuration digest is
+`7dbcacffe4319ffc46e4ba1e00ee900fdc89f34b3b231d623c286dfc96dd384b`.
+Independent review accepted consistency of the attributed source, complete case
+receipts, guard telemetry, resolved import origins and process/resource closure.
+The reviewer did not execute models or certify OCR/geometry quality. The execution
+and its consistency review apply only to the pinned source/configuration and the
+two images. Later code revisions, images, platforms and runtime configurations
+need their own affected-scope checks.
+
+The worker retained three positive connection/write/downloader denials and one
+denied urllib3 IPv6 import probe. Its global socket/downloader guard hooks are
+separate from the backend's instance-local session configuration. Actual SDK
+session-constructor inventory, two descendant process identities/command lines
+and independent OS I/O tracing/isolation were not captured. Configured model paths
+and Python guards cannot fill those gaps. Earlier guard-count and import-origin
+assertion failures remain failed editions; missing counters or case receipts
+were not reconstructed from the later successful run.
 
 The default lock/environment and CLI still provide the decode-only workflow.
-This source addition does not install a native runtime or enable CLI OCR/search.
-Native dependency/packaging reconciliation, a coherent current-source native run,
-independent review, API authorization, browser integration and quality evaluation
-remain required. Reuse canonical S2 Docio and S5 citation contracts as recorded in
+The native runtime/model setup is separate from the default lock and remains
+unreproduced as a clean installation. Runtime packaging, CLI OCR/search wiring,
+independent native OCR/geometry and model-rights review, API authorization, browser
+integration and development/held-out quality evaluation remain required. No
+whole-application, human quality or Bolt acceptance follows from the two-image check.
+Reuse canonical S2 Docio and S5 citation contracts as recorded in
 [VENDORED.md](../VENDORED.md); this app owns runtime/producer reconciliation.

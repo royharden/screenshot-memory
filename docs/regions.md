@@ -43,8 +43,8 @@ those documented in [storage.md](storage.md).
 
 The retained projections use generation-current `content` rows: `DECODE_ROW` for
 the existing decode result and app-owned `DOCUMENT_ROW` / `ARTIFACT_ROW` constants
-for the canonical document and artifact. A future OCR producer must publish those
-two rows and the matching stage/item metadata atomically. It must use the exact
+for the canonical document and artifact. The [OCR adapter](ocr.md) publishes those
+two rows and the matching stage/item metadata atomically. Producers must use the exact
 `processing_revision` and transform-reference helpers rather than inventing an
 alternate identity convention. Existing logical deletion covers these content rows.
 
@@ -63,8 +63,9 @@ Canonical producers remain S2 Docio and S5 cited, vendored as recorded in
 [VENDORED.md](../VENDORED.md). This app owns reconciliation. The bounded Pillow
 producer is app-owned S7 code consuming canonical S2 grid identities; the resolver
 consumes S2 document/evidence and S5 citation contracts. Keep the synthetic controls
-as separate tests. Replace hand-built OCR artifacts in the native journey when the
-actual OCR runtime/model/configuration is admitted and qualified. The next joined
-check must import a real image, publish actual native OCR artifacts, resolve its
-measured occurrence and verify deletion through the application. No competing
-canonical library is introduced here.
+as separate tests. A separate pinned two-image native adapter execution asserted
+publication, resolution and deletion with real native artifacts; [OCR](ocr.md)
+records its source/configuration and narrower worker-assertion evidence. Application
+integration still needs real admission, measured occurrence/geometry quality and
+deletion through the runnable application. No competing canonical library is
+introduced here.

@@ -76,6 +76,9 @@ The [source-region resolver](docs/regions.md) has an explicitly injected core an
 a concrete bounded Pillow decoder sharing import's policy. Separate checks cover
 synthetic decoder controls and real PNG/JPEG decode/storage/deletion with hand-built
 OCR artifacts. Native OCR, CLI search and the viewer remain unfinished.
+The [local OCR adapter](docs/ocr.md) now supplies source-bound atomic publication
+and an explicit lazy CPU backend. Construction checks use synthetic OCR controls;
+the current native backend still needs its coherent qualification and runtime setup.
 See [limitations and lessons](docs/LIMITATIONS.md) and [Bolt handoff](BOLT-HANDOFF.md).
 
 Coding agents authored the implementation. Local construction checks support only

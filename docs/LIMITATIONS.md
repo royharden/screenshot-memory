@@ -55,12 +55,14 @@ The reconciled lock passes offline checking and the existing isolated environmen
 passes cache-only frozen synchronization. This is not a clean-cache install or a
 rebuilt wheel/source-distribution claim.
 
-Dependency archives and selected source notices were inspected outside the
-product tree. The acquired RapidOCR archive contains three model weights; they
-remain uninstalled and unused. No native SDK import, model construction, native
-OCR/embedding execution or provider request has been verified. A combined cached
-dependency installation/import probe remains preparation work, not an executed
-runtime check.
+Native dependency archives, model identities and notices are retained outside the
+product tree. A separate isolated runtime produced partial native OCR evidence but
+ended with a guard-count assertion failure. Its missing counters remain unknown;
+a later import-only diagnostic does not retroactively complete that qualification.
+The current [OCR adapter](ocr.md) has construction checks using synthetic engine
+controls and actual stores. Its new provided-session native backend, deployment
+closure and coherent native qualification remain pending. No embedding, provider
+or application-quality qualification follows from the partial OCR evidence.
 
 ## Outstanding work
 
@@ -87,6 +89,9 @@ runtime check.
 - Canonical producer models with similar fields remain distinct types. Consumer
   tests need valid positive controls so a wire-type rejection cannot masquerade
   as successful occurrence/geometry validation.
+- Guard checks need named event phases and retained denial telemetry. An import
+  capability probe may be denied successfully while violating a naive event-count
+  assertion; retain the failed edition rather than retroactively calling it passed.
 
 - Metadata shape, copied-module conformance and mock replay prove different
   boundaries from native execution and finished-application behavior.
@@ -122,8 +127,9 @@ installed model/checkpoint bytes and live provider integration remain unverified
 No viewer/Bolt preview, API listener, container or cloud resource exists.
 
 Metadata validation proves only declared shape and internal consistency; it does
-not authenticate source/evidence hashes or provenance receipts. No actual model
-checkpoint was loaded. JSON Schema omits cross-field runtime validators; use the
+not authenticate source/evidence hashes or provenance receipts. Native qualification
+of the current application adapter remains pending. JSON Schema omits cross-field
+runtime validators; use the
 pinned Pydantic models for those invariants. Archive policy checks do not replace
 building and checking the actual candidate's detached source distribution.
 Storage, metrics, vector/alignment and imported component cores have detached

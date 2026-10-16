@@ -20,6 +20,10 @@ artifact is running. The planned React/Vite viewer remains unbuilt.
   decoder now shares import's unchanged source-grid policy. Joined tests cover
   real PNG/JPEG decoding/storage/deletion with hand-built OCR controls, separately
   from the original synthetic decoder checks; see [regions](docs/regions.md).
+- Canonical OCR adapter source with issued-token source binding and atomic
+  document/artifact, word/line and lexical publication. A lazy explicit local
+  RapidOCR/ORT backend is present; its current native session path remains
+  unqualified. Construction checks use typed synthetic engine controls; see [OCR](docs/ocr.md).
 
 Imports report partial with observed decode metadata and four unexecuted model
 stages. Query reports unavailable, not executed, exit2. No fake OCR, filenames-as-

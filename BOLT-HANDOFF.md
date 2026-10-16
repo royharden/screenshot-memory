@@ -8,7 +8,8 @@ artifact is running. The planned React/Vite viewer remains unbuilt.
 ## Implemented inventory
 
 - `smem` / `python -m screenshot_memory`: create, explicit bounded PNG/JPEG import,
-  inspect, query-refusal, confirmed delete and collection-scoped recovery.
+  inspect, default query-refusal, explicit retained-text keyword queries, confirmed
+  delete and collection-scoped recovery.
 - Strict metadata schemas; SQLite migrations001→002→003; managed original files;
   atomic generation/revision-checked stage publication; durable batch visibility
   and cancellation/recovery; verified all-store logical deletion.
@@ -29,7 +30,10 @@ artifact is running. The planned React/Vite viewer remains unbuilt.
   exact scope, persisted results and open quality/runtime gates.
 
 CLI imports report partial with observed decode metadata and four unexecuted model
-stages. CLI query reports unavailable, not executed, exit2. No fake OCR, filenames-as-
+stages. Default CLI query reports unavailable, not executed, exit2. Explicit
+`--mode keyword` reads retained text projections and source-bound empty OCR metadata,
+with coverage/status reporting and no image/model execution; see
+[keyword queries](docs/keyword-query.md). No fake OCR, filenames-as-
 captions, fake embeddings or semantic results are supplied. Caller-owned source
 images remain intact after managed-copy deletion. Recovery explicitly cancels an
 incomplete import and can cancel a running importer in that collection.
@@ -61,7 +65,7 @@ static Vite fixture preview cannot establish native OCR/retrieval/deletion behav
 No Supabase or replacement backend should be introduced for this local milestone.
 
 Still required: independent OCR/geometry quality and model-rights review, runtime
-packaging and CLI OCR/search wiring, captions, text/image embeddings, retrieval
+packaging and CLI OCR/semantic-search wiring, captions, text/image embeddings, retrieval
 and application region integration, API/React/browser integration, controlled dev
 and held-out evaluation, distributions and independent finished-app review. Quality,
 latency and cost are not measured. No frozen corpus/evaluation was run for this

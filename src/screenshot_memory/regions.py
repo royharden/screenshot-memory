@@ -20,6 +20,18 @@ from screenshot_memory.image_source import (
     PROCESSING_REVISION,
     decode_image_bytes,
 )
+from screenshot_memory.ocr_records import (
+    ARTIFACT_ROW as ARTIFACT_ROW,
+)
+from screenshot_memory.ocr_records import (
+    DECODE_ROW as DECODE_ROW,
+)
+from screenshot_memory.ocr_records import (
+    DOCUMENT_ROW as DOCUMENT_ROW,
+)
+from screenshot_memory.ocr_records import (
+    processing_revision as processing_revision,
+)
 from screenshot_memory.shared.cited.models import (
     ArtifactRef,
     BoxPx,
@@ -49,9 +61,6 @@ from screenshot_memory.shared.vindex import GenerationToken, Store, StoreError
 from screenshot_memory.shared.vindex.storage import MAX_PAYLOAD
 
 DOMAIN = ("doc:page:bbox", "screenshot_collection", "source_region")
-DECODE_ROW = hashlib.sha256(b"decode-source/1").hexdigest()[:32]
-DOCUMENT_ROW = hashlib.sha256(b"s7-docio-document/1").hexdigest()[:32]
-ARTIFACT_ROW = hashlib.sha256(b"s7-docio-artifact/1").hexdigest()[:32]
 
 
 def _sha(value: bytes) -> str:
@@ -95,20 +104,6 @@ class PillowSourceGridDecoder:
     def decode(self, verified_original: bytes) -> DecodedGrid:
         grid = decode_image_bytes(verified_original)
         return DecodedGrid(grid.width, grid.height, grid.rgba8)
-
-
-def processing_revision(artifact: ProcessingArtifact) -> str:
-    """App stage identity for the exact engine/config/grid/transform combination."""
-    fields = (
-        "engine",
-        "engine_version",
-        "config_digest",
-        "grid_policy_id",
-        "source_to_engine",
-        "engine_to_source",
-    )
-    data = artifact.model_dump(mode="json")
-    return "s7docio/1:" + _sha(canonical_bytes({key: data[key] for key in fields}))
 
 
 def transform_reference(artifact: ProcessingArtifact) -> ArtifactRef:

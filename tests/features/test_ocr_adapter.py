@@ -22,6 +22,7 @@ from screenshot_memory.adapters.ocr import (
 from screenshot_memory.adapters.rapidocr import LocalModels, RapidOcrEngine
 from screenshot_memory.contracts import StageStatus
 from screenshot_memory.image_source import GRID_POLICY
+from screenshot_memory.keyword_query import query_keywords
 from screenshot_memory.regions import (
     ARTIFACT_ROW,
     DECODE_ROW,
@@ -183,6 +184,16 @@ def test_successful_blank_is_distinct_from_missing_recognition(tmp_path, confirm
     )
     assert result.status == expected
     assert keyword_search(store, cid, "anything") == ()
+    # Real publication must retain enough evidence to distinguish an empty
+    # successful result from an engine that supplied no observation.
+    keyword = query_keywords(Store(store.root), cid, "anything")
+    assert keyword["status"] == expected and keyword["executed"] is confirmed
+    assert keyword["coverage"] == {
+        "visible_items": 1,
+        "indexed_items": 0,
+        "empty_ocr_items": int(confirmed),
+        "unindexed_items": int(not confirmed),
+    }
     if confirmed:
         assert result.page.words == () and result.page.lines == ()
         assert store.item(token).stages[1].status == "ready"

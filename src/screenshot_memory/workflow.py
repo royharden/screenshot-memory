@@ -16,6 +16,7 @@ from screenshot_memory.contracts import (
     Item,
     StageStatus,
 )
+from screenshot_memory.errors import WorkflowError
 from screenshot_memory.image_source import (
     GRID_POLICY,
     POLICY_SHA,
@@ -24,6 +25,7 @@ from screenshot_memory.image_source import (
     decode_image_bytes,
     pillow_version,
 )
+from screenshot_memory.keyword_query import query as query
 from screenshot_memory.shared.docio.identity import canonical_bytes, grid_digest, raw_revision
 from screenshot_memory.shared.docio.models import (
     AffineTransform,
@@ -36,12 +38,6 @@ from screenshot_memory.shared.vindex import Deleter, Store, StoreError
 from screenshot_memory.shared.vindex.storage import is_link
 
 STAGES = ("decode", "ocr", "caption", "text_embeddings", "image_embeddings")
-
-
-class WorkflowError(StoreError):
-    def __init__(self, reason: str, cleanup=()):
-        super().__init__(reason)
-        self.cleanup = cleanup
 
 
 @dataclass(frozen=True)
@@ -263,16 +259,3 @@ def inspect_items(store: Store, collection_id: str, item_id: str | None = None) 
     item = store.item(token)
     store.read_file(token, item.source_object_id)
     return (item,)
-
-
-def query(store: Store, collection_id: str, text: str) -> dict:
-    if type(text) is not str or not 1 <= len(text) <= 1000 or not text.strip():
-        raise WorkflowError("invalid_query")
-    store.collection(collection_id)
-    return {
-        "status": "unavailable",
-        "reason": "ocr_caption_and_vectors_not_implemented",
-        "executed": False,
-        "hits": [],
-        "mode": "local_construction",
-    }

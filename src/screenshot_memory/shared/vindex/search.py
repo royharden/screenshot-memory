@@ -12,7 +12,21 @@ class KeywordHit:
     sqlite_bm25: float
 
 
+@dataclass(frozen=True)
+class KeywordSnapshot:
+    collection_generation: int
+    visible_items: int
+    indexed_items: int
+    hits: tuple[KeywordHit, ...]
+    unindexed_tokens: tuple[GenerationToken, ...]
+
+
 def keyword_search(store: Store, collection_id: str, query: str) -> tuple[KeywordHit, ...]:
+    """Return all ranked matches; consumers must recheck each generation token."""
+    return keyword_snapshot(store, collection_id, query).hits
+
+
+def keyword_snapshot(store: Store, collection_id: str, query: str) -> KeywordSnapshot:
     """Return every matching item; consumers must recheck each generation token.
 
     Temporary MEMORY indexes keep tokenizer and BM25 statistics local to the
@@ -38,6 +52,40 @@ def keyword_search(store: Store, collection_id: str, query: str) -> tuple[Keywor
         ).fetchone()[0]
         if count > 30:
             raise StoreError("collection_full")
+        visible = conn.execute(
+            "SELECT count(*) FROM items i WHERE i.collection_id=? "
+            "AND i.state NOT IN ('deleting','cleanup_pending') "
+            "AND NOT EXISTS (SELECT 1 FROM import_members m "
+            "WHERE m.collection_id=i.collection_id AND m.item_id=i.item_id)",
+            (collection_id,),
+        ).fetchone()[0]
+        indexed = conn.execute(
+            "SELECT count(DISTINCT item_id) FROM visible_item_fts WHERE collection_id=?",
+            (collection_id,),
+        ).fetchone()[0]
+        unindexed = tuple(
+            GenerationToken(
+                collection_id=collection_id,
+                item_id=row["item_id"],
+                collection_generation=collection[0],
+                item_generation=row["generation"],
+            )
+            for row in conn.execute(
+                "SELECT i.item_id,i.generation FROM items i WHERE i.collection_id=? "
+                "AND i.state NOT IN ('deleting','cleanup_pending') "
+                "AND NOT EXISTS (SELECT 1 FROM import_members m "
+                "WHERE m.collection_id=i.collection_id AND m.item_id=i.item_id) "
+                "AND NOT EXISTS (SELECT 1 FROM visible_item_fts f "
+                "WHERE f.collection_id=i.collection_id AND f.item_id=i.item_id) ORDER BY i.item_id",
+                (collection_id,),
+            )
+        )
+
+        def snapshot(hits=()):
+            return KeywordSnapshot(collection[0], visible, indexed, hits, unindexed)
+
+        if indexed == 0:
+            return snapshot()
         conn.execute(
             "CREATE VIRTUAL TABLE temp.query_terms USING fts5(body,"
             "tokenize='unicode61 remove_diacritics 2')"
@@ -48,7 +96,7 @@ def keyword_search(store: Store, collection_id: str, query: str) -> tuple[Keywor
         )
         terms = tuple(row[0] for row in conn.execute("SELECT term FROM query_vocab ORDER BY term"))
         if not terms:
-            return ()
+            return snapshot()
         expression = " OR ".join('"' + term.replace('"', '""') + '"' for term in terms)
         conn.execute(
             "CREATE VIRTUAL TABLE temp.search_docs USING fts5(item_id UNINDEXED,"
@@ -72,17 +120,19 @@ def keyword_search(store: Store, collection_id: str, query: str) -> tuple[Keywor
             previous = best.get(row["item_id"])
             if previous is None or score < previous[1]:
                 best[row["item_id"]] = (row["generation"], score)
-        return tuple(
-            KeywordHit(
-                GenerationToken(
-                    collection_id=collection_id,
-                    item_id=item_id,
-                    collection_generation=collection[0],
-                    item_generation=generation,
-                ),
-                score,
-            )
-            for item_id, (generation, score) in sorted(
-                best.items(), key=lambda pair: (pair[1][1], pair[0])
+        return snapshot(
+            tuple(
+                KeywordHit(
+                    GenerationToken(
+                        collection_id=collection_id,
+                        item_id=item_id,
+                        collection_generation=collection[0],
+                        item_generation=generation,
+                    ),
+                    score,
+                )
+                for item_id, (generation, score) in sorted(
+                    best.items(), key=lambda pair: (pair[1][1], pair[0])
+                )
             )
         )

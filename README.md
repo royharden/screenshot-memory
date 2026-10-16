@@ -4,7 +4,8 @@ Import a bounded local collection of PNG/JPEG images, inspect verified decode
 metadata, and explicitly delete each managed copy from the implemented stores.
 **Current milestone: local construction CLI and an explicit Python OCR adapter.**
 The adapter has a bounded two-image native check at the revision documented in
-[OCR](docs/ocr.md). CLI OCR/search, captions, embeddings, semantic search, region
+[OCR](docs/ocr.md). Explicit CLI keyword queries read already stored text; CLI OCR,
+captions, embeddings, semantic search, region
 display, the API/viewer and evaluation remain unfinished.
 
 ## Quickstart
@@ -25,14 +26,18 @@ Use the returned collection ID and an explicitly selected PNG/JPEG:
 uv run --frozen --no-sync python -m screenshot_memory import --root ../smem-data --collection COLLECTION ./example.png
 uv run --frozen --no-sync python -m screenshot_memory inspect --root ../smem-data --collection COLLECTION
 uv run --frozen --no-sync python -m screenshot_memory query --root ../smem-data --collection COLLECTION "settings"
+uv run --frozen --no-sync python -m screenshot_memory query --root ../smem-data --collection COLLECTION "settings" --mode keyword
 uv run --frozen --no-sync python -m screenshot_memory delete --root ../smem-data --collection COLLECTION --item ITEM --confirm
 uv run --frozen --no-sync python -m screenshot_memory recover --root ../smem-data --collection COLLECTION
 ```
 
 `import` reports `imported_partial`: the original copy, actual dimensions/grid hash
 and decode provenance are stored; the four model stages are `not_run`. `query`
-currently returns `unavailable`, `executed:false`, no hits and exit2; the adapter
-does not enable CLI OCR/search.
+defaults to `unavailable`, `executed:false`, no hits and exit2. Explicit `--mode keyword`
+searches retained text projections without running OCR, decoding images or loading
+models. It returns ranked opaque IDs and coverage, with missing projections distinguished
+from source-bound empty OCR. A newly imported image has no searchable OCR until an
+explicit Python adapter publishes it. See [keyword queries](docs/keyword-query.md).
 It never substitutes filenames, fabricated captions or hash vectors for search.
 Delete requires `--confirm`; `deleted` requires verified absence from every
 implemented store and managed file. Caller-owned source images are preserved.
@@ -79,7 +84,7 @@ independent finished-application review remain release requirements.
 The [source-region resolver](docs/regions.md) has an explicitly injected core and
 a concrete bounded Pillow decoder sharing import's policy. Separate checks cover
 synthetic decoder controls and real PNG/JPEG decode/storage/deletion with hand-built
-OCR artifacts. CLI search and the viewer remain unfinished.
+OCR artifacts. Semantic search, CLI OCR publication and the viewer remain unfinished.
 The [local OCR adapter](docs/ocr.md) now supplies source-bound atomic publication
 and an explicit lazy CPU backend. Synthetic construction checks and the separate
 native two-image execution have distinct evidence. Independent review accepted

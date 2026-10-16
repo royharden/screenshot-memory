@@ -39,13 +39,15 @@ explicit collection-scoped `recover` cancels the incomplete batch and retries
 pending cleanup. Quota stays reserved while cleanup is incomplete. Recovery is an
 explicit cancellation operation, including against an in-progress importer.
 
-The CLI query command explicitly reports unavailable/not-executed; the Python OCR
-adapter does not enable that command. This is a refusal path, not measured
+Default CLI query explicitly reports unavailable/not-executed. Explicit
+`--mode keyword` reads already retained text and validates empty OCR coverage;
+it never runs OCR or loads models. Missing projections remain unavailable or partial.
+See [keyword queries](keyword-query.md). This metadata path is not measured semantic
 retrieval. Screenshot evidence resolution has an explicit canonical-contract binding with original synthetic
 controls and a separate real PNG/JPEG/Pillow decode join using hand-built OCR
 artifacts and actual SQLite/files/deletion. The concrete decoder shares import's
 unchanged bounded source-grid policy. The separate two-image native adapter check
-is described below. API admission, CLI query wiring, region overlays and other
+is described below. API admission, CLI OCR publication, region overlays and other
 native decoder/platform combinations remain unverified.
 See [regions](regions.md).
 The status demo still shows the empty core.

@@ -28,20 +28,20 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--item")
         if name == "query":
             command.add_argument("text")
+            command.add_argument(
+                "--mode",
+                choices=("construction", "keyword"),
+                default="construction",
+                help="Explicit keyword mode reads existing text projections; never runs OCR",
+            )
         if name == "delete":
             command.add_argument("--item", required=True)
             command.add_argument("--confirm", action="store_true")
     args = parser.parse_args(argv)
     if args.command != "status":
+        from screenshot_memory.errors import WorkflowError
+        from screenshot_memory.keyword_query import query
         from screenshot_memory.shared.vindex import Deleter, Store, StoreError
-        from screenshot_memory.workflow import (
-            WorkflowError,
-            create_collection,
-            import_images,
-            inspect_items,
-            query,
-            recover_imports,
-        )
 
         try:
             if args.command == "delete" and not args.confirm:
@@ -51,8 +51,12 @@ def main(argv: list[str] | None = None) -> int:
                 raise WorkflowError("storage_inside_repository")
             store = Store(root)
             if args.command == "create":
+                from screenshot_memory.workflow import create_collection
+
                 result = {"status": "created", "collection_id": create_collection(store)}
             elif args.command == "import":
+                from screenshot_memory.workflow import import_images
+
                 items = import_images(store, args.collection, tuple(args.files))
                 result = {
                     "status": "imported_partial",
@@ -68,6 +72,8 @@ def main(argv: list[str] | None = None) -> int:
                     ],
                 }
             elif args.command == "inspect":
+                from screenshot_memory.workflow import inspect_items
+
                 result = {
                     "status": "ok",
                     "items": [
@@ -76,10 +82,12 @@ def main(argv: list[str] | None = None) -> int:
                     ],
                 }
             elif args.command == "query":
-                result = query(store, args.collection, args.text)
+                result = query(store, args.collection, args.text, mode=args.mode)
             elif args.command == "delete":
                 result = Deleter(store).delete(args.collection, args.item).model_dump(mode="json")
             else:
+                from screenshot_memory.workflow import recover_imports
+
                 receipts = recover_imports(store, args.collection)
                 result = {
                     "status": "cleanup_pending"

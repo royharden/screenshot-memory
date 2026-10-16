@@ -1,17 +1,12 @@
 """Explicit keyless local image journey. No OCR, embeddings or provider fallback."""
 
 import hashlib
-import io
 import os
 import sqlite3
 import stat
 import uuid
-import warnings
 from dataclasses import dataclass
 from pathlib import Path
-
-from PIL import Image, UnidentifiedImageError
-from PIL import __version__ as pillow_version
 
 from screenshot_memory.contracts import (
     MAX_COLLECTION_BYTES,
@@ -20,6 +15,14 @@ from screenshot_memory.contracts import (
     Collection,
     Item,
     StageStatus,
+)
+from screenshot_memory.image_source import (
+    GRID_POLICY,
+    POLICY_SHA,
+    PROCESSING_REVISION,
+    ImageDecodeError,
+    decode_image_bytes,
+    pillow_version,
 )
 from screenshot_memory.shared.docio.identity import canonical_bytes, grid_digest, raw_revision
 from screenshot_memory.shared.docio.models import (
@@ -33,19 +36,6 @@ from screenshot_memory.shared.vindex import Deleter, Store, StoreError
 from screenshot_memory.shared.vindex.storage import is_link
 
 STAGES = ("decode", "ocr", "caption", "text_embeddings", "image_embeddings")
-GRID_POLICY = "pillow-rgba8-source/1"
-POLICY = {
-    "decoder": "Pillow",
-    "version": pillow_version,
-    "formats": ["PNG", "JPEG"],
-    "pixels": "RGBA8-row-major",
-    "orientation": "encoded-grid-no-exif-autorotation",
-    "colour": "Pillow-conversion-no-profile-transform",
-    "animation": "reject",
-    "max_encoded_bytes": MAX_IMAGE_BYTES,
-    "max_pixels": MAX_IMAGE_PIXELS,
-}
-POLICY_SHA = hashlib.sha256(canonical_bytes(POLICY)).hexdigest()
 
 
 class WorkflowError(StoreError):
@@ -91,30 +81,11 @@ def decode_selected(path: Path) -> Decoded:
             raise WorkflowError("image_changed_during_read")
     except OSError:
         raise WorkflowError("invalid_image_path") from None
-    signature = "PNG" if raw.startswith(b"\x89PNG\r\n\x1a\n") else None
-    if raw.startswith(b"\xff\xd8\xff"):
-        signature = "JPEG"
-    if signature is None:
-        raise WorkflowError("unsupported_image")
     try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("error", Image.DecompressionBombWarning)
-            with Image.open(io.BytesIO(raw)) as image:
-                width, height = image.size
-                if image.format != signature or getattr(image, "n_frames", 1) != 1:
-                    raise WorkflowError("unsupported_image")
-                if not 0 < width * height <= MAX_IMAGE_PIXELS:
-                    raise WorkflowError("image_pixel_limit")
-                image.verify()
-            with Image.open(io.BytesIO(raw)) as image:
-                image.load()
-                with image.convert("RGBA") as rgba:
-                    digest = grid_digest(width, height, rgba.tobytes())
-    except (Image.DecompressionBombWarning, Image.DecompressionBombError):
-        raise WorkflowError("image_pixel_limit") from None
-    except (UnidentifiedImageError, OSError, ValueError, SyntaxError):
-        raise WorkflowError("invalid_image") from None
-    return Decoded(raw, width, height, digest)
+        grid = decode_image_bytes(raw, pixel_limit=MAX_IMAGE_PIXELS)
+    except ImageDecodeError as error:
+        raise WorkflowError(str(error)) from None
+    return Decoded(raw, grid.width, grid.height, grid_digest(grid.width, grid.height, grid.rgba8))
 
 
 def _source_record(item: Item, decoded: Decoded) -> bytes:
@@ -210,7 +181,7 @@ def import_images(store: Store, collection_id: str, paths: tuple[Path, ...]) -> 
                 stage="decode",
                 status="ready",
                 item_generation=0,
-                processing_revision="s7decode/1:" + POLICY_SHA,
+                processing_revision=PROCESSING_REVISION,
                 result_sha256=hashlib.sha256(record).hexdigest(),
                 provenance="observed",
             )

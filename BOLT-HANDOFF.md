@@ -16,8 +16,10 @@ artifact is running. The planned React/Vite viewer remains unbuilt.
   screening and offline provider/ledger/evaluation components. Their component
   checks are separate from native/whole-app integration.
 - Explicit source-region resolver over unchanged canonical document/citation
-  contracts, with trusted access and bounded decoder ports. Current joined tests
-  use synthetic decoder/OCR controls with actual stores; see [regions](docs/regions.md).
+  contracts, with trusted access and bounded decoder ports. A concrete Pillow
+  decoder now shares import's unchanged source-grid policy. Joined tests cover
+  real PNG/JPEG decoding/storage/deletion with hand-built OCR controls, separately
+  from the original synthetic decoder checks; see [regions](docs/regions.md).
 
 Imports report partial with observed decode metadata and four unexecuted model
 stages. Query reports unavailable, not executed, exit2. No fake OCR, filenames-as-

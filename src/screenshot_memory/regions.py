@@ -14,6 +14,12 @@ from typing import Protocol
 from pydantic import ValidationError
 
 from screenshot_memory.contracts import MAX_IMAGE_BYTES, MAX_IMAGE_PIXELS, Item
+from screenshot_memory.image_source import (
+    GRID_POLICY,
+    POLICY_SHA,
+    PROCESSING_REVISION,
+    decode_image_bytes,
+)
 from screenshot_memory.shared.cited.models import (
     ArtifactRef,
     BoxPx,
@@ -77,6 +83,18 @@ class SourceGridDecoder(Protocol):
     def decode(self, verified_original: bytes) -> DecodedGrid:
         """Bound before allocating; caller must qualify this actual decoder separately."""
         ...
+
+
+class PillowSourceGridDecoder:
+    """Explicit real decoder for the same bounded source policy used by import."""
+
+    grid_policy_id = GRID_POLICY
+    config_sha256 = POLICY_SHA
+    processing_revision = PROCESSING_REVISION
+
+    def decode(self, verified_original: bytes) -> DecodedGrid:
+        grid = decode_image_bytes(verified_original)
+        return DecodedGrid(grid.width, grid.height, grid.rgba8)
 
 
 def processing_revision(artifact: ProcessingArtifact) -> str:

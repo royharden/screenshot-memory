@@ -15,6 +15,9 @@ artifact is running. The planned React/Vite viewer remains unbuilt.
 - Existing domain metrics, FTS/fusion cores, pinned canonical document/citation,
   screening and offline provider/ledger/evaluation components. Their component
   checks are separate from native/whole-app integration.
+- Explicit source-region resolver over unchanged canonical document/citation
+  contracts, with trusted access and bounded decoder ports. Current joined tests
+  use synthetic decoder/OCR controls with actual stores; see [regions](docs/regions.md).
 
 Imports report partial with observed decode metadata and four unexecuted model
 stages. Query reports unavailable, not executed, exit2. No fake OCR, filenames-as-
@@ -40,7 +43,7 @@ static Vite fixture preview cannot establish native OCR/retrieval/deletion behav
 No Supabase or replacement backend should be introduced for this local milestone.
 
 Still required: real OCR word/line geometry, captions, text/image embeddings,
-retrieval and region resolution, API/React/browser integration, controlled dev and
+retrieval and native region integration, API/React/browser integration, controlled dev and
 held-out evaluation, distributions and independent finished-app review. Quality,
 latency and cost are not measured. No frozen corpus/evaluation was run for this
 checkpoint; no release/provisioning-ready claim is made.

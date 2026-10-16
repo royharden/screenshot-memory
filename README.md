@@ -72,6 +72,9 @@ Quality, latency and cost are **not measured**. Evaluation still exits nonzero;
 the frozen reference corpus has not been used for this construction checkpoint.
 Native OCR/caption/text-image embeddings, matching regions, browser workflow,
 distribution rebuilds and independent review remain release requirements.
+The [source-region resolver](docs/regions.md) now has an explicitly injected core
+with synthetic decoder/OCR controls and real storage/deletion checks. It is not
+connected to CLI search, native OCR or the viewer.
 See [limitations and lessons](docs/LIMITATIONS.md) and [Bolt handoff](BOLT-HANDOFF.md).
 
 Coding agents authored the implementation. Local construction checks support only

@@ -41,7 +41,10 @@ explicit cancellation operation, including against an in-progress importer.
 
 Query explicitly reports unavailable/not-executed while OCR, captions and vectors
 are absent. This is a refusal path, not measured retrieval. Screenshot evidence
-resolution remains design only. The status demo still shows the empty core.
+resolution now has an explicit canonical-contract binding with synthetic decoder/
+OCR controls and actual SQLite/files/deletion checks. Native decoder/OCR, API
+admission, query wiring and region overlays remain unverified. See [regions](regions.md).
+The status demo still shows the empty core.
 
 Pillow10.4.0 is a runtime requirement, retaining the existing locked archive/version
 hashes. The predecessor's isolated offline resolver-cache failure is preserved.
@@ -60,8 +63,8 @@ runtime check.
 
 1. Independently review the local construction CLI, stage publication, import
    visibility/recovery and verified deletion checkpoint.
-2. Implement current-source screenshot evidence resolution using measured OCR
-   geometry and the canonical evidence validator.
+2. Integrate and qualify current-source screenshot evidence resolution using real
+   measured OCR geometry and the canonical evidence validator.
 3. Complete the native runtime/config/model closure and native OCR, caption,
    text/image embedding and retrieval integration. Preserve explicit unsupported
    or unavailable results rather than substituting synthetic output.
@@ -78,6 +81,9 @@ runtime check.
   stage writes, and release visibility only in one final validated transaction.
 - New stores need deletion positive controls and explicit receipt enumeration;
   a row disappearing through a cascade alone is not a complete verification record.
+- Canonical producer models with similar fields remain distinct types. Consumer
+  tests need valid positive controls so a wire-type rejection cannot masquerade
+  as successful occurrence/geometry validation.
 
 - Metadata shape, copied-module conformance and mock replay prove different
   boundaries from native execution and finished-application behavior.

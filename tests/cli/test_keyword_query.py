@@ -226,6 +226,68 @@ def test_empty_ocr_requires_complete_matching_stage_metadata(store, change):
     assert query_keywords(store, C, "anything")["status"] == "unavailable"
 
 
+def test_sql_text_retained_ocr_is_unavailable_in_cli(store, capsys):
+    token = item(store, 1, artifact=empty_ocr())
+    with store.transaction() as conn:
+        conn.execute(
+            "UPDATE content SET payload=? WHERE item_id=? AND row_id=?",
+            ("not-a-blob", token.item_id, ARTIFACT_ROW),
+        )
+    assert (
+        main(
+            ["query", "--root", str(store.root), "--collection", C, "anything", "--mode", "keyword"]
+        )
+        == 2
+    )
+    result = json.loads(capsys.readouterr().out)
+    assert result["status"] == "unavailable" and result["executed"] is False
+    assert result["coverage"]["empty_ocr_items"] == 0
+    assert result["coverage"]["unindexed_items"] == 1 and result["hits"] == []
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [3, 3.25, b"", b"x" * (1024 * 1024 + 1)],
+    ids=["sql-integer", "sql-real", "empty-blob", "oversized-blob"],
+)
+def test_malformed_payload_does_not_hide_valid_keyword_hits(store, payload):
+    malformed = item(store, 1, artifact=empty_ocr())
+    valid = item(store, 2)
+    projection(store, valid, "alpha")
+    with store.transaction() as conn:
+        conn.execute(
+            "UPDATE content SET payload=? WHERE item_id=? AND row_id=?",
+            (payload, malformed.item_id, ARTIFACT_ROW),
+        )
+    result = query_keywords(store, C, "alpha")
+    assert result["status"] == "partial" and result["executed"] is True
+    assert result["coverage"]["empty_ocr_items"] == 0
+    assert result["coverage"]["unindexed_items"] == 1
+    assert [hit["item_id"] for hit in result["hits"]] == [valid.item_id]
+
+
+@pytest.mark.parametrize(
+    "error",
+    [
+        StoreError("generation_mismatch"),
+        StoreError("database_busy"),
+        TypeError("unexpected_programming_error"),
+        ValueError("unexpected_programming_error"),
+    ],
+    ids=["stale-generation", "database-busy", "unexpected-type", "unexpected-value"],
+)
+def test_blank_payload_read_does_not_mask_other_errors(store, monkeypatch, error):
+    item(store, 1, artifact=empty_ocr())
+
+    def fail(*args):
+        raise error
+
+    monkeypatch.setattr(store, "get", fail)
+    with pytest.raises(type(error)) as caught:
+        query_keywords(store, C, "anything")
+    assert caught.value is error
+
+
 def test_nonempty_ocr_without_text_projection_is_not_a_blank_success(store):
     word = Word(
         stable_id="word-control",

@@ -77,7 +77,12 @@ def _empty_ocr(store: Store, token: GenerationToken) -> bool:
     stage = next(stage for stage in item.stages if stage.stage == "ocr")
     if stage.status != "ready" or stage.result_sha256 != item.evidence_artifact_sha256:
         return False
-    raw = store.get("content", token, ARTIFACT_ROW)
+    try:
+        raw = store.get("content", token, ARTIFACT_ROW)
+    except StoreError as error:
+        if str(error) == "invalid_payload":
+            return False
+        raise
     if raw is None:
         return False
     try:

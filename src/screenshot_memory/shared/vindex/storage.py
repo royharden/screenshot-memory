@@ -651,7 +651,9 @@ class Store:
                 "AND row_id=? AND generation=?",
                 (token.collection_id, token.item_id, row_id, token.item_generation),
             ).fetchone()
-            return None if row is None else bytes(row[0])
+            # SQLite BLOB affinity does not exclude TEXT/INTEGER/REAL rows.
+            # Never coerce an integer with bytes(n), or accept oversized data.
+            return None if row is None else bounded_bytes(row[0], MAX_PAYLOAD)
 
     def put_fts(self, table: str, token: GenerationToken, row_id: str, body: str) -> None:
         if table not in FTS_TABLES:

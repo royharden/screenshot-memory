@@ -78,6 +78,30 @@ def fill_all(store, token):
     return paths
 
 
+@pytest.mark.parametrize("table", TABLES)
+@pytest.mark.parametrize(
+    "payload",
+    ["not-a-blob", 3, 3.25, b"", b"x" * (1024 * 1024 + 1)],
+    ids=["sql-text", "sql-integer", "sql-real", "empty-blob", "oversized-blob"],
+)
+def test_get_rejects_malformed_payload_type_or_bound(store, table, payload):
+    token = store.token(COLLECTION, ITEM)
+    store.put(table, token, ROW, DATA)
+    assert store.get(table, token, ROW) == DATA
+    with store.transaction() as conn:
+        conn.execute(f"UPDATE {table} SET payload=? WHERE row_id=?", (payload, ROW))
+    with pytest.raises(StoreError, match="^invalid_payload$"):
+        store.get(table, token, ROW)
+
+
+@pytest.mark.parametrize("table", TABLES)
+def test_get_preserves_valid_blob_and_missing_row(store, table):
+    token = store.token(COLLECTION, ITEM)
+    assert store.get(table, token, ROW) is None
+    store.put(table, token, ROW, DATA)
+    assert store.get(table, token, ROW) == DATA
+
+
 def test_positive_controls_every_store_then_complete_and_idempotent(store):
     token = store.token(COLLECTION, ITEM)
     paths = fill_all(store, token)

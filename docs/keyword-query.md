@@ -18,6 +18,11 @@ grid, dimensions and processing revision. Missing text rows alone never prove a
 blank screenshot. Empty FTS payloads remain invalid. An item with a text projection
 counts as indexed even when its text has no match for the current query.
 
+Malformed retained OCR payloads (non-BLOB SQL values, empty or oversized bytes,
+or invalid artifact content) leave that item unavailable for blank coverage.
+Other valid text hits remain searchable with partial coverage. Generation,
+database and unexpected programming errors are not silently treated as blank OCR.
+
 - `ok`, `executed:true`: every visible item has a text projection or a verified
   empty OCR artifact. An empty collection also returns this result.
 - `partial`, `executed:true`: some visible items have usable coverage, while others

@@ -2,9 +2,11 @@
 
 import json
 import os
+import stat
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from PIL import Image
@@ -129,6 +131,80 @@ def test_invalid_image_refuses_entire_batch_before_metadata_or_files(tmp_path, m
     with store.connection() as conn:
         for table in ("items", "owned_files", "import_batches", "import_members"):
             assert conn.execute(f"SELECT count(*) FROM {table}").fetchone()[0] == 0
+
+
+@pytest.mark.parametrize("mode", [stat.S_IFIFO, stat.S_IFSOCK, stat.S_IFCHR, stat.S_IFDIR])
+def test_nonregular_selected_path_is_rejected_without_opening(tmp_path, monkeypatch, mode):
+    # Opening a FIFO/driver can block before a descriptor type check is possible.
+    source = image(tmp_path)
+    original_lstat = Path.lstat
+
+    def special_file(path, *args, **kwargs):
+        info = original_lstat(path, *args, **kwargs)
+        if path == source:
+            return SimpleNamespace(st_mode=mode | 0o600, st_file_attributes=0)
+        return info
+
+    def forbidden_open(*args, **kwargs):
+        raise AssertionError("nonregular source must be refused before open")
+
+    monkeypatch.setattr(Path, "lstat", special_file)
+    monkeypatch.setattr(workflow.os, "open", forbidden_open)
+    with pytest.raises(workflow.WorkflowError, match="invalid_image_path"):
+        workflow.decode_selected(source)
+
+
+def test_selected_file_replaced_before_open_is_rejected(tmp_path, monkeypatch):
+    source = image(tmp_path)
+    replacement = tmp_path / "replacement.png"
+    replacement.write_bytes(source.read_bytes())
+    original_open = os.open
+
+    def replace_before_open(path, flags):
+        os.replace(replacement, source)
+        return original_open(path, flags)
+
+    monkeypatch.setattr(workflow.os, "open", replace_before_open)
+    with pytest.raises(workflow.WorkflowError, match="image_changed_during_read"):
+        workflow.decode_selected(source)
+
+
+@pytest.mark.skipif(not hasattr(os, "mkfifo"), reason="POSIX FIFO creation unavailable")
+@pytest.mark.parametrize("replace_at_open", [False, True])
+def test_actual_fifo_refusal_does_not_wait_for_a_writer(tmp_path, replace_at_open):
+    # The subprocess timeout bounds the regression even on the old blocking code.
+    source = image(tmp_path)
+    program = """
+import os, sys
+from pathlib import Path
+from screenshot_memory.workflow import WorkflowError, decode_selected
+source = Path(sys.argv[1])
+if sys.argv[2] == "True":
+    original_open = os.open
+    def replace(path, flags):
+        source.unlink()
+        os.mkfifo(source)
+        return original_open(path, flags)
+    os.open = replace
+else:
+    source.unlink()
+    os.mkfifo(source)
+try:
+    decode_selected(source)
+except WorkflowError as error:
+    assert str(error) == "invalid_image_path"
+else:
+    raise AssertionError("FIFO accepted")
+"""
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(Path(__file__).resolve().parents[1] / "src")
+    result = subprocess.run(
+        [sys.executable, "-B", "-c", program, str(source), str(replace_at_open)],
+        env=environment,
+        capture_output=True,
+        timeout=10,
+    )
+    assert result.returncode == 0, result.stderr
 
 
 def test_batch_count_and_collection_overflow_preserve_prior_item(tmp_path):

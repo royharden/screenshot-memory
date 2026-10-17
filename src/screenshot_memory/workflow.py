@@ -57,19 +57,34 @@ def decode_selected(path: Path) -> Decoded:
     try:
         if any(is_link(part) for part in (path, *path.parents)):
             raise WorkflowError("invalid_image_path")
-        flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_BINARY", 0)
+        selected = path.lstat()
+        if not stat.S_ISREG(selected.st_mode):
+            raise WorkflowError("invalid_image_path")
+        if not 0 < selected.st_size <= MAX_IMAGE_BYTES:
+            raise WorkflowError("image_byte_limit")
+
+        def identity(info):
+            return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
+
+        # Refuse special files before open; NONBLOCK also avoids waiting for a
+        # writer if a regular path is replaced by a FIFO between lstat and open.
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_BINARY", 0)
+            | getattr(os, "O_NONBLOCK", 0)
+        )
         with os.fdopen(os.open(path, flags), "rb") as source:
             before = os.fstat(source.fileno())
             if not stat.S_ISREG(before.st_mode):
                 raise WorkflowError("invalid_image_path")
+            if identity(selected) != identity(before):
+                raise WorkflowError("image_changed_during_read")
             if not 0 < before.st_size <= MAX_IMAGE_BYTES:
                 raise WorkflowError("image_byte_limit")
             raw = source.read(MAX_IMAGE_BYTES + 1)
             after = os.fstat(source.fileno())
         current = path.stat(follow_symlinks=False)
-
-        def identity(info):
-            return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
 
         if identity(before) != identity(after) or identity(after) != identity(current):
             raise WorkflowError("image_changed_during_read")

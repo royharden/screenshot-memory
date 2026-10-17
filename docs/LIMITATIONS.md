@@ -39,6 +39,13 @@ explicit collection-scoped `recover` cancels the incomplete batch and retries
 pending cleanup. Quota stays reserved while cleanup is incomplete. Recovery is an
 explicit cancellation operation, including against an in-progress importer.
 
+Selected paths must describe regular files before opening; descriptor and path
+identity checks also reject replacement during reading. On POSIX, nonblocking open
+prevents a replacement FIFO from waiting for a writer. Windows checks exercise
+nonregular-file metadata controls and a real same-byte file replacement. Actual
+FIFO subprocess checks require POSIX and are skipped on Windows; this does not
+qualify arbitrary device drivers or hostile filesystem races on every platform.
+
 Default CLI query explicitly reports unavailable/not-executed. Explicit
 `--mode keyword` reads already retained text and validates empty OCR coverage;
 it never runs OCR or loads models. Missing projections remain unavailable or partial.

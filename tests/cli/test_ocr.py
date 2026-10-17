@@ -255,3 +255,109 @@ def test_wrong_or_missing_item_refuses_before_worker(tmp_path, monkeypatch, caps
     monkeypatch.setattr(ocr_command, "ProcessOcrEngine", forbidden)
     assert cli(capsys, "ocr", *selected(store, cid, iid), *model_args())[0] == 2
     assert_no_ocr(store, cid, original)
+
+
+@pytest.mark.skipif(os.name != "nt", reason="actual Windows suspended-launch custody regression")
+@pytest.mark.parametrize(
+    "failure", ["reader", "writer", "thread-constructor", "assignment", "resume", "cancel"]
+)
+def test_startup_fault_closes_actual_retained_launcher(tmp_path, monkeypatch, failure):
+    # The independent backup job and retained Popen handle prevent this fault
+    # experiment leaking even when the implementation under test fails cleanup.
+    real_popen = ocr_command.subprocess.Popen
+    backup = ocr_command._WindowsJob()
+    launched = []
+    real_start = ocr_command.threading.Thread.start
+    real_thread = ocr_command.threading.Thread
+    real_job_start = ocr_command._WindowsJob.start
+    start_count = 0
+    engine = PROCESS_ENGINE(
+        MODELS,
+        _identity=IDENTITY,
+        _command=(sys.executable, "-B", str(HELPER), "text", "unused", "unused"),
+    )
+
+    def contained_launch(*args, **kwargs):
+        assert kwargs["creationflags"] & 4
+        process = real_popen(*args, **kwargs)
+        launched.append(process)
+        handle = backup.kernel.OpenProcess(0x101, False, process.pid)
+        assert handle
+        try:
+            assert backup.kernel.AssignProcessToJobObject(backup.handle, handle)
+        finally:
+            backup.kernel.CloseHandle(handle)
+        return process
+
+    def deny_start(self):
+        nonlocal start_count
+        start_count += 1
+        if start_count == (2 if failure == "writer" else 1):
+            raise RuntimeError("controlled_IO_thread_denied")
+        return real_start(self)
+
+    def deny_constructor(*args, **kwargs):
+        raise RuntimeError("controlled_IO_thread_denied")
+
+    def deny_job_start(self, process):
+        if failure == "cancel":
+            raise KeyboardInterrupt
+        if failure == "assignment":
+            raise OSError("controlled_assignment_denied")
+        # Exercise the actual assignment/owned handles, but deny the resume API.
+        self.kernel.ResumeThread = lambda thread: 0xFFFFFFFF
+        return real_job_start(self, process)
+
+    try:
+        with monkeypatch.context() as fault:
+            fault.setattr(ocr_command.subprocess, "Popen", contained_launch)
+            if failure in {"reader", "writer"}:
+                fault.setattr(real_thread, "start", deny_start)
+            elif failure == "thread-constructor":
+                fault.setattr(ocr_command.threading, "Thread", deny_constructor)
+            else:
+                fault.setattr(ocr_command._WindowsJob, "start", deny_job_start)
+            expected = (
+                KeyboardInterrupt
+                if failure == "cancel"
+                else OSError
+                if failure in {"assignment", "resume"}
+                else RuntimeError
+            )
+            with pytest.raises(expected):
+                engine.recognize(
+                    b"rgba" * 640,
+                    32,
+                    20,
+                    ocr_command.Bounds(
+                        max_pages=1,
+                        max_encoded_bytes=10000,
+                        max_decoded_pixels=1000,
+                        max_words=5,
+                        max_lines=5,
+                        max_blocks=1,
+                        max_output_bytes=65536,
+                        deadline_s=15,
+                    ),
+                )
+        assert len(launched) == 1
+        (tmp_path / "thread-fault-marker.json").write_text(
+            json.dumps(
+                {
+                    "launcher_pid": launched[0].pid,
+                    "closed_by_target": launched[0].poll() is not None,
+                    "engine_closed": engine.last_worker_closed,
+                }
+            )
+        )
+        assert launched[0].poll() is not None and engine.last_worker_closed
+        assert launched[0].stdin.closed and launched[0].stdout.closed
+    finally:
+        try:
+            backup_closed = backup.close()
+        finally:
+            for process in launched:
+                if process.poll() is None:
+                    process.kill()
+                process.wait(timeout=5)
+        assert backup_closed

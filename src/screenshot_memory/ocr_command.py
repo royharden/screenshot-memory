@@ -311,20 +311,8 @@ class ProcessOcrEngine:
         if len(request) > MAX_HEADER:
             raise OcrEngineError("worker_header_limit")
         deadline = time.monotonic() + bounds.deadline_s
-        job = _WindowsJob() if os.name == "nt" else None
-        try:
-            process = subprocess.Popen(
-                [*self._command, nonce],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.DEVNULL,
-                start_new_session=os.name != "nt",
-                creationflags=4 if job is not None else 0,  # CREATE_SUSPENDED.
-            )
-        except Exception:
-            if job is not None:
-                job.close()
-            raise
+        job = None
+        process = None
         hello = threading.Event()
         finished = threading.Event()
         data: dict = {}
@@ -353,15 +341,29 @@ class ProcessOcrEngine:
                 view = memoryview(rgba8)
                 for offset in range(0, len(view), 65536):
                     process.stdin.write(view[offset : offset + 65536])
-                process.stdin.close()
             except (OSError, ValueError) as exc:
                 errors.append(type(exc).__name__)
+            finally:
+                try:
+                    process.stdin.close()
+                except (OSError, ValueError) as exc:
+                    errors.append(type(exc).__name__)
 
-        reader = threading.Thread(target=read, daemon=True)
-        reader.start()
+        reader = None
         try:
+            job = _WindowsJob() if os.name == "nt" else None
+            process = subprocess.Popen(
+                [*self._command, nonce],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                start_new_session=os.name != "nt",
+                creationflags=4 if job is not None else 0,  # CREATE_SUSPENDED.
+            )
             if job is not None:
                 job.start(process)
+            reader = threading.Thread(target=read, daemon=True)
+            reader.start()
             if not hello.wait(max(0, deadline - time.monotonic())):
                 raise TimeoutError
             greeting = data.get("hello", {})
@@ -399,33 +401,48 @@ class ProcessOcrEngine:
         except subprocess.TimeoutExpired:
             raise TimeoutError from None
         finally:
-            if job is not None:
-                self.last_worker_closed = job.close()
-            else:
+            group_closed = False
+            try:
                 try:
-                    os.killpg(process.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-                self.last_worker_closed = True
-            if kernel is not None and handle is not None:
-                try:
-                    self.last_worker_closed = (
-                        self.last_worker_closed and kernel.WaitForSingleObject(handle, 5000) == 0
-                    )
+                    if job is not None:
+                        group_closed = job.close()
+                    elif process is not None:
+                        try:
+                            os.killpg(process.pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+                        group_closed = True
                 finally:
-                    kernel.CloseHandle(handle)
-            # No payload is released before the contained worker handshake.
-            if writer is None:
-                process.stdin.close()
-            if process.poll() is None:
-                process.kill()
-            process.wait(timeout=5)
-            reader.join(timeout=1)
-            if writer is not None:
+                    if kernel is not None and handle is not None:
+                        try:
+                            group_closed = (
+                                group_closed and kernel.WaitForSingleObject(handle, 5000) == 0
+                            )
+                        finally:
+                            kernel.CloseHandle(handle)
+            finally:
+                # An unassigned suspended launcher is not covered by job counts.
+                # Always kill/reap the exact retained Popen process as well.
+                if process is not None:
+                    if process.poll() is None:
+                        process.kill()
+                    process.wait(timeout=5)
+            # Thread.start may itself fail; never join an unstarted thread or
+            # block closing a pipe still owned by a live IO thread.
+            if reader is not None and reader.ident is not None:
+                reader.join(timeout=1)
+            if writer is not None and writer.ident is not None:
                 writer.join(timeout=1)
-            process.stdout.close()
-            if not self.last_worker_closed or reader.is_alive() or (writer and writer.is_alive()):
-                raise OcrEngineError("worker_cleanup_unavailable")
+            reader_alive = reader is not None and reader.is_alive()
+            writer_alive = writer is not None and writer.is_alive()
+            if process is not None:
+                if not writer_alive:
+                    process.stdin.close()
+                if not reader_alive:
+                    process.stdout.close()
+                self.last_worker_closed = group_closed and not reader_alive and not writer_alive
+                if not self.last_worker_closed:
+                    raise OcrEngineError("worker_cleanup_unavailable")
 
 
 def run_ocr(

@@ -15,7 +15,7 @@ def main(argv: list[str] | None = None) -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     status = commands.add_parser("status", help="Show the implemented scaffold boundary")
     status.add_argument("--json", action="store_true", help="Return a JSON status object")
-    for name in ("create", "import", "inspect", "query", "delete", "recover"):
+    for name in ("create", "import", "inspect", "query", "ocr", "delete", "recover"):
         command = commands.add_parser(name)
         command.add_argument(
             "--root", type=Path, required=True, help="Exclusive private storage root"
@@ -37,6 +37,12 @@ def main(argv: list[str] | None = None) -> int:
         if name == "delete":
             command.add_argument("--item", required=True)
             command.add_argument("--confirm", action="store_true")
+        if name == "ocr":
+            command.add_argument("--item", required=True)
+            command.add_argument("--det-model", type=Path)
+            command.add_argument("--cls-model", type=Path)
+            command.add_argument("--rec-model", type=Path)
+            command.add_argument("--timeout", type=float, default=30.0)
     args = parser.parse_args(argv)
     if args.command != "status":
         from screenshot_memory.errors import WorkflowError
@@ -83,6 +89,15 @@ def main(argv: list[str] | None = None) -> int:
                 }
             elif args.command == "query":
                 result = query(store, args.collection, args.text, mode=args.mode)
+            elif args.command == "ocr":
+                from screenshot_memory.adapters.rapidocr import LocalModels
+                from screenshot_memory.ocr_command import run_ocr
+
+                paths = (args.det_model, args.cls_model, args.rec_model)
+                if any(p is not None for p in paths) and not all(p is not None for p in paths):
+                    raise WorkflowError("ocr_models_incomplete")
+                models = LocalModels(*paths) if all(p is not None for p in paths) else None
+                result = run_ocr(store, args.collection, args.item, models, timeout_s=args.timeout)
             elif args.command == "delete":
                 result = Deleter(store).delete(args.collection, args.item).model_dump(mode="json")
             else:
@@ -96,7 +111,14 @@ def main(argv: list[str] | None = None) -> int:
                     "receipts": [r.model_dump(mode="json") if r else None for r in receipts],
                 }
             print(json.dumps(result, allow_nan=False, sort_keys=True))
-            return 2 if result["status"] in {"unavailable", "cleanup_pending", "not_found"} else 0
+            return (
+                2
+                if (
+                    result["status"] in {"unavailable", "cleanup_pending", "not_found"}
+                    or (args.command == "ocr" and result["status"] != "ok")
+                )
+                else 0
+            )
         except WorkflowError as error:
             print(
                 json.dumps(

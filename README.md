@@ -2,9 +2,10 @@
 
 Import a bounded local collection of PNG/JPEG images, inspect verified decode
 metadata, and explicitly delete each managed copy from the implemented stores.
-**Current milestone: local construction CLI and an explicit Python OCR adapter.**
-The adapter has a bounded two-image native check at the revision documented in
-[OCR](docs/ocr.md). Explicit CLI keyword queries read already stored text; CLI OCR,
+**Current milestone: local construction CLI with explicit opt-in OCR orchestration.**
+The adapter has a bounded two-image native check at the older revision documented in
+[OCR](docs/ocr.md). The new worker has separate synthetic orchestration checks.
+Explicit CLI keyword queries read stored text; native runtime packaging,
 captions, embeddings, semantic search, region
 display, the API/viewer and evaluation remain unfinished.
 
@@ -37,13 +38,28 @@ defaults to `unavailable`, `executed:false`, no hits and exit2. Explicit `--mode
 searches retained text projections without running OCR, decoding images or loading
 models. It returns ranked opaque IDs and coverage, with missing projections distinguished
 from source-bound empty OCR. A newly imported image has no searchable OCR until an
-explicit Python adapter publishes it. See [keyword queries](docs/keyword-query.md).
+explicit adapter publishes it. See [keyword queries](docs/keyword-query.md).
 It never substitutes filenames, fabricated captions or hash vectors for search.
 Delete requires `--confirm`; `deleted` requires verified absence from every
 implemented store and managed file. Caller-owned source images are preserved.
 `recover` explicitly cancels incomplete imports and resumes pending deletions in
 the selected collection. It can cancel an in-progress import; stop that importer
 first unless cancellation is intended. Nothing scans folders or runs in the background.
+
+OCR is a separate explicit operation. The default lock contains no native OCR
+runtime or models; without configuration this command returns `unavailable`, exit2:
+
+```powershell
+uv run --frozen --no-sync python -m screenshot_memory ocr --root ../smem-data --collection COLLECTION --item ITEM
+```
+
+A separately qualified exact local runtime and all three verified model files
+are required for native use. Supply them with `--det-model`, `--cls-model` and
+`--rec-model`; see [OCR configuration and limits](docs/ocr.md#explicit-cli-operation).
+There are no automatic downloads, hosted calls or synthetic fallback. Import and
+query do not implicitly run OCR. Successful publication makes the stored text
+available to explicit keyword queries. The new command's controlled tests do not
+qualify native recognition, model rights or quality at this source revision.
 
 ## Bounds and persistence
 
@@ -84,7 +100,7 @@ independent finished-application review remain release requirements.
 The [source-region resolver](docs/regions.md) has an explicitly injected core and
 a concrete bounded Pillow decoder sharing import's policy. Separate checks cover
 synthetic decoder controls and real PNG/JPEG decode/storage/deletion with hand-built
-OCR artifacts. Semantic search, CLI OCR publication and the viewer remain unfinished.
+OCR artifacts. Semantic search, the viewer and native CLI qualification remain unfinished.
 The [local OCR adapter](docs/ocr.md) now supplies source-bound atomic publication
 and an explicit lazy CPU backend. Synthetic construction checks and the separate
 native two-image execution have distinct evidence. Independent review accepted

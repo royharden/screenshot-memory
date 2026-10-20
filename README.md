@@ -7,7 +7,10 @@ The adapter has a bounded two-image native check at the older revision documente
 [OCR](docs/ocr.md). The new worker has separate synthetic orchestration checks.
 Explicit CLI keyword queries read stored text; native runtime packaging,
 captions, embeddings, semantic search, region
-display, the API/viewer and evaluation remain unfinished.
+display, the runnable server/viewer and evaluation remain unfinished.
+An explicit [collection lifecycle WSGI callable](docs/collection-api.md) reuses the
+core for bounded upload, inspection, original access and confirmed verified deletion;
+it does not start a listener or provide a browser workflow.
 
 ## Quickstart
 

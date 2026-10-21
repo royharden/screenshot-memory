@@ -60,7 +60,8 @@ class CollectionAPI:
 
     The embedding WSGI host must bind only the configured loopback authority and
     enforce connection/read deadlines. This callable neither starts a listener
-    nor configures a public deployment. All requests require Origin and Bearer.
+    nor configures a public deployment. All requests require Bearer; mutations
+    additionally require an exact Origin. See the read policy below.
     """
 
     def __init__(self, store: Store, *, token: str, origin: str):
@@ -92,9 +93,21 @@ class CollectionAPI:
         try:
             # No storage, body read or URL interpretation before caller admission.
             authorization = environ.get("HTTP_AUTHORIZATION", "")
+            read = environ.get("REQUEST_METHOD") == "GET"
+            # Browsers normally omit Origin on same-origin GET. Absence is distinct
+            # from an explicitly empty/null/foreign value. Metadata adds a refusal
+            # signal, never a replacement for the secret or trusted host binding.
+            origin_ok = environ.get("HTTP_ORIGIN") == self._origin or (
+                read and "HTTP_ORIGIN" not in environ
+            )
+            fetch_ok = not read or (
+                "HTTP_SEC_FETCH_SITE" not in environ
+                or environ["HTTP_SEC_FETCH_SITE"] == "same-origin"
+            )
             if (
                 environ.get("HTTP_HOST") != self._host
-                or environ.get("HTTP_ORIGIN") != self._origin
+                or not origin_ok
+                or not fetch_ok
                 or environ.get("REMOTE_ADDR") not in {"127.0.0.1", "::1"}
                 or environ.get("wsgi.url_scheme") != "http"
                 or type(authorization) is not str

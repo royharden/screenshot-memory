@@ -13,12 +13,20 @@ peer metadata. No production server, command-line listener, reverse-proxy suppor
 or browser viewer is supplied by this milestone. The private storage root must be
 exclusively managed, outside any repository, as described in [storage.md](storage.md).
 
-Every request requires the exact configured `Host`, exact `Origin` and
-`Authorization: Bearer <token>`, an HTTP scheme and a loopback peer address.
-Missing/foreign/null origins refuse, including preflight. No CORS permission is
-returned. Admission precedes reading the request body or storage. Forwarded headers
+Every request requires the exact configured `Host`, `Authorization: Bearer <token>`,
+an HTTP scheme and a loopback peer address. Mutation methods additionally require
+the exact configured `Origin`. Read-only GET may omit Origin, as normal same-origin
+browser fetches do; an explicitly supplied Origin must still match exactly. Empty,
+`null` and foreign values refuse. For GET, any supplied `Sec-Fetch-Site` must equal
+`same-origin`; missing Fetch Metadata is allowed for nonbrowser local clients.
+Metadata is an additional refusal signal, never authentication. The token and
+host/peer checks apply regardless of these headers.
+
+No CORS permission is returned, and preflight without the required token/Origin
+refuses. Admission precedes reading the request body or storage. Forwarded headers
 do not supply authority. Responses use `no-store`, `nosniff` and same-origin resource
 policy. These are request checks; they do not configure a host's network binding.
+The Origin distinction follows [MDN's header description](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Origin).
 
 | Method / path | Request | Response |
 | --- | --- | --- |

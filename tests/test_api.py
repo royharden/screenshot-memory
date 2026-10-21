@@ -17,7 +17,7 @@ TOKEN = "a" * 43
 ORIGIN = "http://127.0.0.1:23456"
 
 
-def request(app, method, path, body=b"", *, media="application/json", **overrides):
+def request(app, method, path, body=b"", *, media="application/json", omit=(), **overrides):
     environ = {
         "REQUEST_METHOD": method,
         "PATH_INFO": path,
@@ -31,6 +31,8 @@ def request(app, method, path, body=b"", *, media="application/json", **override
         "wsgi.input": io.BytesIO(body),
         **overrides,
     }
+    for key in omit:
+        environ.pop(key, None)
     response = {}
 
     def start(status, headers):
@@ -265,3 +267,88 @@ def test_nonlocal_or_inexact_configuration_refuses(api):
             CollectionAPI(store, token=TOKEN, origin=origin)
         with store.connection() as conn:
             assert conn.execute("SELECT count(*) FROM collections").fetchone()[0] == 0
+
+
+def test_browser_shaped_metadata_original_reads_without_origin_do_not_mutate(api):
+    app, store = api
+    base = collection(app)
+    path, item = upload(app, base)
+    before = store.collection(item["collection_id"])
+    headers = [
+        {"omit": ("HTTP_ORIGIN",)},
+        {"omit": ("HTTP_ORIGIN",), "HTTP_SEC_FETCH_SITE": "same-origin"},
+        {"HTTP_SEC_FETCH_SITE": "same-origin"},
+    ]
+    for options in headers:
+        for route in (base, path):
+            result = request(app, "GET", route, **options)
+            assert result["status"] == 200
+            assert result["body"]["items"][0]["item_id"] == item["item_id"]
+        assert request(app, "GET", path + "/original", **options)["body"] == image()
+        assert store.collection(item["collection_id"]) == before
+        assert store.item(store.token(item["collection_id"], item["item_id"])).state == "partial"
+
+
+def test_browser_read_refusals_precede_dispatch_and_body_io(api, monkeypatch):
+    app, _ = api
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("refused browser read reached dispatch or body IO")
+
+    class NoRead:
+        read = forbidden
+
+    monkeypatch.setattr(app, "_dispatch", forbidden)
+    cases = [
+        {"HTTP_AUTHORIZATION": "Bearer " + "b" * 43},
+        {"HTTP_AUTHORIZATION": ""},
+        {"HTTP_HOST": "evil.invalid:23456"},
+        {"REMOTE_ADDR": "192.0.2.1"},
+        {"wsgi.url_scheme": "https"},
+        {"HTTP_ORIGIN": "null"},
+        {"HTTP_ORIGIN": ""},
+        {"HTTP_ORIGIN": "http://evil.invalid"},
+        {"HTTP_SEC_FETCH_SITE": "cross-site"},
+        {"HTTP_SEC_FETCH_SITE": "same-site"},
+        {"HTTP_SEC_FETCH_SITE": "none"},
+        {"HTTP_SEC_FETCH_SITE": ""},
+        {"HTTP_ORIGIN": ORIGIN, "HTTP_SEC_FETCH_SITE": "cross-site"},
+    ]
+    for case in cases:
+        options = {"HTTP_SEC_FETCH_SITE": "same-origin", "wsgi.input": NoRead(), **case}
+        omitted = () if "HTTP_ORIGIN" in case else ("HTTP_ORIGIN",)
+        result = request(app, "GET", "/collections/" + "a" * 32 + "/items", omit=omitted, **options)
+        assert result["status"] == 403, case
+
+
+def test_mutations_still_require_explicit_exact_origin_before_io(api, monkeypatch):
+    app, _ = api
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Origin-free mutation reached dispatch")
+
+    monkeypatch.setattr(app, "_dispatch", forbidden)
+    base = "/collections/" + "a" * 32 + "/items"
+    for method, path, body in (
+        ("POST", "/collections", b""),
+        ("POST", base, image()),
+        ("DELETE", base + "/" + "b" * 32, b'{"confirm":true}'),
+    ):
+        result = request(
+            app, method, path, body, omit=("HTTP_ORIGIN",), HTTP_SEC_FETCH_SITE="same-origin"
+        )
+        assert result["status"] == 403, (method, path)
+
+
+def test_browser_reads_keep_collection_isolation_and_deleted_original_refusal(api):
+    app, _ = api
+    first, second = collection(app), collection(app)
+    path, a = upload(app, first)
+    other, b = upload(app, second)
+    headers = {"omit": ("HTTP_ORIGIN",), "HTTP_SEC_FETCH_SITE": "same-origin"}
+    for suffix in ("", "/original"):
+        assert request(app, "GET", first + "/" + b["item_id"] + suffix, **headers)["status"] == 409
+    assert request(app, "DELETE", path, b'{"confirm":true}')["status"] == 200
+    assert request(app, "GET", path + "/original", **headers)["status"] == 409
+    assert request(app, "GET", other + "/original", **headers)["body"] == image()
+    assert a["original_content_sha256"] == b["original_content_sha256"]

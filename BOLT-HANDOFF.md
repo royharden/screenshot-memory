@@ -3,9 +3,20 @@
 Current target is a Python3.12/SQLite local application. No cloud database,
 authentication service, buckets, edge functions or provisioning actions are required
 for the implemented CLI. No frontend/API listener, Docker resource or deployment
-artifact is running. The planned React/Vite viewer remains unbuilt.
+artifact is running. The minimal local viewer uses dependency-free ESM and the
+existing TypeScript state helpers, built with the pinned installed Node24.18.0
+type stripper. It is not a React/Vite/cloud conversion. This bounded local
+implementation preserves the Python/SQLite target and requires separate actual
+host/browser qualification; [local viewer](docs/local-viewer.md) records it.
 
 ## Implemented inventory
+
+- Guarded direct WSGI collection lifecycle and GET browser admission, plus explicit
+  foreground loopback host/viewer source. Public assets carry source/output hashes;
+  the host refuses a missing/mismatched build. `/detail` delegates source geometry
+  to the canonical resolver; `/render` emits verified source-grid PNG without EXIF
+  axis ambiguity. Missing OCR/model stages stay not-run. No actual browser run or
+  server/model qualification follows from source or a successful asset build.
 
 - `smem` / `python -m screenshot_memory`: create, explicit bounded PNG/JPEG import,
   inspect, default query-refusal, explicit retained-text keyword queries, confirmed
@@ -39,6 +50,13 @@ images remain intact after managed-copy deletion. Recovery explicitly cancels an
 incomplete import and can cancel a running importer in that collection.
 
 ## Setup and checks
+
+Viewer commands: `node web/scripts/build.mjs`, its `--check` counterpart, and the
+existing Node state plus new client tests. Node24.18.0 is pinned; no new npm package
+or lockfile is required. Python `smem serve --root PRIVATE_ROOT --port OWNED_PORT`
+is an explicit local foreground action, not part of Bolt import. It requires a
+local in-memory session token and does not print or publish it. Source, build,
+direct-call tests and real HTTP/browser observations are separate readiness claims.
 
 See README for commands and storage bounds. Pillow10.4.0 and Pydantic are runtime
 requirements in uv.lock. Offline lock checking and frozen cache-only synchronization
@@ -78,7 +96,10 @@ retain separate authorization/configuration requirements.
 
 ## Future Bolt inspection prompt
 
-Inspect this exact repository and BOLT-HANDOFF.md. Preserve the implemented local
-Python/SQLite workflow and documented limits. Identify concrete runtime/frontend
-gaps before preparing any import or deployment plan. Do not provision cloud
-resources or publish the unfinished application from this inspection.
+Inspect this exact repository and BOLT-HANDOFF.md. Target: **no cloud database**;
+preserve the local Python/SQLite workflow, schema history and private filesystem.
+The ESM viewer is built from public source with Node24.18.0; importing it does not
+provision Python, model weights, private storage or an always-running loopback
+server. Identify actual runtime/browser/model gaps and prepare only a scoped
+inspection report. Do not add Supabase, provision cloud resources, expose the local
+API or publish the unfinished application from this inspection.

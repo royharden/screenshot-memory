@@ -16,7 +16,7 @@ from screenshot_memory.shared.vindex import Deleter, Store, StoreError
 from screenshot_memory.workflow import create_collection, import_images, inspect_items
 
 _ID = r"[0-9a-f]{32}"
-_ITEMS = re.compile(rf"/collections/({_ID})/items(?:/({_ID})(/original)?)?\Z")
+_ITEMS = re.compile(rf"/collections/({_ID})/items(?:/({_ID})(/original|/detail|/render)?)?\Z")
 _HEADERS = (
     ("Cache-Control", "no-store"),
     ("X-Content-Type-Options", "nosniff"),
@@ -155,6 +155,14 @@ class CollectionAPI:
         collection, item_id, original = match.groups()
         if method == "GET":
             _empty(environ)
+            if original == "/detail":
+                from screenshot_memory.viewer_source import source_detail
+
+                return 200, source_detail(self._store, collection, item_id), None
+            if original == "/render":
+                from screenshot_memory.viewer_source import source_png
+
+                return 200, source_png(self._store, collection, item_id), "image/png"
             items = inspect_items(self._store, collection, item_id)
             if original:
                 item = items[0]

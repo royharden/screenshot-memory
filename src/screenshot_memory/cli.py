@@ -15,6 +15,13 @@ def main(argv: list[str] | None = None) -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     status = commands.add_parser("status", help="Show the implemented scaffold boundary")
     status.add_argument("--json", action="store_true", help="Return a JSON status object")
+    serve = commands.add_parser(
+        "serve", help="Explicit foreground loopback viewer; build assets first"
+    )
+    serve.add_argument(
+        "--root", type=Path, required=True, help="Exclusive private storage outside Git"
+    )
+    serve.add_argument("--port", type=int, required=True, help="Explicit owned loopback port")
     for name in ("create", "import", "inspect", "query", "ocr", "delete", "recover"):
         command = commands.add_parser(name)
         command.add_argument(
@@ -44,6 +51,15 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--rec-model", type=Path)
             command.add_argument("--timeout", type=float, default=30.0)
     args = parser.parse_args(argv)
+    if args.command == "serve":
+        from screenshot_memory.shared.vindex import StoreError
+        from screenshot_memory.viewer_host import serve as serve_viewer
+
+        try:
+            return serve_viewer(args.root, args.port)
+        except (OSError, ValueError, sqlite3.Error, StoreError):
+            print(json.dumps({"status": "refused", "reason": "viewer_setup_failed"}))
+            return 2
     if args.command != "status":
         from screenshot_memory.errors import WorkflowError
         from screenshot_memory.keyword_query import query

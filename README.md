@@ -6,11 +6,15 @@ metadata, and explicitly delete each managed copy from the implemented stores.
 The adapter has a bounded two-image native check at the older revision documented in
 [OCR](docs/ocr.md). The new worker has separate synthetic orchestration checks.
 Explicit CLI keyword queries read stored text; native runtime packaging,
-captions, embeddings, semantic search, region
-display, the runnable server/viewer and evaluation remain unfinished.
+captions, embeddings, semantic search
+and evaluation remain unfinished. A minimal [foreground local viewer](docs/local-viewer.md)
+has source/build/host integration for the collection lifecycle and retained source
+regions; actual browser/server qualification is separate from construction checks.
 An explicit [collection lifecycle WSGI callable](docs/collection-api.md) reuses the
 core for bounded upload, inspection, original access and confirmed verified deletion;
 it does not start a listener or provide a browser workflow.
+The separate explicit `serve` command hosts that workflow after the public assets
+are built; see the local viewer guide for token, loopback and lifecycle limits.
 
 ## Quickstart
 

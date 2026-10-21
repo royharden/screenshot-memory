@@ -300,3 +300,9 @@ include tests/providers/test_payloads.py
 include tests/providers/test_provider_privacy.py
 include tests/callledger/test_child_purpose_reuse.py
 include tests/providers/test_child_purpose_controller.py
+include src/screenshot_memory/viewer_assets/index.html
+include src/screenshot_memory/viewer_assets/style.css
+include src/screenshot_memory/viewer_assets/model.mjs
+include src/screenshot_memory/viewer_assets/client.mjs
+include src/screenshot_memory/viewer_assets/viewer.mjs
+include src/screenshot_memory/viewer_assets/manifest.json

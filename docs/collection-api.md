@@ -35,6 +35,8 @@ The Origin distinction follows [MDN's header description](https://developer.mozi
 | `GET /collections/{collection}/items` | Empty body | Current visible metadata |
 | `GET /collections/{collection}/items/{item}` | Empty body | Current item metadata |
 | `GET /collections/{collection}/items/{item}/original` | Empty body | Verified owned original PNG/JPEG bytes |
+| `GET /collections/{collection}/items/{item}/detail` | Empty body | Metadata and only resolved retained source geometry |
+| `GET /collections/{collection}/items/{item}/render` | Empty body | Verified encoded-axis source grid as bounded PNG |
 | `DELETE /collections/{collection}/items/{item}` | `application/json`, exactly `{"confirm":true}` | Verified deletion receipt |
 
 Uploads accept one image per request, never paths, URLs, folders, multipart bodies
@@ -53,7 +55,7 @@ stale or tampered original/metadata reads refuse without returning source bytes.
 Already delivered client bytes cannot be recalled. The guarantee remains active-store
 logical removal, excluding forensic, backup and external-provider erasure.
 
-Direct WSGI tests join this callable with real newly generated PNG/JPEG and SQLite.
-They are distinct from a live server/browser test. Source overlays, OCR/model
-execution, keyword/semantic endpoints, captions/features, a viewer and prescribed
-DEV/heldout evaluation remain outside this lifecycle milestone.
+The [local foreground host and viewer](local-viewer.md) explicitly compose this
+callable with public code assets. Direct WSGI tests are distinct from a live
+server/browser test. OCR/model execution, keyword/semantic endpoints,
+captions/features and prescribed DEV/heldout evaluation remain unfinished.

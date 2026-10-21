@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Screenshot Memory · Local collection</title><link rel="stylesheet" href="/assets/style.css">
+<script type="module" src="/assets/viewer.mjs"></script></head>
+<body><main><header><p class="eyebrow">LOCAL WORKSPACE</p><h1>Screenshot Memory</h1>
+<p>Import a small collection, inspect its source, and remove managed copies with verified deletion.</p></header>
+<section aria-labelledby="access-title"><h2 id="access-title">Connect to this local host</h2>
+<form id="access"><label>Session token <input id="token" type="password" autocomplete="off" required minlength="32" maxlength="256"></label>
+<button>Connect</button><button id="disconnect" type="button">Disconnect</button></form>
+<p class="hint">The token stays in this page's memory. Use the same token supplied to the foreground host.</p></section>
+<section aria-labelledby="collection-title"><h2 id="collection-title">Collection</h2>
+<div class="row"><button id="create">Create collection</button><label>Open collection ID <input id="collection-id" spellcheck="false" maxlength="32"></label><button id="open">Open</button></div>
+<p id="current">No collection selected.</p><form id="upload-form"><label>PNG or JPEG, one image at a time <input id="upload" type="file" accept="image/png,image/jpeg" required></label><button id="import">Import image</button></form>
+<p class="hint">Up to 30 images · 8 MiB/image · 20 MP/image · 100 MiB/collection. Server decoding and quotas are authoritative.</p>
+<ul id="items" aria-label="Current images"></ul></section>
+<section aria-labelledby="source-title"><h2 id="source-title">Source detail</h2><p id="stages">Select an image.</p>
+<p id="overlay-state"></p><figure id="image-stage" hidden><img id="source-image" alt="Verified source pixel grid"><svg id="boxes" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></figure>
+<div class="row"><button id="original" disabled>Download original</button><button id="delete" disabled>Delete managed copy…</button></div>
+<div id="confirmation" hidden role="group" aria-label="Deletion confirmation"><p id="delete-text"></p><button id="confirm-delete">Confirm deletion</button><button id="cancel-delete">Cancel</button><button id="retry-delete" hidden>Retry confirmed cleanup</button></div>
+<ul id="ocr-text" aria-label="Verified retained OCR lines"></ul></section>
+<output id="message" role="status" aria-live="polite">Connect to begin. This viewer does not run OCR, captions, or semantic models.</output>
+</main></body></html>

@@ -1,6 +1,7 @@
 """what_bug_this_catches: race admission, process-crash loss and projection-as-authority."""
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -80,6 +81,7 @@ raise AssertionError('crash seam was not reached')
         capture_output=True,
         text=True,
         timeout=30,
+        env=dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[2] / "src")),
     )
     assert crash.returncode == 71, crash.stderr
     with factory.open() as restarted:

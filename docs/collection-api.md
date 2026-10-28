@@ -37,6 +37,8 @@ The Origin distinction follows [MDN's header description](https://developer.mozi
 | `GET /collections/{collection}/items/{item}/original` | Empty body | Verified owned original PNG/JPEG bytes |
 | `GET /collections/{collection}/items/{item}/detail` | Empty body | Metadata and only resolved retained source geometry |
 | `GET /collections/{collection}/items/{item}/render` | Empty body | Verified encoded-axis source grid as bounded PNG |
+| `POST /collections/{collection}/query` | JSON, exactly `{"query":"text"}` | Existing keyword results and explicit coverage/unavailable legs |
+| `POST /collections/{collection}/items/{item}/detail`, `/render`, `/original` | JSON, exactly `{"generation_token":{...}}` | Same source views bound to the exact query-hit generation |
 | `DELETE /collections/{collection}/items/{item}` | `application/json`, exactly `{"confirm":true}` | Verified deletion receipt |
 
 Uploads accept one image per request, never paths, URLs, folders, multipart bodies
@@ -46,6 +48,16 @@ admission retain 8 MiB/image, 20 MP/image, 30 images/collection and 100 MiB/coll
 bounds. MIME and signature must agree; actual decoding still has to succeed.
 Transfer-Encoding, malformed/oversized Content-Length and short bodies refuse.
 Query strings, mounted prefixes and unrecognized/encoded path shapes refuse.
+
+Keyword queries accept 1–1000 Unicode scalar characters, with a nonblank query
+and an 8192-byte request cap. The existing literal SQLite keyword engine supplies
+ranking, text provenance and missing/partial coverage; this route starts no OCR,
+caption or embedding model. Results are not semantic similarity or probabilities.
+Hit tokens contain collection/item IDs and decimal-string collection/item generation
+counters, preserving exact values through JavaScript. Source POST bodies have a
+512-byte cap and reject extra/duplicate keys, numeric/coerced counters, foreign
+IDs and stale/deleted generations. They use the supplied token without obtaining
+a replacement; the existing Bearer/Host/Origin admission remains required.
 
 Deletion requires a boolean confirmation and explicit opaque collection/item IDs;
 duplicate/extra JSON keys refuse. `deleted` (200) comes only from the existing
@@ -57,5 +69,5 @@ logical removal, excluding forensic, backup and external-provider erasure.
 
 The [local foreground host and viewer](local-viewer.md) explicitly compose this
 callable with public code assets. Direct WSGI tests are distinct from a live
-server/browser test. OCR/model execution, keyword/semantic endpoints,
+server/browser test. OCR/model execution, semantic endpoints,
 captions/features and prescribed DEV/heldout evaluation remain unfinished.

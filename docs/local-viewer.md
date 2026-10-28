@@ -7,6 +7,14 @@ OCR artifacts can supply source-bound word/line overlays; absent or unverified
 evidence is explicitly unavailable. Stored provenance is not a new model-rights,
 native-recognition or accuracy certification.
 
+The keyword form searches only existing indexed OCR/caption text. It reports
+indexed, verified-empty and unindexed item coverage, with explicit unavailable
+or partial results. A keyword hit opens the existing source viewer using its
+exact generation token; stale/deleted hits refuse rather than refreshing to a
+new generation. Collection changes, import/deletion and disconnect clear query
+results, and late responses cannot restore a previous collection. Semantic
+embeddings/reranking remain unavailable. Missing OCR produces no invented boxes.
+
 Build with the recorded Node **24.18.0** toolchain from the repository root:
 
 ```powershell

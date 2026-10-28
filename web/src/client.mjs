@@ -2,6 +2,11 @@
 import { confirmDelete, receiveDeleteStatus, sendConfirmedDelete, uploadProblem, visibleItems } from "./model.mjs";
 
 const validId = value => typeof value === "string" && /^[0-9a-f]{32}$/.test(value);
+const validCounter = value => typeof value === "string" && /^(0|[1-9][0-9]{0,18})$/.test(value) &&
+  BigInt(value) <= 9223372036854775807n;
+const validHit = (hit, collectionId) => hit && validId(hit.item_id) &&
+  hit.generation_token?.collection_id === collectionId && hit.generation_token.item_id === hit.item_id &&
+  validCounter(hit.generation_token.collection_generation) && validCounter(hit.generation_token.item_generation);
 const superseded = () => new DOMException("Operation superseded", "AbortError");
 
 export class CollectionClient {
@@ -16,6 +21,8 @@ export class CollectionClient {
     this.items = [];
     this.selected = null;
     this.detail = null;
+    this.selectedToken = null;
+    this.searchResult = null;
     this.deletion = { phase: "idle" };
     this.busy = false;
   }
@@ -29,13 +36,15 @@ export class CollectionClient {
   disconnect() {
     this.#abort.abort(); this.#epoch++; this.#token = "";
     this.collection = this.selected = this.detail = null;
+    this.selectedToken = this.searchResult = null;
     this.items = []; this.deletion = { phase: "idle" }; this.busy = false;
     this.changed();
   }
-  #begin(keepSelection = false) {
+  #begin(keepSelection = false, keepQuery = false) {
     if (!this.connected) throw new Error("Connect using the local host's session token.");
     this.#abort.abort(); this.#abort = new AbortController(); this.#epoch++;
-    if (!keepSelection) { this.selected = this.detail = null; this.deletion = { phase: "idle" }; }
+    if (!keepSelection) { this.selected = this.detail = this.selectedToken = null; this.deletion = { phase: "idle" }; }
+    if (!keepQuery) this.searchResult = null;
     this.busy = true; this.changed();
     return { epoch: this.#epoch, token: this.#token, signal: this.#abort.signal };
   }
@@ -104,22 +113,59 @@ export class CollectionClient {
       await this.#load(op, id);
     } finally { this.#end(op); }
   }
-  async select(id) {
+  async query(text) {
+    if (typeof text !== "string" || Array.from(text).length < 1 || Array.from(text).length > 1000 || !text.trim()) {
+      throw new Error("Enter 1–1000 query characters.");
+    }
+    const id = this.collection?.id; this.#base(id);
+    const op = this.#begin();
+    try {
+      const result = await this.#request(op, "/collections/" + id + "/query", "POST",
+        JSON.stringify({ query: text }), "application/json");
+      if (result.collection_id !== id || result.mode !== "keyword" ||
+        !["ok", "partial", "unavailable"].includes(result.status) || !Array.isArray(result.hits) ||
+        result.hits.length > 30 || result.hits.some(hit => !validHit(hit, id)) ||
+        new Set(result.hits.map(hit => hit.item_id)).size !== result.hits.length ||
+        !result.coverage || !["visible_items", "indexed_items", "empty_ocr_items", "unindexed_items"].every(key =>
+          Number.isSafeInteger(result.coverage[key]) && result.coverage[key] >= 0 && result.coverage[key] <= 30)) {
+        throw new Error("Invalid keyword response.");
+      }
+      this.searchResult = result;
+      return result;
+    } finally { this.#end(op); }
+  }
+  async selectHit(hit) {
+    if (!this.searchResult?.hits.includes(hit) || !validHit(hit, this.collection?.id)) {
+      throw new Error("Select a current keyword hit.");
+    }
+    return this.select(hit.item_id, hit.generation_token);
+  }
+  async select(id, expectedToken = null) {
     const item = this.visible().find(value => value.item_id === id);
-    if (!item) throw new Error("Select a current visible item.");
-    const base = this.#base(); const op = this.#begin();
+    if (!item && expectedToken === null) throw new Error("Select a current visible item.");
+    if (expectedToken !== null && !validHit({ item_id: id, generation_token: expectedToken }, this.collection?.id)) {
+      throw new Error("Invalid keyword generation token.");
+    }
+    const base = this.#base(); const op = this.#begin(false, true);
     this.selected = id; this.changed();
     try {
-      const detail = await this.#request(op, base + "/" + id + "/detail");
+      const method = expectedToken === null ? "GET" : "POST";
+      const body = expectedToken === null ? undefined : JSON.stringify({ generation_token: expectedToken });
+      const media = expectedToken === null ? undefined : "application/json";
+      const detail = await this.#request(op, base + "/" + id + "/detail", method, body, media);
       if (detail.item?.item_id !== id || detail.item.collection_id !== this.collection?.id) throw new Error("Foreign item response.");
-      const blob = await this.#request(op, base + "/" + id + "/render", "GET", undefined, undefined, true);
-      this.detail = detail; return { detail, blob, epoch: op.epoch };
+      const blob = await this.#request(op, base + "/" + id + "/render", method, body, media, true);
+      this.detail = detail; this.selectedToken = expectedToken; return { detail, blob, epoch: op.epoch };
+    } catch (error) {
+      if (op.epoch === this.#epoch) { this.selected = this.detail = this.selectedToken = null; this.searchResult = null; }
+      throw error;
     } finally { this.#end(op); }
   }
   async original() {
     const id = this.selected; if (!validId(id)) throw new Error("Select an item.");
-    const op = this.#begin(true);
-    try { return await this.#request(op, this.#base() + "/" + id + "/original", "GET", undefined, undefined, true); }
+    const token = this.selectedToken, op = this.#begin(true, true);
+    try { return await this.#request(op, this.#base() + "/" + id + "/original", token ? "POST" : "GET",
+      token ? JSON.stringify({ generation_token: token }) : undefined, token ? "application/json" : undefined, true); }
     finally { this.#end(op); }
   }
   prepareDelete() {

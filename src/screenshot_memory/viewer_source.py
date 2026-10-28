@@ -65,16 +65,19 @@ class _RequestDecoder(PillowSourceGridDecoder):
         return self.grid
 
 
-def _source(store, collection_id, item_id):
-    token = store.token(collection_id, item_id)
+def _source(store, collection_id, item_id, token=None):
+    if token is None:
+        token = store.token(collection_id, item_id)
+    elif (token.collection_id, token.item_id) != (collection_id, item_id):
+        raise StoreError("foreign_source_token")
     item = store.item(token)
     raw = store.read_file(token, item.source_object_id)
     return token, item, raw
 
 
-def source_detail(store, collection_id, item_id):
+def source_detail(store, collection_id, item_id, *, token=None):
     """Return only retained, canonically resolved geometry, with explicit provenance."""
-    token, item, raw = _source(store, collection_id, item_id)
+    token, item, raw = _source(store, collection_id, item_id, token)
     stage = next(s for s in item.stages if s.stage == "ocr")
     result = {
         "status": "ok",
@@ -183,9 +186,9 @@ class _BoundedPNG(io.BytesIO):
         return super().write(data)
 
 
-def source_png(store, collection_id, item_id):
+def source_png(store, collection_id, item_id, *, token=None):
     """Render the verified source pixel grid; remove EXIF display-axis ambiguity."""
-    token, item, raw = _source(store, collection_id, item_id)
+    token, item, raw = _source(store, collection_id, item_id, token)
     try:
         grid = PillowSourceGridDecoder().decode(raw)
         if (

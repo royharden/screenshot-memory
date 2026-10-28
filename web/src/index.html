@@ -13,6 +13,10 @@
 <p id="current">No collection selected.</p><form id="upload-form"><label>PNG or JPEG, one image at a time <input id="upload" type="file" accept="image/png,image/jpeg" required></label><button id="import">Import image</button></form>
 <p class="hint">Up to 30 images · 8 MiB/image · 20 MP/image · 100 MiB/collection. Server decoding and quotas are authoritative.</p>
 <ul id="items" aria-label="Current images"></ul></section>
+<section aria-labelledby="search-title"><h2 id="search-title">Keyword search</h2>
+<form id="query-form"><label>Query (1–1000 characters) <input id="query" type="search" required maxlength="2000"></label><button id="search">Search existing text</button></form>
+<p id="search-state">Search uses existing indexed OCR/caption text. Semantic models remain unavailable.</p>
+<ol id="hits" aria-label="Keyword results"></ol></section>
 <section aria-labelledby="source-title"><h2 id="source-title">Source detail</h2><p id="stages">Select an image.</p>
 <p id="overlay-state"></p><figure id="image-stage" hidden><img id="source-image" alt="Verified source pixel grid"><svg id="boxes" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></figure>
 <div class="row"><button id="original" disabled>Download original</button><button id="delete" disabled>Delete managed copy…</button></div>

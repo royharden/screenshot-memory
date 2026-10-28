@@ -101,3 +101,75 @@ test("a confirmed item disappears immediately while its receipt is still pending
   assert.equal(client.selected, null); assert.equal(client.detail, null);
   release(); await pending; assert.equal(client.deletion.phase, "deleted");
 });
+
+const keywordHit = { item_id: I, rank: 1, declared_text_provenance: {}, generation_token: {
+  collection_id: A, item_id: I, collection_generation: "9223372036854775807", item_generation: "0",
+} };
+const keywordResult = { collection_id: A, mode: "keyword", status: "ok", hits: [keywordHit],
+  coverage: { visible_items: 1, indexed_items: 1, empty_ocr_items: 0, unindexed_items: 0 } };
+
+test("keyword hit source and original retain exact decimal generation counters", async () => {
+  // Catches a browser hit selection that rounds counters or falls back to fresh GET source.
+  const server = transport(), calls = [];
+  const client = new CollectionClient(async (url, options) => {
+    calls.push({ url, options });
+    if (url.endsWith("/query")) {
+      assert.equal(options.method, "POST"); assert.deepEqual(JSON.parse(options.body), { query: "needle" });
+      return response(keywordResult);
+    }
+    if (/\/(detail|render|original)$/.test(url)) {
+      assert.equal(options.method, "POST");
+      assert.deepEqual(JSON.parse(options.body), { generation_token: keywordHit.generation_token });
+    }
+    return server.fetcher(url, options);
+  });
+  client.connect(TOKEN); await client.open(A); const result = await client.query("needle");
+  await client.selectHit(result.hits[0]); await client.original();
+  assert.equal(client.selectedToken.collection_generation, "9223372036854775807");
+  client.prepareDelete(); await client.deleteConfirmed();
+  assert.equal(client.searchResult, null); assert.deepEqual(client.visible(), []);
+  assert.equal(calls.filter(call => call.url.endsWith("/query")).length, 1);
+});
+
+test("late and foreign keyword results cannot enter a different collection", async () => {
+  // Catches old query results reappearing after navigation or foreign token selection.
+  let release;
+  const server = transport(), client = new CollectionClient((url, options) => url.endsWith("/query") ?
+    new Promise(resolve => { release = () => resolve(response(keywordResult)); }) : server.fetcher(url, options));
+  client.connect(TOKEN); await client.open(A); const old = client.query("needle");
+  await client.open(B); release(); await assert.rejects(old, { name: "AbortError" });
+  assert.equal(client.searchResult, null); assert.equal(client.collection.id, B);
+  const foreign = new CollectionClient(async url => url.endsWith("/query") ? response({ ...keywordResult,
+    hits: [{ ...keywordHit, generation_token: { ...keywordHit.generation_token, collection_id: B } }] }) : response({ items: [item] }));
+  foreign.connect(TOKEN); await foreign.open(A); await assert.rejects(foreign.query("needle"));
+  assert.equal(foreign.searchResult, null);
+});
+
+test("unavailable keyword coverage stays explicit and bad queries do no transport", async () => {
+  let queries = 0;
+  const client = new CollectionClient(async url => {
+    if (!url.endsWith("/query")) return response({ items: [item] });
+    queries++; return response({ ...keywordResult, status: "unavailable", executed: false, hits: [],
+      reason: "keyword_index_not_ready", coverage: { visible_items: 1, indexed_items: 0, empty_ocr_items: 0, unindexed_items: 1 } });
+  });
+  client.connect(TOKEN); await client.open(A);
+  for (const invalid of ["", " ", "x".repeat(1001), null]) await assert.rejects(client.query(invalid));
+  assert.equal(queries, 0);
+  const result = await client.query("needle"); assert.equal(result.executed, false);
+  assert.equal(client.searchResult.status, "unavailable"); assert.deepEqual(result.hits, []);
+});
+
+test("a stale keyword source refusal clears the hit and never retries a fresh token", async () => {
+  const sourceCalls = [];
+  const client = new CollectionClient(async (url, options) => {
+    if (url.endsWith("/query")) return response(keywordResult);
+    if (url.endsWith("/detail")) {
+      sourceCalls.push(options); return new Response('{"status":"refused"}', { status: 409 });
+    }
+    return response({ items: [item] });
+  });
+  client.connect(TOKEN); await client.open(A); const result = await client.query("needle");
+  await assert.rejects(client.selectHit(result.hits[0]));
+  assert.equal(sourceCalls.length, 1); assert.equal(sourceCalls[0].method, "POST");
+  assert.equal(client.searchResult, null); assert.equal(client.selected, null); assert.equal(client.detail, null);
+});

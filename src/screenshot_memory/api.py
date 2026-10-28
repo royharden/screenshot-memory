@@ -12,11 +12,13 @@ from urllib.parse import urlsplit
 from pydantic import ValidationError
 
 from screenshot_memory.contracts import MAX_IMAGE_BYTES
-from screenshot_memory.shared.vindex import Deleter, Store, StoreError
+from screenshot_memory.keyword_query import query
+from screenshot_memory.shared.vindex import Deleter, GenerationToken, Store, StoreError
 from screenshot_memory.workflow import create_collection, import_images, inspect_items
 
 _ID = r"[0-9a-f]{32}"
 _ITEMS = re.compile(rf"/collections/({_ID})/items(?:/({_ID})(/original|/detail|/render)?)?\Z")
+_QUERY = re.compile(rf"/collections/({_ID})/query\Z")
 _HEADERS = (
     ("Cache-Control", "no-store"),
     ("X-Content-Type-Options", "nosniff"),
@@ -53,6 +55,78 @@ def _empty(environ):
         return
     if _body(environ, 0):
         raise _Refused(400, "unexpected_body")
+
+
+def _object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate_key")
+        result[key] = value
+    return result
+
+
+def _reject_deep_json(raw: bytes) -> None:
+    # Contract bodies nest at most one object inside one object. Deeper input is
+    # refused before json.loads so a below-cap nest cannot reach storage or query.
+    depth = 0
+    in_string = False
+    escape = False
+    for byte in raw:
+        if in_string:
+            if escape:
+                escape = False
+            elif byte == 0x5C:
+                escape = True
+            elif byte == 0x22:
+                in_string = False
+            continue
+        if byte == 0x22:
+            in_string = True
+        elif byte in (0x7B, 0x5B):
+            depth += 1
+            if depth > 8:
+                raise _Refused(400, "invalid_request")
+        elif byte in (0x7D, 0x5D) and depth:
+            depth -= 1
+
+
+def _json_body(environ, keys, limit):
+    if environ.get("CONTENT_TYPE") != "application/json":
+        raise _Refused(415, "json_required")
+    try:
+        raw = _body(environ, limit)
+        _reject_deep_json(raw)
+        result = json.loads(raw, object_pairs_hook=_object)
+        if type(result) is not dict or set(result) != keys:
+            raise ValueError("closed_object_required")
+        return result
+    except (ValueError, RecursionError):
+        raise _Refused(400, "invalid_request") from None
+
+
+def _hit_token(environ, collection_id, item_id):
+    value = _json_body(environ, {"generation_token"}, 512)["generation_token"]
+    try:
+        if type(value) is not dict or set(value) != {
+            "collection_id",
+            "item_id",
+            "collection_generation",
+            "item_generation",
+        }:
+            raise ValueError("invalid_token")
+        value = dict(value)
+        for field in ("collection_generation", "item_generation"):
+            raw = value[field]
+            if type(raw) is not str or re.fullmatch(r"0|[1-9][0-9]{0,18}", raw) is None:
+                raise ValueError("decimal_generation_required")
+            value[field] = int(raw)
+        token = GenerationToken.model_validate(value)
+        if (token.collection_id, token.item_id) != (collection_id, item_id):
+            raise ValueError("foreign_token")
+        return token
+    except (ValueError, TypeError):
+        raise _Refused(400, "invalid_generation_token") from None
 
 
 class CollectionAPI:
@@ -144,6 +218,32 @@ class CollectionAPI:
 
     def _dispatch(self, environ):
         method, path = environ.get("REQUEST_METHOD"), environ.get("PATH_INFO", "")
+        query_match = _QUERY.fullmatch(path)
+        if query_match is not None:
+            if method != "POST":
+                raise _Refused(405, "method_refused")
+            text = _json_body(environ, {"query"}, 8192)["query"]
+            if (
+                type(text) is not str
+                or not 1 <= len(text) <= 1000
+                or not text.strip()
+                or any(0xD800 <= ord(char) <= 0xDFFF for char in text)
+            ):
+                raise _Refused(400, "invalid_query")
+            collection_id = query_match.group(1)
+            result = query(self._store, collection_id, text, mode="keyword")
+            result["collection_id"] = collection_id
+            for hit in result["hits"]:
+                # Decimal strings preserve exact counters through JSON/JavaScript.
+                # Source POST accepts only these four fields and rejects schema_version.
+                token = hit["generation_token"]
+                hit["generation_token"] = {
+                    "collection_id": token["collection_id"],
+                    "item_id": token["item_id"],
+                    "collection_generation": str(token["collection_generation"]),
+                    "item_generation": str(token["item_generation"]),
+                }
+            return 200, result, None
         if path == "/collections":
             if method != "POST":
                 raise _Refused(405, "method_refused")
@@ -153,6 +253,21 @@ class CollectionAPI:
         if match is None:
             raise _Refused(404, "route_not_found")
         collection, item_id, original = match.groups()
+        if method == "POST" and item_id is not None and original is not None:
+            token = _hit_token(environ, collection, item_id)
+            # A generation reference adds freshness constraints, never admission authority.
+            item = self._store.item(token)
+            if original == "/detail":
+                from screenshot_memory.viewer_source import source_detail
+
+                return 200, source_detail(self._store, collection, item_id, token=token), None
+            if original == "/render":
+                from screenshot_memory.viewer_source import source_png
+
+                return 200, source_png(self._store, collection, item_id, token=token), "image/png"
+            raw = self._store.read_file(token, item.source_object_id)
+            media = "image/png" if raw.startswith(b"\x89PNG\r\n\x1a\n") else "image/jpeg"
+            return 200, raw, media
         if method == "GET":
             _empty(environ)
             if original == "/detail":

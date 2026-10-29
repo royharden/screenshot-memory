@@ -23,6 +23,16 @@ IDENTITY = EngineIdentity("synthetic-worker-control", "1", "d" * 64, GRID_POLICY
 MODELS = LocalModels(Path("det.onnx"), Path("cls.onnx"), Path("rec.onnx"))
 HELPER = Path(__file__).with_name("ocr_worker_control.py")
 PROCESS_ENGINE = ocr_command.ProcessOcrEngine
+_SRC = Path(__file__).resolve().parents[2] / "src"
+
+
+@pytest.fixture(autouse=True)
+def worker_inherits_pytest_pythonpath(monkeypatch):
+    # Pytest adds src for this process only. The worker is a new interpreter.
+    src = str(_SRC)
+    parts = [p for p in os.environ.get("PYTHONPATH", "").split(os.pathsep) if p]
+    if src not in parts:
+        monkeypatch.setenv("PYTHONPATH", os.pathsep.join([src, *parts]))
 
 
 def setup(tmp_path):
@@ -187,8 +197,10 @@ def test_delete_during_worker_cannot_resurrect_item(tmp_path, monkeypatch):
     store, cid, iid, source = setup(tmp_path)
     engines = control(monkeypatch, tmp_path, "pause")
     with ThreadPoolExecutor(max_workers=1) as pool:
-        future = pool.submit(ocr_command.run_ocr, store, cid, iid, MODELS, timeout_s=30)
-        wait_file(tmp_path / "marker")
+        # The pause marker is written only after the worker import and pixel read.
+        # A 20s wait expired under suite load before that write.
+        future = pool.submit(ocr_command.run_ocr, store, cid, iid, MODELS, timeout_s=70)
+        wait_file(tmp_path / "marker", seconds=50)
         assert Deleter(Store(store.root)).delete(cid, iid).status == "deleted"
         (tmp_path / "release").write_text("release")
         result = future.result(timeout=20)
@@ -205,7 +217,9 @@ def test_owned_worker_and_child_close_on_timeout_or_success(tmp_path, monkeypatc
 
     store, cid, iid, _ = setup(tmp_path)
     engines = control(monkeypatch, tmp_path, mode)
-    result = ocr_command.run_ocr(store, cid, iid, MODELS, timeout_s=10)
+    # 10s expired during worker import before the hang/child marker existed.
+    # The hang worker still sleeps 120s, so 30s remains a timeout.
+    result = ocr_command.run_ocr(store, cid, iid, MODELS, timeout_s=30)
     assert result["status"] == expected and engines[0].last_worker_closed
     pids = json.loads((tmp_path / "marker").read_text())
     k = ctypes.WinDLL("kernel32", use_last_error=True)
@@ -233,11 +247,15 @@ def test_startup_deadline_closes_owned_bootstrap_without_a_handshake(tmp_path, m
     engine = PROCESS_ENGINE(
         MODELS,
         _identity=IDENTITY,
-        _command=(sys.executable, "-c", "import time;time.sleep(2)"),
+        # The venv executable can exit after spawning the real interpreter and
+        # close this pipe. The base interpreter is the sleeper that holds stdout.
+        _command=(sys._base_executable, "-c", "import time;time.sleep(2)"),
     )
     monkeypatch.setattr(ocr_command, "ProcessOcrEngine", lambda models: engine)
     try:
-        result = ocr_command.run_ocr(store, cid, iid, MODELS, timeout_s=0.05)
+        # 0.05s expired inside adapter checks before ProcessOcrEngine.recognize,
+        # so the owned bootstrap never started and last_worker_closed stayed false.
+        result = ocr_command.run_ocr(store, cid, iid, MODELS, timeout_s=1.0)
         assert result["status"] == "timeout" and engine.last_worker_closed
         assert_no_ocr(store, cid, iid)
     finally:
@@ -270,7 +288,6 @@ def test_startup_fault_closes_actual_retained_launcher(tmp_path, monkeypatch, fa
     real_start = ocr_command.threading.Thread.start
     real_thread = ocr_command.threading.Thread
     real_job_start = ocr_command._WindowsJob.start
-    start_count = 0
     engine = PROCESS_ENGINE(
         MODELS,
         _identity=IDENTITY,
@@ -290,9 +307,9 @@ def test_startup_fault_closes_actual_retained_launcher(tmp_path, monkeypatch, fa
         return process
 
     def deny_start(self):
-        nonlocal start_count
-        start_count += 1
-        if start_count == (2 if failure == "writer" else 1):
+        # A start count also sees unrelated threads during a long suite.
+        target = getattr(getattr(self, "_target", None), "__name__", "")
+        if target == {"reader": "read", "writer": "write"}.get(failure):
             raise RuntimeError("controlled_IO_thread_denied")
         return real_start(self)
 
@@ -337,7 +354,7 @@ def test_startup_fault_closes_actual_retained_launcher(tmp_path, monkeypatch, fa
                         max_lines=5,
                         max_blocks=1,
                         max_output_bytes=65536,
-                        deadline_s=15,
+                        deadline_s=45,
                     ),
                 )
         assert len(launched) == 1

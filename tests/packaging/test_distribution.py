@@ -1,7 +1,9 @@
 """Adversarial tiny local archives, independent from any build's observed inventory."""
 
+import hashlib
 import importlib.util
 import io
+import subprocess
 import tarfile
 import tempfile
 import unittest
@@ -18,15 +20,22 @@ spec.loader.exec_module(distribution)
 class DistributionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.approved_bytes = {
-            name: (ROOT / name).read_bytes()
-            for name in (
-                *distribution.SYNTHETIC_FILES,
-                *distribution.PROVIDER_FILES,
-                distribution.POLICY_FILE,
-                distribution.PROVIDER_POLICY_FILE,
-            )
+        pinned = {
+            distribution.POLICY_FILE: distribution.POLICY_SHA256,
+            distribution.PROVIDER_POLICY_FILE: distribution.PROVIDER_POLICY_SHA256,
         }
+        for name, entry in {**distribution.SYNTHETIC_FILES, **distribution.PROVIDER_FILES}.items():
+            pinned[name] = entry["sha256"]
+        approved = {}
+        for name, expected in pinned.items():
+            data = (ROOT / name).read_bytes()
+            if hashlib.sha256(data).hexdigest() != expected:
+                # A dirty worktree is not the allowed inventory. HEAD holds the pin.
+                data = subprocess.check_output(["git", "show", f"HEAD:{name}"])
+                if hashlib.sha256(data).hexdigest() != expected:
+                    raise AssertionError(name)
+            approved[name] = data
+        cls.approved_bytes = approved
 
     def inspect(self, missing=(), extras=()):
         with tempfile.TemporaryDirectory() as temporary:

@@ -16,6 +16,7 @@ function render() {
   $("import").disabled = !client.collection || busy;
   $("original").disabled = !client.selected || busy;
   $("delete").disabled = !client.selected || busy;
+  $("search").disabled = $("query").disabled = !client.collection || busy;
   $("current").textContent = client.collection ? `Collection ${client.collection.id} · ${client.items.length} visible items` : "No collection selected.";
   if (client.collection) $("collection-id").value = client.collection.id;
   $("items").replaceChildren(...client.visible().map(item => {
@@ -26,6 +27,19 @@ function render() {
       const result = await client.select(item.item_id);
       if (client.detail !== result.detail) return;
       showSource(result);
+    })); li.append(button); return li;
+  }));
+  const search = client.searchResult;
+  $("search-state").textContent = search ?
+    `Keyword ${search.status}${search.reason ? ": " + search.reason : ""}. Coverage: ${search.coverage.indexed_items} indexed, ${search.coverage.empty_ocr_items} verified empty OCR, ${search.coverage.unindexed_items} unindexed of ${search.coverage.visible_items} visible items. ${search.hits.length} hits. Semantic embeddings and reranking remain unavailable. Retained text provenance is not native execution or accuracy evidence.` :
+    "Search uses existing indexed OCR/caption text. Semantic models remain unavailable.";
+  $("hits").replaceChildren(...(search?.hits ?? []).map((hit, index) => {
+    const li = document.createElement("li"), button = document.createElement("button");
+    button.textContent = `${index + 1}. ${hit.item_id} · declared text provenance: ${JSON.stringify(hit.declared_text_provenance ?? {})}`;
+    button.disabled = busy;
+    button.addEventListener("click", () => action(async () => {
+      const result = await client.selectHit(hit);
+      if (client.detail === result.detail) showSource(result);
     })); li.append(button); return li;
   }));
   if (!client.detail) { clearImage(); $("stages").textContent = "Select an image."; $("overlay-state").textContent = ""; }
@@ -73,6 +87,10 @@ $("disconnect").addEventListener("click", () => { client.disconnect(); clearImag
 $("create").addEventListener("click", () => action(() => client.create()));
 $("open").addEventListener("click", () => action(() => client.open($("collection-id").value.trim())));
 $("upload-form").addEventListener("submit", event => { event.preventDefault(); action(async () => { const file = $("upload").files[0]; if (!file) throw new Error("Select one PNG or JPEG."); await client.upload(file); $("upload").value = ""; $("message").textContent = "Image imported. Model stages are not run by this viewer."; }); });
+$("query-form").addEventListener("submit", event => { event.preventDefault(); action(async () => {
+  await client.query($("query").value);
+  $("message").textContent = "Keyword query checked existing text only; no model or new OCR was run.";
+}); });
 $("original").addEventListener("click", () => action(async () => {
   const id = client.selected, blob = await client.original(), url = URL.createObjectURL(blob); downloads.add(url);
   const link = document.createElement("a"); link.href = url; link.download = id + (blob.type === "image/png" ? ".png" : ".jpg"); link.click();

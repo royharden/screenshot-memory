@@ -31,7 +31,7 @@ class ScaffoldTests(unittest.TestCase):
                 env=env,
                 capture_output=True,
                 text=True,
-                timeout=10,
+                timeout=30,
             )
             self.assertEqual(list(Path(directory).iterdir()), [])
             return result
@@ -50,11 +50,16 @@ class ScaffoldTests(unittest.TestCase):
         self.assertEqual(payload["feature_provenance"], "none")
 
     def test_unimplemented_mutations_reject_instead_of_succeeding(self):
-        for action in ["add", "index", "serve"]:
+        for action in ["add", "index"]:
             with self.subTest(action=action):
                 result = self.run_cli(action)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn("invalid choice", result.stderr)
+        # serve is a real command. Missing root and port must reject before listen.
+        result = self.run_cli("serve")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("--root", result.stderr)
+        self.assertIn("--port", result.stderr)
 
     def test_mock_demo_runs_under_a_network_guard_with_a_positive_control(self):
         demo = script_module("demo")

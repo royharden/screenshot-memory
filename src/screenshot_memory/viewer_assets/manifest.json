@@ -2,17 +2,17 @@
   "node_version": "v24.18.0",
   "source_profile": "utf8-lf/1",
   "sources": {
-    "web/src/index.html": "3c7765a8873b03ea4addda1bbc9cba7e9ff28f76f6ec95d94ab2ad647d759a04",
+    "web/src/index.html": "90f9bffa7addd63b6c9ae44b9267eb55eb6d4743691624e8658775e0fd52ddfa",
     "web/src/style.css": "fa0708f615d50722cb29faa524a3049723ad24358129acb56f7898ca52c6136c",
-    "web/src/client.mjs": "748fe524131b8bce6d6b0c4848421e29d049840bd0d5dbc01020eef136d7ab09",
-    "web/src/viewer.mjs": "e5089cdb41c75dccc763381c2959ec5f4ac727e5083990db2207949e73af3777",
+    "web/src/client.mjs": "7be07855d51f39603800c688004682cd8fdfe372f9e2ee44a630ae3665b28de4",
+    "web/src/viewer.mjs": "a8892e7acb0342f22cdd260dff74cb5bff6cda4d996ca87006acb9e8dc4d1a0f",
     "web/src/model.ts": "8abe118a3fbce9a0523a2625145889af85806072a1eb3e31c38bce471f7b0ff9"
   },
   "assets": {
-    "index.html": "3c7765a8873b03ea4addda1bbc9cba7e9ff28f76f6ec95d94ab2ad647d759a04",
+    "index.html": "90f9bffa7addd63b6c9ae44b9267eb55eb6d4743691624e8658775e0fd52ddfa",
     "style.css": "fa0708f615d50722cb29faa524a3049723ad24358129acb56f7898ca52c6136c",
-    "client.mjs": "748fe524131b8bce6d6b0c4848421e29d049840bd0d5dbc01020eef136d7ab09",
-    "viewer.mjs": "e5089cdb41c75dccc763381c2959ec5f4ac727e5083990db2207949e73af3777",
+    "client.mjs": "7be07855d51f39603800c688004682cd8fdfe372f9e2ee44a630ae3665b28de4",
+    "viewer.mjs": "a8892e7acb0342f22cdd260dff74cb5bff6cda4d996ca87006acb9e8dc4d1a0f",
     "model.mjs": "a501feb6cf0542adeb421424cf799af5f4856c593600669b0b6f018afe9dbd05"
   }
 }

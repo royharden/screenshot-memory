@@ -1,6 +1,7 @@
 """what_bug_this_catches: payload/origin economics drift or hidden owner app imports."""
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -161,6 +162,7 @@ def test_generated_schema_bytes_match_normative_models():
         capture_output=True,
         timeout=20,
         check=False,
+        env=dict(os.environ, PYTHONPATH=str(repo / "src")),
     )
     assert completed.returncode == 0, completed.stderr
     assert "18 generated schemas" in completed.stdout

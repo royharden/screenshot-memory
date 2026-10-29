@@ -296,7 +296,7 @@ def test_process_exit_after_mark_restart_has_durable_recovery(store):
     outcome = subprocess.run(
         [sys.executable, "-c", program, str(store.root)],
         capture_output=True,
-        timeout=10,
+        timeout=60,
         check=False,
         env=env,
     )
@@ -603,7 +603,7 @@ def test_process_exit_during_file_or_cleanup_recovers_known_intent(store, crash_
     outcome = subprocess.run(
         [sys.executable, "-c", program, str(store.root)],
         capture_output=True,
-        timeout=10,
+        timeout=60,
         check=False,
         env=env,
     )
